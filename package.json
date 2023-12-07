@@ -25,10 +25,17 @@
 	],
 	"private": false,
 	"version": "0.0.5",
+	"type": "module",
 	"types": "index.d.ts",
+	"exports": {
+		".": {
+			"import": "./index.ts"
+		}
+	},
 	"files": [
 		"dist",
-		"index.d.ts"
+		"index.d.ts",
+		"index.ts"
 	],
 	"scripts": {
 		"dev": "vite",
