@@ -6,7 +6,7 @@
 	"homepage": "https://github.com/AndrewJDawes",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/umerx-github/blackdog-configurator-types-typescript.git"
+		"url": "git+https://github.com/umerx-github/blackdog-configurator-types-typescript.git"
 	},
 	"bugs": {
 		"url": "https://github.com/umerx-github/blackdog-configurator-types-typescript/issues"
