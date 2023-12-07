@@ -28,10 +28,10 @@
 	"type": "module",
 	"main": "./dist/umerx-blackdog-configurator-types-typescript.umd.cjs",
 	"module": "./dist/umerx-blackdog-configurator-types-typescript.js",
-	"types": "./dist/index.d.ts",
+	"types": "index.d.ts",
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
+			"types": "./index.d.ts",
 			"import": "./dist/umerx-blackdog-configurator-types-typescript.js",
 			"require": "./dist/umerx-blackdog-configurator-types-typescript.umd.cjs"
 		}
