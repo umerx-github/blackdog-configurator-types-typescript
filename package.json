@@ -1,7 +1,7 @@
 {
 	"name": "@umerx/umerx-blackdog-configurator-types-typescript",
 	"private": false,
-	"version": "0.0.12",
+	"version": "0.0.13",
 	"typings": "./dist/main.d.ts",
 	"files": [
 		"dist"
