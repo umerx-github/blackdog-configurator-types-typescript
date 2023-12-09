@@ -2,15 +2,6 @@
 	"name": "@umerx/umerx-blackdog-configurator-types-typescript",
 	"private": false,
 	"version": "0.0.12",
-	"type": "module",
-	"exports": {
-		".": {
-			"import": "./dist/main.js",
-			"require": "./dist/main.cjs.js"
-		}
-	},
-	"main": "./dist/main.cjs.js",
-	"module": "./dist/main.js",
 	"typings": "./dist/main.d.ts",
 	"files": [
 		"dist"
