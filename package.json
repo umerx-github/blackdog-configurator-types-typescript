@@ -26,16 +26,17 @@
 	"private": false,
 	"version": "0.0.6",
 	"type": "module",
-	"types": "index.d.ts",
 	"exports": {
 		".": {
-			"import": "./index.ts"
+			"import": "./dist/umerx-blackdog-configurator-types-typescript.js",
+			"require": "./dist/umerx-blackdog-configurator-types-typescript.umd.cjs",
+			"types": "./dist/index.d.ts",
+			"default": "./dist/umerx-blackdog-configurator-types-typescript.js",
+			"node": "./dist/umerx-blackdog-configurator-types-typescript.umd.cjs"
 		}
 	},
 	"files": [
-		"dist",
-		"index.d.ts",
-		"index.ts"
+		"dist"
 	],
 	"scripts": {
 		"dev": "vite",

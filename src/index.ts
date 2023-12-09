@@ -1,1 +1,3 @@
-export * from "./strategy";
+import * as strategy from "./strategy";
+
+export default { strategy };
