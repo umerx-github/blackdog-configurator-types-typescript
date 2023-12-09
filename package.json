@@ -3,6 +3,8 @@
 	"private": false,
 	"version": "0.0.13",
 	"typings": "./dist/main.d.ts",
+	"main": "./dist/main.js",
+	"module": "./dist/main.js",
 	"files": [
 		"dist"
 	],
