@@ -2,6 +2,7 @@
 	"name": "@umerx/umerx-blackdog-configurator-types-typescript",
 	"private": false,
 	"version": "0.0.11",
+	"type": "module",
 	"exports": {
 		".": {
 			"import": "./dist/main.js",
