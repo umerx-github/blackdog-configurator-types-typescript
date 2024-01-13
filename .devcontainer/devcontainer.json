@@ -1,5 +1,5 @@
 {
-    "name": "umerx-blackdog-configurator-frontend",
+    "name": "umerx-blackdog-configurator-types-typescript",
     "image": "node:20",
     "customizations": {
 		"vscode": {

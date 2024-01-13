@@ -1,0 +1,1 @@
+export {StrategyManyDeleteRequestBody} from './src/strategy.js';
