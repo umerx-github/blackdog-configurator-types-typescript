@@ -1,1 +1,1 @@
-export {StrategyManyDeleteRequestBody} from './src/strategy.js';
+export * as Strategy from './src/strategy.js';
