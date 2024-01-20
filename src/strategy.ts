@@ -4,6 +4,12 @@ import {
     StrategyTemplateNameSchema,
 } from './strategyTemplate.js';
 
+import {
+    ResponseBase,
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase,
+} from './response.js';
+
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
 // Use in a Zod Schema:
@@ -115,13 +121,16 @@ const StrategyManyPostResponseBodyInstanceExpected =
         id: z.number(),
     });
 
-const StrategyManyPostResponseBodyExpected = z.array(
-    StrategyManyPostResponseBodyInstanceExpected
-);
+const StrategyManyPostResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(StrategyManyPostResponseBodyInstanceExpected),
+    }),
+]);
 
 export function StrategyManyPostResponseBodyFromRaw(
-    raw: StrategyManyPostResponseBody
-): StrategyManyPostResponseBody {
+    raw: ResponseBase<StrategyManyPostResponseBody>
+): ResponseBase<StrategyManyPostResponseBody> {
     const parsed = StrategyManyPostResponseBodyExpected.parse(raw);
     return parsed;
 }

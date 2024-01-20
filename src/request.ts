@@ -1,1 +1,1 @@
-export type RequestOneOrMany<T> = T | T[];
+export type RequestBodyOneOrManyBase<T> = T | T[];
