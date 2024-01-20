@@ -1,6 +1,7 @@
 import { z } from 'zod';
 // Type to use in the code:
 // = "Salmon" | "Tuna" | "Trout"
+export type ResponseBodyOneOrManyBase<T> = T | T[];
 export type ResponseBase<T> =
     | { status: 'success'; message: string; data: T }
     | { status: 'error'; message: string };
