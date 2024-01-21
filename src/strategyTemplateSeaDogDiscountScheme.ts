@@ -24,6 +24,21 @@ export interface StrategyTemplateSeaDogDiscountSchemeProps {
     sellAtPercentile: number;
 }
 
+export interface StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstance
+    extends StrategyTemplateSeaDogDiscountSchemeProps {
+    id: number;
+}
+export type StrategyTemplateSeaDogDiscountSchemeGetRequestBody = never;
+export type StrategyTemplateSeaDogDiscountSchemeGetResponseBody =
+    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstance>;
+export interface StrategyTemplateSeaDogDiscountSchemeGetRequestParams {
+    ids?: number[];
+    status?: Status;
+}
+export interface StrategyTemplateSeaDogDiscountSchemeGetRequestParamsRaw {
+    ids?: string;
+    status?: Status;
+}
 export interface StrategyTemplateSeaDogDiscountSchemePostRequestBodyInstance
     extends StrategyTemplateSeaDogDiscountSchemeProps {}
 export interface StrategyTemplateSeaDogDiscountSchemePostResponseBodyInstance
@@ -82,6 +97,55 @@ export function StrategyTemplateSeaDogDiscountSchemePropsFromRaw(
     raw: StrategyTemplateSeaDogDiscountSchemeProps
 ): StrategyTemplateSeaDogDiscountSchemeProps {
     const parsed = StrategyTemplateSeaDogDiscountSchemePropsExpected.parse(raw);
+    return parsed;
+}
+
+const StrategyTemplateSeaDogDiscountSchemeGetRequestParamsExpected =
+    z.object({
+        ids: z.string().regex(/^\d+(,\d+)*$/),
+        status: StatusSchema.optional(),
+        // .optional(),
+    });
+
+export function StrategyTemplateSeaDogDiscountSchemeGetRequestParamsFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemeGetRequestParamsRaw
+): StrategyTemplateSeaDogDiscountSchemeGetRequestParams {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemeGetRequestParamsExpected.parse(
+            raw
+        );
+    const ids = parsed.ids?.split(',').map((id) => parseInt(id));
+    return { ids, status: parsed.status };
+}
+
+const StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
+        id: z.number(),
+    });
+
+const StrategyTemplateSeaDogDiscountSchemeGetResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.union([
+            StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstanceExpected,
+            z.array(
+                StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstanceExpected
+            ),
+        ]),
+    }),
+]);
+
+export function StrategyTemplateSeaDogDiscountSchemeGetResponseBodyFromRaw(
+    raw: ResponseBase<
+        ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstance>
+    >
+): ResponseBase<
+    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstance>
+> {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemeGetResponseBodyExpected.parse(
+            raw
+        );
     return parsed;
 }
 
