@@ -43,18 +43,20 @@ export interface StrategyModelInterface extends StrategyProps {
 
 export type StrategyGetManyRequestBody = never;
 export interface StrategyGetManyRequestParams {
-    ids?: number[];
     status?: Status;
+    ids?: number[];
 }
 export interface StrategyGetManyRequestParamsRaw {
-    ids?: string;
     status?: Status;
+    ids?: string;
 }
 
 const StrategyGetManyRequestParamsExpected = z.object({
-    ids: z.string().regex(/^\d+(,\d+)*$/),
     status: StatusSchema.optional(),
-    // .optional(),
+    ids: z
+        .string()
+        .regex(/^\d+(,\d+)*$/)
+        .optional(),
 });
 
 export function StrategyGetManyRequestParamsFromRaw(
@@ -62,7 +64,7 @@ export function StrategyGetManyRequestParamsFromRaw(
 ): StrategyGetManyRequestParams {
     const parsed = StrategyGetManyRequestParamsExpected.parse(raw);
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
-    return { ids, status: parsed.status };
+    return { status: parsed.status, ids };
 }
 export interface StrategyGetManyResponseBodyDataInstance extends StrategyProps {
     id: number;
