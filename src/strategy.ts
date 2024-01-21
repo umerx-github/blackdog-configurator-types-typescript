@@ -8,11 +8,7 @@ import {
     ResponseBase,
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase,
-    ResponseBodyOneOrManyBase,
 } from './response.js';
-
-import { RequestBodyOneOrManyBase } from './request.js';
-import { Strategy } from '../index.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -41,6 +37,8 @@ export function StrategyPropsFromRaw(raw: StrategyProps): StrategyProps {
 export interface StrategyModelInterface extends StrategyProps {
     id: number;
 }
+
+// BEGIN GET
 
 export type StrategyGetRequestBody = never;
 export interface StrategyGetResponseBodyDataInstance extends StrategyProps {
@@ -148,6 +146,10 @@ export function StrategyGetSingleResponseBodyFromRaw(
     return parsed;
 }
 
+// END GET
+
+// BEGIN POST
+
 export interface StrategyPostRequestBodyDataInstance extends StrategyProps {}
 export interface StrategyPostResponseBodyDataInstance extends StrategyProps {
     id: number;
@@ -199,8 +201,6 @@ export function StrategyPostManyResponseBodyFromRaw(
     return parsed;
 }
 
-/////////
-
 export type StrategyPostSingleRequestBodyDataInstance =
     StrategyPostRequestBodyDataInstance;
 export type StrategyPostSingleRequestBody =
@@ -246,154 +246,315 @@ export function StrategyPostSingleResponseBodyFromRaw(
     return parsed;
 }
 
+// END POST
+
+// BEGIN PUT
+
 export interface StrategyPutRequestBodyDataInstance extends StrategyProps {}
 export interface StrategyPutResponseBodyDataInstance extends StrategyProps {
     id: number;
 }
-export type StrategyPutRequestBody =
-    RequestBodyOneOrManyBase<StrategyPutRequestBodyDataInstance>;
-export type StrategyPutResponseBody =
-    ResponseBodyOneOrManyBase<StrategyPutResponseBodyDataInstance>;
+
+export type StrategyPutManyRequestBodyDataInstance =
+    StrategyPutRequestBodyDataInstance;
+export type StrategyPutManyRequestBody =
+    StrategyPutManyRequestBodyDataInstance[];
+
+const StrategyPutManyRequestBodyDataInstanceExpected = StrategyPropsExpected;
+
+const StrategyPutManyRequestBodyExpected = z.array(
+    StrategyPutManyRequestBodyDataInstanceExpected
+);
+
+export function StrategyPutManyRequestBodyFromRaw(
+    raw: StrategyPutManyRequestBodyDataInstance[]
+): StrategyPutManyRequestBodyDataInstance[] {
+    const parsed = StrategyPutManyRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type StrategyPutManyResponseBodyDataInstance =
+    StrategyPutResponseBodyDataInstance;
+
+export type StrategyPutManyResponseBodyData =
+    StrategyPutManyResponseBodyDataInstance[];
+
+export type StrategyPutManyResponseBody =
+    ResponseBase<StrategyPutManyResponseBodyData>;
+
+const StrategyPutManyResponseBodyDataInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
+const StrategyPutManyResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(StrategyPutManyResponseBodyDataInstanceExpected),
+    }),
+]);
+
+export function StrategyPutManyResponseBodyFromRaw(
+    raw: StrategyPutManyResponseBody
+): StrategyPutManyResponseBody {
+    const parsed = StrategyPutManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type StrategyPutSingleRequestBodyDataInstance =
+    StrategyPutRequestBodyDataInstance;
+export type StrategyPutSingleRequestBody =
+    StrategyPutSingleRequestBodyDataInstance;
+
+const StrategyPutSingleRequestBodyDataInstanceExpected = StrategyPropsExpected;
+
+const StrategyPutSingleRequestBodyExpected =
+    StrategyPutSingleRequestBodyDataInstanceExpected;
+
+export function StrategyPutSingleRequestBodyFromRaw(
+    raw: StrategyPutSingleRequestBodyDataInstance
+): StrategyPutSingleRequestBodyDataInstance {
+    const parsed = StrategyPutSingleRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type StrategyPutSingleResponseBodyDataInstance =
+    StrategyPutResponseBodyDataInstance;
+
+export type StrategyPutSingleResponseBodyData =
+    StrategyPutSingleResponseBodyDataInstance;
+
+export type StrategyPutSingleResponseBody =
+    ResponseBase<StrategyPutSingleResponseBodyData>;
+
+const StrategyPutSingleResponseBodyDataInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
+const StrategyPutSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: StrategyPutSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function StrategyPutSingleResponseBodyFromRaw(
+    raw: StrategyPutSingleResponseBody
+): StrategyPutSingleResponseBody {
+    const parsed = StrategyPutSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END PUT
+
+// BEGIN PATCH
 
 export interface StrategyPatchRequestBodyDataInstance extends StrategyProps {}
 export interface StrategyPatchResponseBodyDataInstance extends StrategyProps {
     id: number;
 }
-export type StrategyPatchRequestBody =
-    RequestBodyOneOrManyBase<StrategyPatchRequestBodyDataInstance>;
-export type StrategyPatchResponseBody =
-    ResponseBodyOneOrManyBase<StrategyPatchResponseBodyDataInstance>;
 
+export type StrategyPatchManyRequestBodyDataInstance =
+    StrategyPatchRequestBodyDataInstance;
+export type StrategyPatchManyRequestBody =
+    StrategyPatchManyRequestBodyDataInstance[];
+
+const StrategyPatchManyRequestBodyDataInstanceExpected = StrategyPropsExpected;
+
+const StrategyPatchManyRequestBodyExpected = z.array(
+    StrategyPatchManyRequestBodyDataInstanceExpected
+);
+
+export function StrategyPatchManyRequestBodyFromRaw(
+    raw: StrategyPatchManyRequestBodyDataInstance[]
+): StrategyPatchManyRequestBodyDataInstance[] {
+    const parsed = StrategyPatchManyRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type StrategyPatchManyResponseBodyDataInstance =
+    StrategyPatchResponseBodyDataInstance;
+
+export type StrategyPatchManyResponseBodyData =
+    StrategyPatchManyResponseBodyDataInstance[];
+
+export type StrategyPatchManyResponseBody =
+    ResponseBase<StrategyPatchManyResponseBodyData>;
+
+const StrategyPatchManyResponseBodyDataInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
+const StrategyPatchManyResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(StrategyPatchManyResponseBodyDataInstanceExpected),
+    }),
+]);
+
+export function StrategyPatchManyResponseBodyFromRaw(
+    raw: StrategyPatchManyResponseBody
+): StrategyPatchManyResponseBody {
+    const parsed = StrategyPatchManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type StrategyPatchSingleRequestBodyDataInstance =
+    StrategyPatchRequestBodyDataInstance;
+export type StrategyPatchSingleRequestBody =
+    StrategyPatchSingleRequestBodyDataInstance;
+
+const StrategyPatchSingleRequestBodyDataInstanceExpected =
+    StrategyPropsExpected;
+
+const StrategyPatchSingleRequestBodyExpected =
+    StrategyPatchSingleRequestBodyDataInstanceExpected;
+
+export function StrategyPatchSingleRequestBodyFromRaw(
+    raw: StrategyPatchSingleRequestBodyDataInstance
+): StrategyPatchSingleRequestBodyDataInstance {
+    const parsed = StrategyPatchSingleRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type StrategyPatchSingleResponseBodyDataInstance =
+    StrategyPatchResponseBodyDataInstance;
+
+export type StrategyPatchSingleResponseBodyData =
+    StrategyPatchSingleResponseBodyDataInstance;
+
+export type StrategyPatchSingleResponseBody =
+    ResponseBase<StrategyPatchSingleResponseBodyData>;
+
+const StrategyPatchSingleResponseBodyDataInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
+const StrategyPatchSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: StrategyPatchSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function StrategyPatchSingleResponseBodyFromRaw(
+    raw: StrategyPatchSingleResponseBody
+): StrategyPatchSingleResponseBody {
+    const parsed = StrategyPatchSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END PATCH
+
+// BEGIN DELETE
+
+export type StrategyDeleteRequestBody = never;
 export interface StrategyDeleteResponseBodyDataInstance extends StrategyProps {
     id: number;
 }
-export type StrategyDeleteRequestBody = never;
-export type StrategyDeleteResponseBody =
-    ResponseBodyOneOrManyBase<StrategyDeleteResponseBodyDataInstance>;
-export interface StrategyDeleteRequestParams {
+
+export type StrategyDeleteManyRequestBody = StrategyDeleteRequestBody;
+export interface StrategyDeleteManyRequestQuery {
+    status?: Status;
     ids?: number[];
 }
-export interface StrategyDeleteRequestParamsRaw {
+export interface StrategyDeleteManyRequestQueryRaw {
+    status?: Status;
     ids?: string;
 }
 
-const StrategyPutRequestBodyDataInstanceExpected = StrategyPropsExpected;
-
-const StrategyPutRequestBodyExpected = z.union([
-    StrategyPutRequestBodyDataInstanceExpected,
-    z.array(StrategyPutRequestBodyDataInstanceExpected),
-]);
-
-export function StrategyPutRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<StrategyPutRequestBodyDataInstance>
-): RequestBodyOneOrManyBase<StrategyPutRequestBodyDataInstance> {
-    const parsed = StrategyPutRequestBodyExpected.parse(raw);
-    return parsed;
-}
-
-const StrategyPutResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
-
-const StrategyPutResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            StrategyPutResponseBodyDataInstanceExpected,
-            z.array(StrategyPutResponseBodyDataInstanceExpected),
-        ]),
-    }),
-]);
-
-export function StrategyPutResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<StrategyPutResponseBodyDataInstance>
-    >
-): ResponseBase<
-    ResponseBodyOneOrManyBase<StrategyPutResponseBodyDataInstance>
-> {
-    const parsed = StrategyPutResponseBodyExpected.parse(raw);
-    return parsed;
-}
-
-const StrategyPatchRequestBodyDataInstanceExpected = StrategyPropsExpected;
-
-const StrategyPatchRequestBodyExpected = z.union([
-    StrategyPatchRequestBodyDataInstanceExpected,
-    z.array(StrategyPatchRequestBodyDataInstanceExpected),
-]);
-
-export function StrategyPatchRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<StrategyPatchRequestBodyDataInstance>
-): RequestBodyOneOrManyBase<StrategyPatchRequestBodyDataInstance> {
-    const parsed = StrategyPatchRequestBodyExpected.parse(raw);
-    return parsed;
-}
-
-const StrategyPatchResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
-
-const StrategyPatchResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            StrategyPatchResponseBodyDataInstanceExpected,
-            z.array(StrategyPatchResponseBodyDataInstanceExpected),
-        ]),
-    }),
-]);
-
-export function StrategyPatchResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<StrategyPatchResponseBodyDataInstance>
-    >
-): ResponseBase<
-    ResponseBodyOneOrManyBase<StrategyPatchResponseBodyDataInstance>
-> {
-    const parsed = StrategyPatchResponseBodyExpected.parse(raw);
-    return parsed;
-}
-
-// Typing Express Request: https://stackoverflow.com/questions/48027563/typescript-type-annotation-for-res-body
-
-const StrategyDeleteRequestParamsExpected = z.object({
-    ids: z.string().regex(/^\d+(,\d+)*$/),
-    // .optional(),
+const StrategyDeleteManyRequestQueryRawExpected = z.object({
+    status: StatusSchema.optional(),
+    ids: z
+        .string()
+        .regex(/^\d+(,\d+)*$/)
+        .optional(),
 });
 
-export function StrategyDeleteRequestParamsFromRaw(
-    raw: StrategyDeleteRequestParamsRaw
-): StrategyDeleteRequestParams {
-    const parsed = StrategyDeleteRequestParamsExpected.parse(raw);
+export function StrategyDeleteManyRequestQueryFromRaw(
+    raw: StrategyDeleteManyRequestQueryRaw
+): StrategyDeleteManyRequestQuery {
+    const parsed = StrategyDeleteManyRequestQueryRawExpected.parse(raw);
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
-    return { ids };
+    return { status: parsed.status, ids };
 }
+export type StrategyDeleteManyResponseBodyDataInstance =
+    StrategyDeleteResponseBodyDataInstance;
 
-const StrategyDeleteResponseBodyDataInstanceExpected =
+export type StrategyDeleteManyResponseBodyData =
+    StrategyDeleteManyResponseBodyDataInstance[];
+
+export type StrategyDeleteManyResponseBody =
+    ResponseBase<StrategyDeleteManyResponseBodyData>;
+
+const StrategyDeleteManyResponseBodyDataInstanceExpected =
     StrategyPropsExpected.extend({
         id: z.number(),
     });
 
-const StrategyDeleteResponseBodyExpected = z.union([
+const StrategyDeleteManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            StrategyDeleteResponseBodyDataInstanceExpected,
-            z.array(StrategyDeleteResponseBodyDataInstanceExpected),
-        ]),
+        data: z.array(StrategyDeleteManyResponseBodyDataInstanceExpected),
     }),
 ]);
 
-export function StrategyDeleteResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<StrategyDeleteResponseBodyDataInstance>
-    >
-): ResponseBase<
-    ResponseBodyOneOrManyBase<StrategyDeleteResponseBodyDataInstance>
-> {
-    const parsed = StrategyDeleteResponseBodyExpected.parse(raw);
+export function StrategyDeleteManyResponseBodyFromRaw(
+    raw: StrategyDeleteManyResponseBody
+): StrategyDeleteManyResponseBody {
+    const parsed = StrategyDeleteManyResponseBodyExpected.parse(raw);
     return parsed;
 }
+
+export type StrategyDeleteSingleRequestBody = StrategyDeleteRequestBody;
+
+export interface StrategyDeleteSingleRequestParams {
+    id: number;
+}
+
+export interface StrategyDeleteSingleRequestParamsRaw {
+    id: string;
+}
+
+const StrategyDeleteSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function StrategyDeleteSingleRequestParamsFromRaw(
+    raw: StrategyDeleteSingleRequestParamsRaw
+): StrategyDeleteSingleRequestParams {
+    const parsed = StrategyDeleteSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+export type StrategyDeleteSingleResponseBodyDataInstance =
+    StrategyDeleteResponseBodyDataInstance;
+
+export type StrategyDeleteSingleResponseBodyData =
+    StrategyDeleteSingleResponseBodyDataInstance;
+
+export type StrategyDeleteSingleResponseBody =
+    ResponseBase<StrategyDeleteSingleResponseBodyData>;
+
+const StrategyDeleteSingleResponseBodyDataInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
+const StrategyDeleteSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: StrategyDeleteSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function StrategyDeleteSingleResponseBodyFromRaw(
+    raw: StrategyDeleteSingleResponseBody
+): StrategyDeleteSingleResponseBody {
+    const parsed = StrategyDeleteSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END DELETE
