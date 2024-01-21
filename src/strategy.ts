@@ -27,6 +27,10 @@ export interface StrategyProps {
     strategyTemplateName: StrategyTemplateName;
 }
 
+export interface StrategyModelInterface extends StrategyProps {
+    id: number;
+}
+
 export interface StrategyPostRequestBodyInstance extends StrategyProps {}
 export interface StrategyPostResponseBodyInstance extends StrategyProps {
     id: number;
