@@ -12,6 +12,6 @@ fi
 npm run build && git add . && git commit --allow-empty -m"$2"
 version=$(npm version "$1")
 echo "npm version is now $version"
-echo "Tagging $version"
-git tag -a "$version" -m"$2"
+# echo "Tagging $version"
+# git tag -a "$version" -m"$2"
 git push && git push origin "$version"
