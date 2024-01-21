@@ -9,6 +9,7 @@ import {
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
+import { Strategy } from '../index.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -45,6 +46,11 @@ export interface StrategyGetResponseBodyDataInstance extends StrategyProps {
     id: number;
 }
 
+const StrategyGetResponseBodyDataInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
 export type StrategyGetManyRequestBody = StrategyGetRequestBody;
 export interface StrategyGetManyRequestQuery {
     status?: Status;
@@ -80,9 +86,7 @@ export type StrategyGetManyResponseBody =
     ResponseBase<StrategyGetManyResponseBodyData>;
 
 const StrategyGetManyResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyGetResponseBodyDataInstanceExpected;
 
 const StrategyGetManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
@@ -97,8 +101,6 @@ export function StrategyGetManyResponseBodyFromRaw(
     const parsed = StrategyGetManyResponseBodyExpected.parse(raw);
     return parsed;
 }
-
-export type StrategyGetSingleRequestBody = StrategyGetRequestBody;
 
 export interface StrategyGetSingleRequestParams {
     id: number;
@@ -118,6 +120,9 @@ export function StrategyGetSingleRequestParamsFromRaw(
     const parsed = StrategyGetSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
 }
+
+export type StrategyGetSingleRequestBody = StrategyGetRequestBody;
+
 export type StrategyGetSingleResponseBodyDataInstance =
     StrategyGetResponseBodyDataInstance;
 
@@ -128,9 +133,7 @@ export type StrategyGetSingleResponseBody =
     ResponseBase<StrategyGetSingleResponseBodyData>;
 
 const StrategyGetSingleResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyGetResponseBodyDataInstanceExpected;
 
 const StrategyGetSingleResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
@@ -155,16 +158,22 @@ export interface StrategyPostResponseBodyDataInstance extends StrategyProps {
     id: number;
 }
 
-export type StrategyPostManyRequestBodyDataInstance =
-    StrategyPostRequestBodyDataInstance;
-export type StrategyPostManyRequestBody =
-    StrategyPostManyRequestBodyDataInstance[];
+const StrategyPostRequestBodyDataInstanceExpected = StrategyPropsExpected;
 
-const StrategyPostManyRequestBodyDataInstanceExpected = StrategyPropsExpected;
+const StrategyPostResponseBodyDataInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
+const StrategyPostManyRequestBodyDataInstanceExpected =
+    StrategyPostRequestBodyDataInstanceExpected;
 
 const StrategyPostManyRequestBodyExpected = z.array(
     StrategyPostManyRequestBodyDataInstanceExpected
 );
+
+export type StrategyPostManyRequestBodyDataInstance =
+    StrategyPostRequestBodyDataInstance;
 
 export function StrategyPostManyRequestBodyFromRaw(
     raw: StrategyPostManyRequestBodyDataInstance[]
@@ -172,7 +181,6 @@ export function StrategyPostManyRequestBodyFromRaw(
     const parsed = StrategyPostManyRequestBodyExpected.parse(raw);
     return parsed;
 }
-
 export type StrategyPostManyResponseBodyDataInstance =
     StrategyPostResponseBodyDataInstance;
 
@@ -183,9 +191,7 @@ export type StrategyPostManyResponseBody =
     ResponseBase<StrategyPostManyResponseBodyData>;
 
 const StrategyPostManyResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyPostResponseBodyDataInstanceExpected;
 
 const StrategyPostManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
@@ -206,7 +212,8 @@ export type StrategyPostSingleRequestBodyDataInstance =
 export type StrategyPostSingleRequestBody =
     StrategyPostSingleRequestBodyDataInstance;
 
-const StrategyPostSingleRequestBodyDataInstanceExpected = StrategyPropsExpected;
+const StrategyPostSingleRequestBodyDataInstanceExpected =
+    StrategyPostRequestBodyDataInstanceExpected;
 
 const StrategyPostSingleRequestBodyExpected =
     StrategyPostSingleRequestBodyDataInstanceExpected;
@@ -228,9 +235,7 @@ export type StrategyPostSingleResponseBody =
     ResponseBase<StrategyPostSingleResponseBodyData>;
 
 const StrategyPostSingleResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyPostResponseBodyDataInstanceExpected;
 
 const StrategyPostSingleResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
@@ -255,12 +260,24 @@ export interface StrategyPutResponseBodyDataInstance extends StrategyProps {
     id: number;
 }
 
-export type StrategyPutManyRequestBodyDataInstance =
-    StrategyPutRequestBodyDataInstance;
+const StrategyPutRequestBodyDataInstanceExpected = StrategyPropsExpected;
+
+const StrategyPutResponseBodyDataInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
+export interface StrategyPutManyRequestBodyDataInstance
+    extends StrategyPutRequestBodyDataInstance {
+    id: number;
+}
 export type StrategyPutManyRequestBody =
     StrategyPutManyRequestBodyDataInstance[];
 
-const StrategyPutManyRequestBodyDataInstanceExpected = StrategyPropsExpected;
+const StrategyPutManyRequestBodyDataInstanceExpected =
+    StrategyPutRequestBodyDataInstanceExpected.extend({
+        id: z.number(),
+    });
 
 const StrategyPutManyRequestBodyExpected = z.array(
     StrategyPutManyRequestBodyDataInstanceExpected
@@ -283,9 +300,7 @@ export type StrategyPutManyResponseBody =
     ResponseBase<StrategyPutManyResponseBodyData>;
 
 const StrategyPutManyResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyPutResponseBodyDataInstanceExpected;
 
 const StrategyPutManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
@@ -301,12 +316,32 @@ export function StrategyPutManyResponseBodyFromRaw(
     return parsed;
 }
 
+export interface StrategyPutSingleRequestParams {
+    id: number;
+}
+
+export interface StrategyPutSingleRequestParamsRaw {
+    id: string;
+}
+
+const StrategyPutSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function StrategyPutSingleRequestParamsFromRaw(
+    raw: StrategyPutSingleRequestParamsRaw
+): StrategyPutSingleRequestParams {
+    const parsed = StrategyPutSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
 export type StrategyPutSingleRequestBodyDataInstance =
     StrategyPutRequestBodyDataInstance;
 export type StrategyPutSingleRequestBody =
     StrategyPutSingleRequestBodyDataInstance;
 
-const StrategyPutSingleRequestBodyDataInstanceExpected = StrategyPropsExpected;
+const StrategyPutSingleRequestBodyDataInstanceExpected =
+    StrategyPutRequestBodyDataInstanceExpected;
 
 const StrategyPutSingleRequestBodyExpected =
     StrategyPutSingleRequestBodyDataInstanceExpected;
@@ -328,9 +363,7 @@ export type StrategyPutSingleResponseBody =
     ResponseBase<StrategyPutSingleResponseBodyData>;
 
 const StrategyPutSingleResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyPutResponseBodyDataInstanceExpected;
 
 const StrategyPutSingleResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
@@ -355,12 +388,24 @@ export interface StrategyPatchResponseBodyDataInstance extends StrategyProps {
     id: number;
 }
 
-export type StrategyPatchManyRequestBodyDataInstance =
-    StrategyPatchRequestBodyDataInstance;
+const StrategyPatchRequestBodyDataInstanceExpected = StrategyPropsExpected;
+
+const StrategyPatchResponseBodyDataInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
+export interface StrategyPatchManyRequestBodyDataInstance
+    extends StrategyPatchRequestBodyDataInstance {
+    id: number;
+}
 export type StrategyPatchManyRequestBody =
     StrategyPatchManyRequestBodyDataInstance[];
 
-const StrategyPatchManyRequestBodyDataInstanceExpected = StrategyPropsExpected;
+const StrategyPatchManyRequestBodyDataInstanceExpected =
+    StrategyPatchRequestBodyDataInstanceExpected.extend({
+        id: z.number(),
+    });
 
 const StrategyPatchManyRequestBodyExpected = z.array(
     StrategyPatchManyRequestBodyDataInstanceExpected
@@ -383,9 +428,7 @@ export type StrategyPatchManyResponseBody =
     ResponseBase<StrategyPatchManyResponseBodyData>;
 
 const StrategyPatchManyResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyPatchResponseBodyDataInstanceExpected;
 
 const StrategyPatchManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
@@ -401,13 +444,32 @@ export function StrategyPatchManyResponseBodyFromRaw(
     return parsed;
 }
 
+export interface StrategyPatchSingleRequestParams {
+    id: number;
+}
+
+export interface StrategyPatchSingleRequestParamsRaw {
+    id: string;
+}
+
+const StrategyPatchSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function StrategyPatchSingleRequestParamsFromRaw(
+    raw: StrategyPatchSingleRequestParamsRaw
+): StrategyPatchSingleRequestParams {
+    const parsed = StrategyPatchSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
 export type StrategyPatchSingleRequestBodyDataInstance =
     StrategyPatchRequestBodyDataInstance;
 export type StrategyPatchSingleRequestBody =
     StrategyPatchSingleRequestBodyDataInstance;
 
 const StrategyPatchSingleRequestBodyDataInstanceExpected =
-    StrategyPropsExpected;
+    StrategyPatchRequestBodyDataInstanceExpected;
 
 const StrategyPatchSingleRequestBodyExpected =
     StrategyPatchSingleRequestBodyDataInstanceExpected;
@@ -429,9 +491,7 @@ export type StrategyPatchSingleResponseBody =
     ResponseBase<StrategyPatchSingleResponseBodyData>;
 
 const StrategyPatchSingleResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyPatchResponseBodyDataInstanceExpected;
 
 const StrategyPatchSingleResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
@@ -458,20 +518,21 @@ export interface StrategyDeleteResponseBodyDataInstance extends StrategyProps {
 
 export type StrategyDeleteManyRequestBody = StrategyDeleteRequestBody;
 export interface StrategyDeleteManyRequestQuery {
-    status?: Status;
-    ids?: number[];
+    ids: number[];
 }
+
+const StrategyDeleteResponseBodyDataInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
 export interface StrategyDeleteManyRequestQueryRaw {
     status?: Status;
     ids?: string;
 }
 
 const StrategyDeleteManyRequestQueryRawExpected = z.object({
-    status: StatusSchema.optional(),
-    ids: z
-        .string()
-        .regex(/^\d+(,\d+)*$/)
-        .optional(),
+    ids: z.string().regex(/^\d+(,\d+)*$/),
 });
 
 export function StrategyDeleteManyRequestQueryFromRaw(
@@ -479,7 +540,7 @@ export function StrategyDeleteManyRequestQueryFromRaw(
 ): StrategyDeleteManyRequestQuery {
     const parsed = StrategyDeleteManyRequestQueryRawExpected.parse(raw);
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
-    return { status: parsed.status, ids };
+    return { ids };
 }
 export type StrategyDeleteManyResponseBodyDataInstance =
     StrategyDeleteResponseBodyDataInstance;
@@ -491,9 +552,7 @@ export type StrategyDeleteManyResponseBody =
     ResponseBase<StrategyDeleteManyResponseBodyData>;
 
 const StrategyDeleteManyResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyDeleteResponseBodyDataInstanceExpected;
 
 const StrategyDeleteManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
@@ -508,8 +567,6 @@ export function StrategyDeleteManyResponseBodyFromRaw(
     const parsed = StrategyDeleteManyResponseBodyExpected.parse(raw);
     return parsed;
 }
-
-export type StrategyDeleteSingleRequestBody = StrategyDeleteRequestBody;
 
 export interface StrategyDeleteSingleRequestParams {
     id: number;
@@ -529,6 +586,9 @@ export function StrategyDeleteSingleRequestParamsFromRaw(
     const parsed = StrategyDeleteSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
 }
+
+export type StrategyDeleteSingleRequestBody = StrategyDeleteRequestBody;
+
 export type StrategyDeleteSingleResponseBodyDataInstance =
     StrategyDeleteResponseBodyDataInstance;
 
@@ -539,9 +599,7 @@ export type StrategyDeleteSingleResponseBody =
     ResponseBase<StrategyDeleteSingleResponseBodyData>;
 
 const StrategyDeleteSingleResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyDeleteResponseBodyDataInstanceExpected;
 
 const StrategyDeleteSingleResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
