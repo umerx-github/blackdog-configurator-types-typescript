@@ -25,11 +25,19 @@ export interface StrategyProps {
     strategyTemplateName: StrategyTemplateName;
 }
 
+export interface StrategyPropsOptional {
+    status?: Status;
+    title?: string;
+    strategyTemplateName?: StrategyTemplateName;
+}
+
 const StrategyPropsExpected = z.object({
     status: StatusSchema,
     title: z.string(),
     strategyTemplateName: StrategyTemplateNameSchema,
 });
+
+const StrategyPropsOptionalExpected = StrategyPropsExpected.partial();
 
 export function StrategyPropsFromRaw(raw: StrategyProps): StrategyProps {
     const parsed = StrategyPropsExpected.parse(raw);
@@ -386,12 +394,14 @@ export function StrategyPutSingleResponseBodyFromRaw(
 
 // BEGIN PATCH
 
-export interface StrategyPatchRequestBodyDataInstance extends StrategyProps {}
+export interface StrategyPatchRequestBodyDataInstance
+    extends StrategyPropsOptional {}
 export interface StrategyPatchResponseBodyDataInstance extends StrategyProps {
     id: number;
 }
 
-const StrategyPatchRequestBodyDataInstanceExpected = StrategyPropsExpected;
+const StrategyPatchRequestBodyDataInstanceExpected =
+    StrategyPropsOptionalExpected;
 
 const StrategyPatchResponseBodyDataInstanceExpected =
     StrategyPropsExpected.extend({
