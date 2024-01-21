@@ -27,8 +27,114 @@ export interface StrategyProps {
     strategyTemplateName: StrategyTemplateName;
 }
 
+const StrategyPropsExpected = z.object({
+    status: StatusSchema,
+    title: z.string(),
+    strategyTemplateName: StrategyTemplateNameSchema,
+});
+
+export function StrategyPropsFromRaw(raw: StrategyProps): StrategyProps {
+    const parsed = StrategyPropsExpected.parse(raw);
+    return parsed;
+}
 export interface StrategyModelInterface extends StrategyProps {
     id: number;
+}
+
+export interface StrategyGetResponseBodyInstance extends StrategyProps {
+    id: number;
+}
+export type StrategyGetRequestBody = never;
+export type StrategyGetResponseBody =
+    ResponseBodyOneOrManyBase<StrategyGetResponseBodyInstance>;
+
+export type StrategyGetManyResponseBody = StrategyGetResponseBodyInstance[];
+export interface StrategyGetManyRequestParams {
+    ids?: number[];
+    status?: Status;
+}
+export interface StrategyGetManyRequestParamsRaw {
+    ids?: string;
+    status?: Status;
+}
+
+const StrategyGetManyRequestParamsExpected = z.object({
+    ids: z.string().regex(/^\d+(,\d+)*$/),
+    status: StatusSchema.optional(),
+    // .optional(),
+});
+
+export function StrategyGetManyRequestParamsFromRaw(
+    raw: StrategyGetManyRequestParamsRaw
+): StrategyGetManyRequestParams {
+    const parsed = StrategyGetManyRequestParamsExpected.parse(raw);
+    const ids = parsed.ids?.split(',').map((id) => parseInt(id));
+    return { ids, status: parsed.status };
+}
+
+const StrategyGetManyResponseBodyInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
+const StrategyGetManyResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(StrategyGetManyResponseBodyInstanceExpected),
+    }),
+]);
+
+export function StrategyGetManyResponseBodyFromRaw(
+    raw: ResponseBase<StrategyGetManyResponseBody>
+): ResponseBase<StrategyGetManyResponseBody> {
+    const parsed = StrategyGetManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+export interface StrategyGetRequestParams {
+    ids?: number[];
+    status?: Status;
+}
+export interface StrategyGetRequestParamsRaw {
+    ids?: string;
+    status?: Status;
+}
+
+const StrategyGetRequestParamsExpected = z.object({
+    ids: z.string().regex(/^\d+(,\d+)*$/),
+    status: StatusSchema.optional(),
+    // .optional(),
+});
+
+export function StrategyGetRequestParamsFromRaw(
+    raw: StrategyGetRequestParamsRaw
+): StrategyGetRequestParams {
+    const parsed = StrategyGetRequestParamsExpected.parse(raw);
+    const ids = parsed.ids?.split(',').map((id) => parseInt(id));
+    return { ids, status: parsed.status };
+}
+
+const StrategyGetResponseBodyInstanceExpected = StrategyPropsExpected.extend({
+    id: z.number(),
+});
+
+const StrategyGetResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.union([
+            StrategyGetResponseBodyInstanceExpected,
+            z.array(StrategyGetResponseBodyInstanceExpected),
+        ]),
+    }),
+]);
+
+export function StrategyGetResponseBodyFromRaw(
+    raw: ResponseBase<
+        ResponseBodyOneOrManyBase<StrategyGetResponseBodyInstance>
+    >
+): ResponseBase<ResponseBodyOneOrManyBase<StrategyGetResponseBodyInstance>> {
+    const parsed = StrategyGetResponseBodyExpected.parse(raw);
+    return parsed;
 }
 
 export interface StrategyPostRequestBodyInstance extends StrategyProps {}
@@ -69,17 +175,6 @@ export interface StrategyDeleteRequestParams {
 }
 export interface StrategyDeleteRequestParamsRaw {
     ids?: string;
-}
-
-const StrategyPropsExpected = z.object({
-    status: StatusSchema,
-    title: z.string(),
-    strategyTemplateName: StrategyTemplateNameSchema,
-});
-
-export function StrategyPropsFromRaw(raw: StrategyProps): StrategyProps {
-    const parsed = StrategyPropsExpected.parse(raw);
-    return parsed;
 }
 
 const StrategyPostRequestBodyInstanceExpected = StrategyPropsExpected;
