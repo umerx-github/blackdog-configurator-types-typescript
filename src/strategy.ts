@@ -51,7 +51,7 @@ export interface StrategyGetManyRequestParamsRaw {
     ids?: string;
 }
 
-const StrategyGetManyRequestParamsExpected = z.object({
+const StrategyGetManyRequestParamsRawExpected = z.object({
     status: StatusSchema.optional(),
     ids: z
         .string()
@@ -62,7 +62,7 @@ const StrategyGetManyRequestParamsExpected = z.object({
 export function StrategyGetManyRequestParamsFromRaw(
     raw: StrategyGetManyRequestParamsRaw
 ): StrategyGetManyRequestParams {
-    const parsed = StrategyGetManyRequestParamsExpected.parse(raw);
+    const parsed = StrategyGetManyRequestParamsRawExpected.parse(raw);
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
     return { status: parsed.status, ids };
 }
@@ -92,6 +92,59 @@ export function StrategyGetManyResponseBodyFromRaw(
     raw: StrategyGetManyResponseBody
 ): StrategyGetManyResponseBody {
     const parsed = StrategyGetManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type StrategyGetSingleRequestBody = never;
+export interface StrategyGetSingleRequestQuery {
+    status?: Status;
+    ids?: number[];
+}
+export interface StrategyGetSingleRequestParams {
+    id: number;
+}
+
+export interface StrategyGetSingleRequestParamsRaw {
+    id: string;
+}
+
+const StrategyGetSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function StrategyGetSingleRequestParamsFromRaw(
+    raw: StrategyGetSingleRequestParamsRaw
+): StrategyGetSingleRequestParams {
+    const parsed = StrategyGetSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+export interface StrategyGetSingleResponseBodyDataInstance
+    extends StrategyProps {
+    id: number;
+}
+
+export type StrategyGetSingleResponseBodyData =
+    StrategyGetSingleResponseBodyDataInstance;
+
+export type StrategyGetSingleResponseBody =
+    ResponseBase<StrategyGetSingleResponseBodyData>;
+
+const StrategyGetSingleResponseBodyInstanceExpected =
+    StrategyPropsExpected.extend({
+        id: z.number(),
+    });
+
+const StrategyGetSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: StrategyGetSingleResponseBodyInstanceExpected,
+    }),
+]);
+
+export function StrategyGetSingleResponseBodyFromRaw(
+    raw: StrategyGetSingleResponseBody
+): StrategyGetSingleResponseBody {
+    const parsed = StrategyGetSingleResponseBodyExpected.parse(raw);
     return parsed;
 }
 
