@@ -42,16 +42,16 @@ export interface StrategyModelInterface extends StrategyProps {
 }
 
 export type StrategyGetManyRequestBody = never;
-export interface StrategyGetManyRequestParams {
+export interface StrategyGetManyRequestQuery {
     status?: Status;
     ids?: number[];
 }
-export interface StrategyGetManyRequestParamsRaw {
+export interface StrategyGetManyRequestQueryRaw {
     status?: Status;
     ids?: string;
 }
 
-const StrategyGetManyRequestParamsRawExpected = z.object({
+const StrategyGetManyRequestQueryRawExpected = z.object({
     status: StatusSchema.optional(),
     ids: z
         .string()
@@ -59,10 +59,10 @@ const StrategyGetManyRequestParamsRawExpected = z.object({
         .optional(),
 });
 
-export function StrategyGetManyRequestParamsFromRaw(
-    raw: StrategyGetManyRequestParamsRaw
-): StrategyGetManyRequestParams {
-    const parsed = StrategyGetManyRequestParamsRawExpected.parse(raw);
+export function StrategyGetManyRequestQueryFromRaw(
+    raw: StrategyGetManyRequestQueryRaw
+): StrategyGetManyRequestQuery {
+    const parsed = StrategyGetManyRequestQueryRawExpected.parse(raw);
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
     return { status: parsed.status, ids };
 }
@@ -96,10 +96,7 @@ export function StrategyGetManyResponseBodyFromRaw(
 }
 
 export type StrategyGetSingleRequestBody = never;
-export interface StrategyGetSingleRequestQuery {
-    status?: Status;
-    ids?: number[];
-}
+
 export interface StrategyGetSingleRequestParams {
     id: number;
 }
