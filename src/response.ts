@@ -2,8 +2,8 @@ import { z } from 'zod';
 // Type to use in the code:
 // = "Salmon" | "Tuna" | "Trout"
 export type ResponseBodyOneOrManyBase<T> = T | T[];
-export type ResponseBase<T> =
-    | { status: 'success'; message: string; data: T }
+export type ResponseBase<ResponseBodyDataType> =
+    | { status: 'success'; message: string; data: ResponseBodyDataType }
     | { status: 'error'; message: string };
 
 export const ResponseBaseErrorExpected = z.object({

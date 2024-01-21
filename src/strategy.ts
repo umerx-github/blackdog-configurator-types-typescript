@@ -41,14 +41,7 @@ export interface StrategyModelInterface extends StrategyProps {
     id: number;
 }
 
-export interface StrategyGetResponseBodyInstance extends StrategyProps {
-    id: number;
-}
-export type StrategyGetRequestBody = never;
-export type StrategyGetResponseBody =
-    ResponseBodyOneOrManyBase<StrategyGetResponseBodyInstance>;
-
-export type StrategyGetManyResponseBody = StrategyGetResponseBodyInstance[];
+export type StrategyGetManyRequestBody = never;
 export interface StrategyGetManyRequestParams {
     ids?: number[];
     status?: Status;
@@ -71,6 +64,15 @@ export function StrategyGetManyRequestParamsFromRaw(
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
     return { ids, status: parsed.status };
 }
+export interface StrategyGetManyResponseBodyDataInstance extends StrategyProps {
+    id: number;
+}
+
+export type StrategyGetManyResponseBodyData =
+    StrategyGetManyResponseBodyDataInstance[];
+
+export type StrategyGetManyResponseBody =
+    ResponseBase<StrategyGetManyResponseBodyData>;
 
 const StrategyGetManyResponseBodyInstanceExpected =
     StrategyPropsExpected.extend({
@@ -85,55 +87,9 @@ const StrategyGetManyResponseBodyExpected = z.union([
 ]);
 
 export function StrategyGetManyResponseBodyFromRaw(
-    raw: ResponseBase<StrategyGetManyResponseBody>
-): ResponseBase<StrategyGetManyResponseBody> {
+    raw: StrategyGetManyResponseBody
+): StrategyGetManyResponseBody {
     const parsed = StrategyGetManyResponseBodyExpected.parse(raw);
-    return parsed;
-}
-
-export interface StrategyGetRequestParams {
-    ids?: number[];
-    status?: Status;
-}
-export interface StrategyGetRequestParamsRaw {
-    ids?: string;
-    status?: Status;
-}
-
-const StrategyGetRequestParamsExpected = z.object({
-    ids: z.string().regex(/^\d+(,\d+)*$/),
-    status: StatusSchema.optional(),
-    // .optional(),
-});
-
-export function StrategyGetRequestParamsFromRaw(
-    raw: StrategyGetRequestParamsRaw
-): StrategyGetRequestParams {
-    const parsed = StrategyGetRequestParamsExpected.parse(raw);
-    const ids = parsed.ids?.split(',').map((id) => parseInt(id));
-    return { ids, status: parsed.status };
-}
-
-const StrategyGetResponseBodyInstanceExpected = StrategyPropsExpected.extend({
-    id: z.number(),
-});
-
-const StrategyGetResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            StrategyGetResponseBodyInstanceExpected,
-            z.array(StrategyGetResponseBodyInstanceExpected),
-        ]),
-    }),
-]);
-
-export function StrategyGetResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<StrategyGetResponseBodyInstance>
-    >
-): ResponseBase<ResponseBodyOneOrManyBase<StrategyGetResponseBodyInstance>> {
-    const parsed = StrategyGetResponseBodyExpected.parse(raw);
     return parsed;
 }
 
