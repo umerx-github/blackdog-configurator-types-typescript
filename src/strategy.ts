@@ -175,6 +175,9 @@ const StrategyPostManyRequestBodyExpected = z.array(
 export type StrategyPostManyRequestBodyDataInstance =
     StrategyPostRequestBodyDataInstance;
 
+export type StrategyPostManyRequestBody =
+    StrategyPostManyRequestBodyDataInstance[];
+
 export function StrategyPostManyRequestBodyFromRaw(
     raw: StrategyPostManyRequestBodyDataInstance[]
 ): StrategyPostManyRequestBodyDataInstance[] {
