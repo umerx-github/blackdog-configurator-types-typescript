@@ -6,7 +6,8 @@
 	"types": "build/index.d.ts",
 	"type": "module",
 	"files": [
-		"build"
+		"build",
+		"build/**/*"
 	],
 	"scripts": {
 		"build": "npx tsc",
