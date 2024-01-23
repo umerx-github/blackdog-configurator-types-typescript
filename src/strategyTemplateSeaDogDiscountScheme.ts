@@ -4,10 +4,7 @@ import {
     ResponseBase,
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase,
-    ResponseBodyOneOrManyBase,
 } from './response.js';
-
-import { RequestBodyOneOrManyBase } from './request.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -24,66 +21,11 @@ export interface StrategyTemplateSeaDogDiscountSchemeProps {
     sellAtPercentile: number;
 }
 
-export interface StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstance
-    extends StrategyTemplateSeaDogDiscountSchemeProps {
-    id: number;
-}
-export type StrategyTemplateSeaDogDiscountSchemeGetRequestBody = never;
-export type StrategyTemplateSeaDogDiscountSchemeGetResponseBody =
-    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstance>;
-export interface StrategyTemplateSeaDogDiscountSchemeGetRequestParams {
-    ids?: number[];
+export interface StrategyTemplateSeaDogDiscountSchemePropsOptional {
+    strategyId?: number;
     status?: Status;
-}
-export interface StrategyTemplateSeaDogDiscountSchemeGetRequestParamsRaw {
-    ids?: string;
-    status?: Status;
-}
-export interface StrategyTemplateSeaDogDiscountSchemePostRequestBodyInstance
-    extends StrategyTemplateSeaDogDiscountSchemeProps {}
-export interface StrategyTemplateSeaDogDiscountSchemePostResponseBodyInstance
-    extends StrategyTemplateSeaDogDiscountSchemeProps {
-    id: number;
-}
-export type StrategyTemplateSeaDogDiscountSchemePostRequestBody =
-    RequestBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePostRequestBodyInstance>;
-export type StrategyTemplateSeaDogDiscountSchemePostResponseBody =
-    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePostResponseBodyInstance>;
-
-export interface StrategyTemplateSeaDogDiscountSchemePutRequestBodyInstance
-    extends StrategyTemplateSeaDogDiscountSchemeProps {}
-export interface StrategyTemplateSeaDogDiscountSchemePutResponseBodyInstance
-    extends StrategyTemplateSeaDogDiscountSchemeProps {
-    id: number;
-}
-export type StrategyTemplateSeaDogDiscountSchemePutRequestBody =
-    RequestBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePutRequestBodyInstance>;
-export type StrategyTemplateSeaDogDiscountSchemePutResponseBody =
-    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePutResponseBodyInstance>;
-
-export interface StrategyTemplateSeaDogDiscountSchemePatchRequestBodyInstance
-    extends StrategyTemplateSeaDogDiscountSchemeProps {}
-export interface StrategyTemplateSeaDogDiscountSchemePatchResponseBodyInstance
-    extends StrategyTemplateSeaDogDiscountSchemeProps {
-    id: number;
-}
-export type StrategyTemplateSeaDogDiscountSchemePatchRequestBody =
-    RequestBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePatchRequestBodyInstance>;
-export type StrategyTemplateSeaDogDiscountSchemePatchResponseBody =
-    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePatchResponseBodyInstance>;
-
-export interface StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyInstance
-    extends StrategyTemplateSeaDogDiscountSchemeProps {
-    id: number;
-}
-export type StrategyTemplateSeaDogDiscountSchemeDeleteRequestBody = never;
-export type StrategyTemplateSeaDogDiscountSchemeDeleteResponseBody =
-    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyInstance>;
-export interface StrategyTemplateSeaDogDiscountSchemeDeleteRequestParams {
-    ids?: number[];
-}
-export interface StrategyTemplateSeaDogDiscountSchemeDeleteRequestParamsRaw {
-    ids?: string;
+    cash?: number;
+    sellAtPercentile?: number;
 }
 
 const StrategyTemplateSeaDogDiscountSchemePropsExpected = z.object({
@@ -93,249 +35,715 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z.object({
     sellAtPercentile: z.number(),
 });
 
+const StrategyTemplateSeaDogDiscountSchemePropsOptionalExpected =
+    StrategyTemplateSeaDogDiscountSchemePropsExpected.partial();
+
 export function StrategyTemplateSeaDogDiscountSchemePropsFromRaw(
     raw: StrategyTemplateSeaDogDiscountSchemeProps
 ): StrategyTemplateSeaDogDiscountSchemeProps {
     const parsed = StrategyTemplateSeaDogDiscountSchemePropsExpected.parse(raw);
     return parsed;
 }
+export interface StrategyTemplateSeaDogDiscountSchemeModelInterface
+    extends StrategyTemplateSeaDogDiscountSchemeProps {
+    id: number;
+}
 
-const StrategyTemplateSeaDogDiscountSchemeGetRequestParamsExpected =
-    z.object({
-        ids: z.string().regex(/^\d+(,\d+)*$/),
-        status: StatusSchema.optional(),
-        // .optional(),
+// BEGIN GET
+
+export type StrategyTemplateSeaDogDiscountSchemeGetRequestBody = never;
+export interface StrategyTemplateSeaDogDiscountSchemeGetResponseBodyDataInstance
+    extends StrategyTemplateSeaDogDiscountSchemeProps {
+    id: number;
+}
+
+const StrategyTemplateSeaDogDiscountSchemeGetResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
+        id: z.number(),
     });
 
-export function StrategyTemplateSeaDogDiscountSchemeGetRequestParamsFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeGetRequestParamsRaw
-): StrategyTemplateSeaDogDiscountSchemeGetRequestParams {
+export type StrategyTemplateSeaDogDiscountSchemeGetManyRequestBody =
+    StrategyTemplateSeaDogDiscountSchemeGetRequestBody;
+export interface StrategyTemplateSeaDogDiscountSchemeGetManyRequestQuery {
+    strategyId?: number;
+    status?: Status;
+    ids?: number[];
+}
+export interface StrategyTemplateSeaDogDiscountSchemeGetManyRequestQueryRaw {
+    strategyId?: string;
+    status?: Status;
+    ids?: string;
+}
+
+const StrategyTemplateSeaDogDiscountSchemeGetManyRequestQueryRawExpected =
+    z.object({
+        strategyId: z.string().regex(/^\d+$/).optional(),
+        status: StatusSchema.optional(),
+        ids: z
+            .string()
+            .regex(/^\d+(,\d+)*$/)
+            .optional(),
+    });
+
+export function StrategyTemplateSeaDogDiscountSchemeGetManyRequestQueryFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemeGetManyRequestQueryRaw
+): StrategyTemplateSeaDogDiscountSchemeGetManyRequestQuery {
     const parsed =
-        StrategyTemplateSeaDogDiscountSchemeGetRequestParamsExpected.parse(
+        StrategyTemplateSeaDogDiscountSchemeGetManyRequestQueryRawExpected.parse(
             raw
         );
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
-    return { ids, status: parsed.status };
+    const strategyId = undefined === parsed.strategyId ? undefined : parseInt(parsed.strategyId);
+    return { strategyId: strategyId, status: parsed.status, ids };
 }
+export type StrategyTemplateSeaDogDiscountSchemeGetManyResponseBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemeGetResponseBodyDataInstance;
 
-const StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstanceExpected =
-    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
-        id: z.number(),
-    });
+export type StrategyTemplateSeaDogDiscountSchemeGetManyResponseBodyData =
+    StrategyTemplateSeaDogDiscountSchemeGetManyResponseBodyDataInstance[];
 
-const StrategyTemplateSeaDogDiscountSchemeGetResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstanceExpected,
-            z.array(
-                StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstanceExpected
+export type StrategyTemplateSeaDogDiscountSchemeGetManyResponseBody =
+    ResponseBase<StrategyTemplateSeaDogDiscountSchemeGetManyResponseBodyData>;
+
+const StrategyTemplateSeaDogDiscountSchemeGetManyResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemeGetResponseBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemeGetManyResponseBodyExpected = z.union(
+    [
+        ResponseBaseErrorExpected,
+        ResponseBaseSuccessExpectedBase.extend({
+            data: z.array(
+                StrategyTemplateSeaDogDiscountSchemeGetManyResponseBodyDataInstanceExpected
             ),
-        ]),
-    }),
-]);
+        }),
+    ]
+);
 
-export function StrategyTemplateSeaDogDiscountSchemeGetResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstance>
-    >
-): ResponseBase<
-    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemeGetResponseBodyInstance>
-> {
+export function StrategyTemplateSeaDogDiscountSchemeGetManyResponseBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemeGetManyResponseBody
+): StrategyTemplateSeaDogDiscountSchemeGetManyResponseBody {
     const parsed =
-        StrategyTemplateSeaDogDiscountSchemeGetResponseBodyExpected.parse(
+        StrategyTemplateSeaDogDiscountSchemeGetManyResponseBodyExpected.parse(
             raw
         );
     return parsed;
 }
 
-const StrategyTemplateSeaDogDiscountSchemePostRequestBodyInstanceExpected =
-    StrategyTemplateSeaDogDiscountSchemePropsExpected;
-
-const StrategyTemplateSeaDogDiscountSchemePostRequestBodyExpected = z.union([
-    StrategyTemplateSeaDogDiscountSchemePostRequestBodyInstanceExpected,
-    z.array(
-        StrategyTemplateSeaDogDiscountSchemePostRequestBodyInstanceExpected
-    ),
-]);
-
-export function StrategyTemplateSeaDogDiscountSchemePostRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePostRequestBodyInstance>
-): RequestBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePostRequestBodyInstance> {
-    const parsed =
-        StrategyTemplateSeaDogDiscountSchemePostRequestBodyExpected.parse(raw);
-    return parsed;
+export interface StrategyTemplateSeaDogDiscountSchemeGetSingleRequestParams {
+    id: number;
 }
 
-const StrategyTemplateSeaDogDiscountSchemePostResponseBodyInstanceExpected =
-    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
-        id: z.number(),
+export interface StrategyTemplateSeaDogDiscountSchemeGetSingleRequestParamsRaw {
+    id: string;
+}
+
+const StrategyTemplateSeaDogDiscountSchemeGetSingleRequestParamsExpected =
+    z.object({
+        id: z.string().regex(/^\d+$/),
     });
 
-const StrategyTemplateSeaDogDiscountSchemePostResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            StrategyTemplateSeaDogDiscountSchemePostResponseBodyInstanceExpected,
-            z.array(
-                StrategyTemplateSeaDogDiscountSchemePostResponseBodyInstanceExpected
-            ),
-        ]),
-    }),
-]);
-
-export function StrategyTemplateSeaDogDiscountSchemePostResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePostResponseBodyInstance>
-    >
-): ResponseBase<
-    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePostResponseBodyInstance>
-> {
+export function StrategyTemplateSeaDogDiscountSchemeGetSingleRequestParamsFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemeGetSingleRequestParamsRaw
+): StrategyTemplateSeaDogDiscountSchemeGetSingleRequestParams {
     const parsed =
-        StrategyTemplateSeaDogDiscountSchemePostResponseBodyExpected.parse(raw);
-    return parsed;
+        StrategyTemplateSeaDogDiscountSchemeGetSingleRequestParamsExpected.parse(
+            raw
+        );
+    return { id: parseInt(parsed.id) };
 }
 
-const StrategyTemplateSeaDogDiscountSchemePutRequestBodyInstanceExpected =
-    StrategyTemplateSeaDogDiscountSchemePropsExpected;
+export type StrategyTemplateSeaDogDiscountSchemeGetSingleRequestBody =
+    StrategyTemplateSeaDogDiscountSchemeGetRequestBody;
 
-const StrategyTemplateSeaDogDiscountSchemePutRequestBodyExpected = z.union([
-    StrategyTemplateSeaDogDiscountSchemePutRequestBodyInstanceExpected,
-    z.array(StrategyTemplateSeaDogDiscountSchemePutRequestBodyInstanceExpected),
-]);
+export type StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemeGetResponseBodyDataInstance;
 
-export function StrategyTemplateSeaDogDiscountSchemePutRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePutRequestBodyInstance>
-): RequestBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePutRequestBodyInstance> {
+export type StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBodyData =
+    StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBody =
+    ResponseBase<StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBodyData>;
+
+const StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemeGetResponseBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBodyExpected =
+    z.union([
+        ResponseBaseErrorExpected,
+        ResponseBaseSuccessExpectedBase.extend({
+            data: StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBodyDataInstanceExpected,
+        }),
+    ]);
+
+export function StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBody
+): StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBody {
     const parsed =
-        StrategyTemplateSeaDogDiscountSchemePutRequestBodyExpected.parse(raw);
-    return parsed;
-}
-
-const StrategyTemplateSeaDogDiscountSchemePutResponseBodyInstanceExpected =
-    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
-        id: z.number(),
-    });
-
-const StrategyTemplateSeaDogDiscountSchemePutResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            StrategyTemplateSeaDogDiscountSchemePutResponseBodyInstanceExpected,
-            z.array(
-                StrategyTemplateSeaDogDiscountSchemePutResponseBodyInstanceExpected
-            ),
-        ]),
-    }),
-]);
-
-export function StrategyTemplateSeaDogDiscountSchemePutResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePutResponseBodyInstance>
-    >
-): ResponseBase<
-    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePutResponseBodyInstance>
-> {
-    const parsed =
-        StrategyTemplateSeaDogDiscountSchemePutResponseBodyExpected.parse(raw);
-    return parsed;
-}
-
-const StrategyTemplateSeaDogDiscountSchemePatchRequestBodyInstanceExpected =
-    StrategyTemplateSeaDogDiscountSchemePropsExpected;
-
-const StrategyTemplateSeaDogDiscountSchemePatchRequestBodyExpected = z.union([
-    StrategyTemplateSeaDogDiscountSchemePatchRequestBodyInstanceExpected,
-    z.array(
-        StrategyTemplateSeaDogDiscountSchemePatchRequestBodyInstanceExpected
-    ),
-]);
-
-export function StrategyTemplateSeaDogDiscountSchemePatchRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePatchRequestBodyInstance>
-): RequestBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePatchRequestBodyInstance> {
-    const parsed =
-        StrategyTemplateSeaDogDiscountSchemePatchRequestBodyExpected.parse(raw);
-    return parsed;
-}
-
-const StrategyTemplateSeaDogDiscountSchemePatchResponseBodyInstanceExpected =
-    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
-        id: z.number(),
-    });
-
-const StrategyTemplateSeaDogDiscountSchemePatchResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            StrategyTemplateSeaDogDiscountSchemePatchResponseBodyInstanceExpected,
-            z.array(
-                StrategyTemplateSeaDogDiscountSchemePatchResponseBodyInstanceExpected
-            ),
-        ]),
-    }),
-]);
-
-export function StrategyTemplateSeaDogDiscountSchemePatchResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePatchResponseBodyInstance>
-    >
-): ResponseBase<
-    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemePatchResponseBodyInstance>
-> {
-    const parsed =
-        StrategyTemplateSeaDogDiscountSchemePatchResponseBodyExpected.parse(
+        StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBodyExpected.parse(
             raw
         );
     return parsed;
 }
 
-// Typing Express Request: https://stackoverflow.com/questions/48027563/typescript-type-annotation-for-res-body
+// END GET
 
-const StrategyTemplateSeaDogDiscountSchemeDeleteRequestParamsExpected =
+// BEGIN POST
+
+export interface StrategyTemplateSeaDogDiscountSchemePostRequestBodyDataInstance
+    extends StrategyTemplateSeaDogDiscountSchemeProps {}
+export interface StrategyTemplateSeaDogDiscountSchemePostResponseBodyDataInstance
+    extends StrategyTemplateSeaDogDiscountSchemeProps {
+    id: number;
+}
+
+const StrategyTemplateSeaDogDiscountSchemePostRequestBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePropsExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePostResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
+        id: z.number(),
+    });
+
+const StrategyTemplateSeaDogDiscountSchemePostManyRequestBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePostRequestBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePostManyRequestBodyExpected = z.array(
+    StrategyTemplateSeaDogDiscountSchemePostManyRequestBodyDataInstanceExpected
+);
+
+export type StrategyTemplateSeaDogDiscountSchemePostManyRequestBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemePostRequestBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemePostManyRequestBody =
+    StrategyTemplateSeaDogDiscountSchemePostManyRequestBodyDataInstance[];
+
+export function StrategyTemplateSeaDogDiscountSchemePostManyRequestBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePostManyRequestBodyDataInstance[]
+): StrategyTemplateSeaDogDiscountSchemePostManyRequestBodyDataInstance[] {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePostManyRequestBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+export type StrategyTemplateSeaDogDiscountSchemePostManyResponseBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemePostResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemePostManyResponseBodyData =
+    StrategyTemplateSeaDogDiscountSchemePostManyResponseBodyDataInstance[];
+
+export type StrategyTemplateSeaDogDiscountSchemePostManyResponseBody =
+    ResponseBase<StrategyTemplateSeaDogDiscountSchemePostManyResponseBodyData>;
+
+const StrategyTemplateSeaDogDiscountSchemePostManyResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePostResponseBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePostManyResponseBodyExpected =
+    z.union([
+        ResponseBaseErrorExpected,
+        ResponseBaseSuccessExpectedBase.extend({
+            data: z.array(
+                StrategyTemplateSeaDogDiscountSchemePostManyResponseBodyDataInstanceExpected
+            ),
+        }),
+    ]);
+
+export function StrategyTemplateSeaDogDiscountSchemePostManyResponseBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePostManyResponseBody
+): StrategyTemplateSeaDogDiscountSchemePostManyResponseBody {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePostManyResponseBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+export type StrategyTemplateSeaDogDiscountSchemePostSingleRequestBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemePostRequestBodyDataInstance;
+export type StrategyTemplateSeaDogDiscountSchemePostSingleRequestBody =
+    StrategyTemplateSeaDogDiscountSchemePostSingleRequestBodyDataInstance;
+
+const StrategyTemplateSeaDogDiscountSchemePostSingleRequestBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePostRequestBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePostSingleRequestBodyExpected =
+    StrategyTemplateSeaDogDiscountSchemePostSingleRequestBodyDataInstanceExpected;
+
+export function StrategyTemplateSeaDogDiscountSchemePostSingleRequestBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePostSingleRequestBodyDataInstance
+): StrategyTemplateSeaDogDiscountSchemePostSingleRequestBodyDataInstance {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePostSingleRequestBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+export type StrategyTemplateSeaDogDiscountSchemePostSingleResponseBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemePostResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemePostSingleResponseBodyData =
+    StrategyTemplateSeaDogDiscountSchemePostSingleResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemePostSingleResponseBody =
+    ResponseBase<StrategyTemplateSeaDogDiscountSchemePostSingleResponseBodyData>;
+
+const StrategyTemplateSeaDogDiscountSchemePostSingleResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePostResponseBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePostSingleResponseBodyExpected =
+    z.union([
+        ResponseBaseErrorExpected,
+        ResponseBaseSuccessExpectedBase.extend({
+            data: StrategyTemplateSeaDogDiscountSchemePostSingleResponseBodyDataInstanceExpected,
+        }),
+    ]);
+
+export function StrategyTemplateSeaDogDiscountSchemePostSingleResponseBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePostSingleResponseBody
+): StrategyTemplateSeaDogDiscountSchemePostSingleResponseBody {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePostSingleResponseBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+// END POST
+
+// BEGIN PUT
+
+export interface StrategyTemplateSeaDogDiscountSchemePutRequestBodyDataInstance
+    extends StrategyTemplateSeaDogDiscountSchemeProps {}
+export interface StrategyTemplateSeaDogDiscountSchemePutResponseBodyDataInstance
+    extends StrategyTemplateSeaDogDiscountSchemeProps {
+    id: number;
+}
+
+const StrategyTemplateSeaDogDiscountSchemePutRequestBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePropsExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePutResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
+        id: z.number(),
+    });
+
+export interface StrategyTemplateSeaDogDiscountSchemePutManyRequestBodyDataInstance
+    extends StrategyTemplateSeaDogDiscountSchemePutRequestBodyDataInstance {
+    id: number;
+}
+export type StrategyTemplateSeaDogDiscountSchemePutManyRequestBody =
+    StrategyTemplateSeaDogDiscountSchemePutManyRequestBodyDataInstance[];
+
+const StrategyTemplateSeaDogDiscountSchemePutManyRequestBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePutRequestBodyDataInstanceExpected.extend(
+        {
+            id: z.number(),
+        }
+    );
+
+const StrategyTemplateSeaDogDiscountSchemePutManyRequestBodyExpected = z.array(
+    StrategyTemplateSeaDogDiscountSchemePutManyRequestBodyDataInstanceExpected
+);
+
+export function StrategyTemplateSeaDogDiscountSchemePutManyRequestBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePutManyRequestBodyDataInstance[]
+): StrategyTemplateSeaDogDiscountSchemePutManyRequestBodyDataInstance[] {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePutManyRequestBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+export type StrategyTemplateSeaDogDiscountSchemePutManyResponseBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemePutResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemePutManyResponseBodyData =
+    StrategyTemplateSeaDogDiscountSchemePutManyResponseBodyDataInstance[];
+
+export type StrategyTemplateSeaDogDiscountSchemePutManyResponseBody =
+    ResponseBase<StrategyTemplateSeaDogDiscountSchemePutManyResponseBodyData>;
+
+const StrategyTemplateSeaDogDiscountSchemePutManyResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePutResponseBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePutManyResponseBodyExpected = z.union(
+    [
+        ResponseBaseErrorExpected,
+        ResponseBaseSuccessExpectedBase.extend({
+            data: z.array(
+                StrategyTemplateSeaDogDiscountSchemePutManyResponseBodyDataInstanceExpected
+            ),
+        }),
+    ]
+);
+
+export function StrategyTemplateSeaDogDiscountSchemePutManyResponseBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePutManyResponseBody
+): StrategyTemplateSeaDogDiscountSchemePutManyResponseBody {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePutManyResponseBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+export interface StrategyTemplateSeaDogDiscountSchemePutSingleRequestParams {
+    id: number;
+}
+
+export interface StrategyTemplateSeaDogDiscountSchemePutSingleRequestParamsRaw {
+    id: string;
+}
+
+const StrategyTemplateSeaDogDiscountSchemePutSingleRequestParamsExpected =
+    z.object({
+        id: z.string().regex(/^\d+$/),
+    });
+
+export function StrategyTemplateSeaDogDiscountSchemePutSingleRequestParamsFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePutSingleRequestParamsRaw
+): StrategyTemplateSeaDogDiscountSchemePutSingleRequestParams {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePutSingleRequestParamsExpected.parse(
+            raw
+        );
+    return { id: parseInt(parsed.id) };
+}
+
+export type StrategyTemplateSeaDogDiscountSchemePutSingleRequestBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemePutRequestBodyDataInstance;
+export type StrategyTemplateSeaDogDiscountSchemePutSingleRequestBody =
+    StrategyTemplateSeaDogDiscountSchemePutSingleRequestBodyDataInstance;
+
+const StrategyTemplateSeaDogDiscountSchemePutSingleRequestBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePutRequestBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePutSingleRequestBodyExpected =
+    StrategyTemplateSeaDogDiscountSchemePutSingleRequestBodyDataInstanceExpected;
+
+export function StrategyTemplateSeaDogDiscountSchemePutSingleRequestBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePutSingleRequestBodyDataInstance
+): StrategyTemplateSeaDogDiscountSchemePutSingleRequestBodyDataInstance {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePutSingleRequestBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+export type StrategyTemplateSeaDogDiscountSchemePutSingleResponseBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemePutResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemePutSingleResponseBodyData =
+    StrategyTemplateSeaDogDiscountSchemePutSingleResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemePutSingleResponseBody =
+    ResponseBase<StrategyTemplateSeaDogDiscountSchemePutSingleResponseBodyData>;
+
+const StrategyTemplateSeaDogDiscountSchemePutSingleResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePutResponseBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePutSingleResponseBodyExpected =
+    z.union([
+        ResponseBaseErrorExpected,
+        ResponseBaseSuccessExpectedBase.extend({
+            data: StrategyTemplateSeaDogDiscountSchemePutSingleResponseBodyDataInstanceExpected,
+        }),
+    ]);
+
+export function StrategyTemplateSeaDogDiscountSchemePutSingleResponseBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePutSingleResponseBody
+): StrategyTemplateSeaDogDiscountSchemePutSingleResponseBody {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePutSingleResponseBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+// END PUT
+
+// BEGIN PATCH
+
+export interface StrategyTemplateSeaDogDiscountSchemePatchRequestBodyDataInstance
+    extends StrategyTemplateSeaDogDiscountSchemePropsOptional {}
+export interface StrategyTemplateSeaDogDiscountSchemePatchResponseBodyDataInstance
+    extends StrategyTemplateSeaDogDiscountSchemeProps {
+    id: number;
+}
+
+const StrategyTemplateSeaDogDiscountSchemePatchRequestBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePropsOptionalExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePatchResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
+        id: z.number(),
+    });
+
+export interface StrategyTemplateSeaDogDiscountSchemePatchManyRequestBodyDataInstance
+    extends StrategyTemplateSeaDogDiscountSchemePatchRequestBodyDataInstance {
+    id: number;
+}
+export type StrategyTemplateSeaDogDiscountSchemePatchManyRequestBody =
+    StrategyTemplateSeaDogDiscountSchemePatchManyRequestBodyDataInstance[];
+
+const StrategyTemplateSeaDogDiscountSchemePatchManyRequestBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePatchRequestBodyDataInstanceExpected.extend(
+        {
+            id: z.number(),
+        }
+    );
+
+const StrategyTemplateSeaDogDiscountSchemePatchManyRequestBodyExpected =
+    z.array(
+        StrategyTemplateSeaDogDiscountSchemePatchManyRequestBodyDataInstanceExpected
+    );
+
+export function StrategyTemplateSeaDogDiscountSchemePatchManyRequestBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePatchManyRequestBodyDataInstance[]
+): StrategyTemplateSeaDogDiscountSchemePatchManyRequestBodyDataInstance[] {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePatchManyRequestBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+export type StrategyTemplateSeaDogDiscountSchemePatchManyResponseBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemePatchResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemePatchManyResponseBodyData =
+    StrategyTemplateSeaDogDiscountSchemePatchManyResponseBodyDataInstance[];
+
+export type StrategyTemplateSeaDogDiscountSchemePatchManyResponseBody =
+    ResponseBase<StrategyTemplateSeaDogDiscountSchemePatchManyResponseBodyData>;
+
+const StrategyTemplateSeaDogDiscountSchemePatchManyResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePatchResponseBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePatchManyResponseBodyExpected =
+    z.union([
+        ResponseBaseErrorExpected,
+        ResponseBaseSuccessExpectedBase.extend({
+            data: z.array(
+                StrategyTemplateSeaDogDiscountSchemePatchManyResponseBodyDataInstanceExpected
+            ),
+        }),
+    ]);
+
+export function StrategyTemplateSeaDogDiscountSchemePatchManyResponseBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePatchManyResponseBody
+): StrategyTemplateSeaDogDiscountSchemePatchManyResponseBody {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePatchManyResponseBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+export interface StrategyTemplateSeaDogDiscountSchemePatchSingleRequestParams {
+    id: number;
+}
+
+export interface StrategyTemplateSeaDogDiscountSchemePatchSingleRequestParamsRaw {
+    id: string;
+}
+
+const StrategyTemplateSeaDogDiscountSchemePatchSingleRequestParamsExpected =
+    z.object({
+        id: z.string().regex(/^\d+$/),
+    });
+
+export function StrategyTemplateSeaDogDiscountSchemePatchSingleRequestParamsFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePatchSingleRequestParamsRaw
+): StrategyTemplateSeaDogDiscountSchemePatchSingleRequestParams {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePatchSingleRequestParamsExpected.parse(
+            raw
+        );
+    return { id: parseInt(parsed.id) };
+}
+
+export type StrategyTemplateSeaDogDiscountSchemePatchSingleRequestBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemePatchRequestBodyDataInstance;
+export type StrategyTemplateSeaDogDiscountSchemePatchSingleRequestBody =
+    StrategyTemplateSeaDogDiscountSchemePatchSingleRequestBodyDataInstance;
+
+const StrategyTemplateSeaDogDiscountSchemePatchSingleRequestBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePatchRequestBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePatchSingleRequestBodyExpected =
+    StrategyTemplateSeaDogDiscountSchemePatchSingleRequestBodyDataInstanceExpected;
+
+export function StrategyTemplateSeaDogDiscountSchemePatchSingleRequestBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePatchSingleRequestBodyDataInstance
+): StrategyTemplateSeaDogDiscountSchemePatchSingleRequestBodyDataInstance {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePatchSingleRequestBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+export type StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemePatchResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBodyData =
+    StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBody =
+    ResponseBase<StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBodyData>;
+
+const StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePatchResponseBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBodyExpected =
+    z.union([
+        ResponseBaseErrorExpected,
+        ResponseBaseSuccessExpectedBase.extend({
+            data: StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBodyDataInstanceExpected,
+        }),
+    ]);
+
+export function StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBody
+): StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBody {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+// END PATCH
+
+// BEGIN DELETE
+
+export type StrategyTemplateSeaDogDiscountSchemeDeleteRequestBody = never;
+export interface StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyDataInstance
+    extends StrategyTemplateSeaDogDiscountSchemeProps {
+    id: number;
+}
+
+export type StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestBody =
+    StrategyTemplateSeaDogDiscountSchemeDeleteRequestBody;
+export interface StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestQuery {
+    ids: number[];
+}
+
+const StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
+        id: z.number(),
+    });
+
+export interface StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestQueryRaw {
+    status?: Status;
+    ids?: string;
+}
+
+const StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestQueryRawExpected =
     z.object({
         ids: z.string().regex(/^\d+(,\d+)*$/),
-        // .optional(),
     });
 
-export function StrategyTemplateSeaDogDiscountSchemeDeleteRequestParamsFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeDeleteRequestParamsRaw
-): StrategyTemplateSeaDogDiscountSchemeDeleteRequestParams {
+export function StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestQueryFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestQueryRaw
+): StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestQuery {
     const parsed =
-        StrategyTemplateSeaDogDiscountSchemeDeleteRequestParamsExpected.parse(
+        StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestQueryRawExpected.parse(
             raw
         );
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
     return { ids };
 }
+export type StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyDataInstance;
 
-const StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyInstanceExpected =
-    StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
-        id: z.number(),
-    });
+export type StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBodyData =
+    StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBodyDataInstance[];
 
-const StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyInstanceExpected,
-            z.array(
-                StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyInstanceExpected
+export type StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBody =
+    ResponseBase<StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBodyData>;
+
+const StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBodyExpected =
+    z.union([
+        ResponseBaseErrorExpected,
+        ResponseBaseSuccessExpectedBase.extend({
+            data: z.array(
+                StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBodyDataInstanceExpected
             ),
-        ]),
-    }),
-]);
+        }),
+    ]);
 
-export function StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyInstance>
-    >
-): ResponseBase<
-    ResponseBodyOneOrManyBase<StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyInstance>
-> {
+export function StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBody
+): StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBody {
     const parsed =
-        StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyExpected.parse(
+        StrategyTemplateSeaDogDiscountSchemeDeleteManyResponseBodyExpected.parse(
             raw
         );
     return parsed;
 }
+
+export interface StrategyTemplateSeaDogDiscountSchemeDeleteSingleRequestParams {
+    id: number;
+}
+
+export interface StrategyTemplateSeaDogDiscountSchemeDeleteSingleRequestParamsRaw {
+    id: string;
+}
+
+const StrategyTemplateSeaDogDiscountSchemeDeleteSingleRequestParamsExpected =
+    z.object({
+        id: z.string().regex(/^\d+$/),
+    });
+
+export function StrategyTemplateSeaDogDiscountSchemeDeleteSingleRequestParamsFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemeDeleteSingleRequestParamsRaw
+): StrategyTemplateSeaDogDiscountSchemeDeleteSingleRequestParams {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemeDeleteSingleRequestParamsExpected.parse(
+            raw
+        );
+    return { id: parseInt(parsed.id) };
+}
+
+export type StrategyTemplateSeaDogDiscountSchemeDeleteSingleRequestBody =
+    StrategyTemplateSeaDogDiscountSchemeDeleteRequestBody;
+
+export type StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBodyDataInstance =
+    StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBodyData =
+    StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBodyDataInstance;
+
+export type StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBody =
+    ResponseBase<StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBodyData>;
+
+const StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBodyDataInstanceExpected =
+    StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyDataInstanceExpected;
+
+const StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBodyExpected =
+    z.union([
+        ResponseBaseErrorExpected,
+        ResponseBaseSuccessExpectedBase.extend({
+            data: StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBodyDataInstanceExpected,
+        }),
+    ]);
+
+export function StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBodyFromRaw(
+    raw: StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBody
+): StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBody {
+    const parsed =
+        StrategyTemplateSeaDogDiscountSchemeDeleteSingleResponseBodyExpected.parse(
+            raw
+        );
+    return parsed;
+}
+
+// END DELETE
