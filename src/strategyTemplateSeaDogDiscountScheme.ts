@@ -17,21 +17,21 @@ export type Status = (typeof StatusConst)[number];
 export interface StrategyTemplateSeaDogDiscountSchemeProps {
     strategyId: number;
     status: Status;
-    cash: number;
+    cashInCents: number;
     sellAtPercentile: number;
 }
 
 export interface StrategyTemplateSeaDogDiscountSchemePropsOptional {
     strategyId?: number;
     status?: Status;
-    cash?: number;
+    cashInCents?: number;
     sellAtPercentile?: number;
 }
 
 const StrategyTemplateSeaDogDiscountSchemePropsExpected = z.object({
     strategyId: z.number(),
     status: StatusSchema,
-    cash: z.number(),
+    cashInCents: z.number(),
     sellAtPercentile: z.number(),
 });
 
@@ -93,7 +93,10 @@ export function StrategyTemplateSeaDogDiscountSchemeGetManyRequestQueryFromRaw(
             raw
         );
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
-    const strategyId = undefined === parsed.strategyId ? undefined : parseInt(parsed.strategyId);
+    const strategyId =
+        undefined === parsed.strategyId
+            ? undefined
+            : parseInt(parsed.strategyId);
     return { strategyId: strategyId, status: parsed.status, ids };
 }
 export type StrategyTemplateSeaDogDiscountSchemeGetManyResponseBodyDataInstance =
