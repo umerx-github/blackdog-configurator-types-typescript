@@ -4,205 +4,598 @@ import {
     ResponseBase,
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase,
-    ResponseBodyOneOrManyBase,
 } from './response.js';
-
-import { RequestBodyOneOrManyBase } from './request.js';
 
 export interface SymbolProps {
     name: string;
 }
 
-export interface SymbolPostRequestBodyInstance extends SymbolProps {}
-export interface SymbolPostResponseBodyInstance extends SymbolProps {
-    id: number;
-}
-export type SymbolPostRequestBody =
-    RequestBodyOneOrManyBase<SymbolPostRequestBodyInstance>;
-export type SymbolPostResponseBody =
-    ResponseBodyOneOrManyBase<SymbolPostResponseBodyInstance>;
-
-export interface SymbolPutRequestBodyInstance extends SymbolProps {}
-export interface SymbolPutResponseBodyInstance extends SymbolProps {
-    id: number;
-}
-export type SymbolPutRequestBody =
-    RequestBodyOneOrManyBase<SymbolPutRequestBodyInstance>;
-export type SymbolPutResponseBody =
-    ResponseBodyOneOrManyBase<SymbolPutResponseBodyInstance>;
-
-export interface SymbolPatchRequestBodyInstance extends SymbolProps {}
-export interface SymbolPatchResponseBodyInstance extends SymbolProps {
-    id: number;
-}
-export type SymbolPatchRequestBody =
-    RequestBodyOneOrManyBase<SymbolPatchRequestBodyInstance>;
-export type SymbolPatchResponseBody =
-    ResponseBodyOneOrManyBase<SymbolPatchResponseBodyInstance>;
-
-export interface SymbolDeleteResponseBodyInstance extends SymbolProps {
-    id: number;
-}
-export type SymbolDeleteRequestBody = never;
-export type SymbolDeleteResponseBody =
-    ResponseBodyOneOrManyBase<SymbolDeleteResponseBodyInstance>;
-export interface SymbolDeleteRequestParams {
-    ids?: number[];
-}
-export interface SymbolDeleteRequestParamsRaw {
-    ids?: string;
+export interface SymbolPropsOptional {
+    name?: string;
 }
 
 const SymbolPropsExpected = z.object({
     name: z.string(),
 });
 
+const SymbolPropsOptionalExpected = SymbolPropsExpected.partial();
+
 export function SymbolPropsFromRaw(raw: SymbolProps): SymbolProps {
     const parsed = SymbolPropsExpected.parse(raw);
     return parsed;
 }
-
-const SymbolPostRequestBodyInstanceExpected = SymbolPropsExpected;
-
-const SymbolPostRequestBodyExpected = z.union([
-    SymbolPostRequestBodyInstanceExpected,
-    z.array(SymbolPostRequestBodyInstanceExpected),
-]);
-
-export function SymbolPostRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<SymbolPostRequestBodyInstance>
-): RequestBodyOneOrManyBase<SymbolPostRequestBodyInstance> {
-    const parsed = SymbolPostRequestBodyExpected.parse(raw);
-    return parsed;
+export interface SymbolModelInterface extends SymbolProps {
+    id: number;
 }
 
-const SymbolPostResponseBodyInstanceExpected = SymbolPropsExpected.extend({
+// BEGIN GET
+
+export type SymbolGetRequestBody = never;
+export interface SymbolGetResponseBodyDataInstance extends SymbolProps {
+    id: number;
+}
+
+const SymbolGetResponseBodyDataInstanceExpected = SymbolPropsExpected.extend({
     id: z.number(),
 });
 
-const SymbolPostResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            SymbolPostResponseBodyInstanceExpected,
-            z.array(SymbolPostResponseBodyInstanceExpected),
-        ]),
-    }),
-]);
-
-export function SymbolPostResponseBodyFromRaw(
-    raw: ResponseBase<ResponseBodyOneOrManyBase<SymbolPostResponseBodyInstance>>
-): ResponseBase<ResponseBodyOneOrManyBase<SymbolPostResponseBodyInstance>> {
-    const parsed = SymbolPostResponseBodyExpected.parse(raw);
-    return parsed;
+export type SymbolGetManyRequestBody = SymbolGetRequestBody;
+export interface SymbolGetManyRequestQuery {
+    ids?: number[];
+}
+export interface SymbolGetManyRequestQueryRaw {
+    ids?: string;
 }
 
-const SymbolPutRequestBodyInstanceExpected = SymbolPropsExpected;
-
-const SymbolPutRequestBodyExpected = z.union([
-    SymbolPutRequestBodyInstanceExpected,
-    z.array(SymbolPutRequestBodyInstanceExpected),
-]);
-
-export function SymbolPutRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<SymbolPutRequestBodyInstance>
-): RequestBodyOneOrManyBase<SymbolPutRequestBodyInstance> {
-    const parsed = SymbolPutRequestBodyExpected.parse(raw);
-    return parsed;
-}
-
-const SymbolPutResponseBodyInstanceExpected = SymbolPropsExpected.extend({
-    id: z.number(),
+const SymbolGetManyRequestQueryRawExpected = z.object({
+    ids: z
+        .string()
+        .regex(/^\d+(,\d+)*$/)
+        .optional(),
 });
 
-const SymbolPutResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            SymbolPutResponseBodyInstanceExpected,
-            z.array(SymbolPutResponseBodyInstanceExpected),
-        ]),
-    }),
-]);
-
-export function SymbolPutResponseBodyFromRaw(
-    raw: ResponseBase<ResponseBodyOneOrManyBase<SymbolPutResponseBodyInstance>>
-): ResponseBase<ResponseBodyOneOrManyBase<SymbolPutResponseBodyInstance>> {
-    const parsed = SymbolPutResponseBodyExpected.parse(raw);
-    return parsed;
-}
-
-const SymbolPatchRequestBodyInstanceExpected = SymbolPropsExpected;
-
-const SymbolPatchRequestBodyExpected = z.union([
-    SymbolPatchRequestBodyInstanceExpected,
-    z.array(SymbolPatchRequestBodyInstanceExpected),
-]);
-
-export function SymbolPatchRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<SymbolPatchRequestBodyInstance>
-): RequestBodyOneOrManyBase<SymbolPatchRequestBodyInstance> {
-    const parsed = SymbolPatchRequestBodyExpected.parse(raw);
-    return parsed;
-}
-
-const SymbolPatchResponseBodyInstanceExpected = SymbolPropsExpected.extend({
-    id: z.number(),
-});
-
-const SymbolPatchResponseBodyExpected = z.union([
-    ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            SymbolPatchResponseBodyInstanceExpected,
-            z.array(SymbolPatchResponseBodyInstanceExpected),
-        ]),
-    }),
-]);
-
-export function SymbolPatchResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<SymbolPatchResponseBodyInstance>
-    >
-): ResponseBase<ResponseBodyOneOrManyBase<SymbolPatchResponseBodyInstance>> {
-    const parsed = SymbolPatchResponseBodyExpected.parse(raw);
-    return parsed;
-}
-
-// Typing Express Request: https://stackoverflow.com/questions/48027563/typescript-type-annotation-for-res-body
-
-const SymbolDeleteRequestParamsExpected = z.object({
-    ids: z.string().regex(/^\d+(,\d+)*$/),
-    // .optional(),
-});
-
-export function SymbolDeleteRequestParamsFromRaw(
-    raw: SymbolDeleteRequestParamsRaw
-): SymbolDeleteRequestParams {
-    const parsed = SymbolDeleteRequestParamsExpected.parse(raw);
+export function SymbolGetManyRequestQueryFromRaw(
+    raw: SymbolGetManyRequestQueryRaw
+): SymbolGetManyRequestQuery {
+    const parsed = SymbolGetManyRequestQueryRawExpected.parse(raw);
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
     return { ids };
 }
+export type SymbolGetManyResponseBodyDataInstance =
+    SymbolGetResponseBodyDataInstance;
 
-const SymbolDeleteResponseBodyInstanceExpected = SymbolPropsExpected.extend({
-    id: z.number(),
-});
+export type SymbolGetManyResponseBodyData =
+    SymbolGetManyResponseBodyDataInstance[];
 
-const SymbolDeleteResponseBodyExpected = z.union([
+export type SymbolGetManyResponseBody =
+    ResponseBase<SymbolGetManyResponseBodyData>;
+
+const SymbolGetManyResponseBodyDataInstanceExpected =
+    SymbolGetResponseBodyDataInstanceExpected;
+
+const SymbolGetManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            SymbolDeleteResponseBodyInstanceExpected,
-            z.array(SymbolDeleteResponseBodyInstanceExpected),
-        ]),
+        data: z.array(SymbolGetManyResponseBodyDataInstanceExpected),
     }),
 ]);
 
-export function SymbolDeleteResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<SymbolDeleteResponseBodyInstance>
-    >
-): ResponseBase<ResponseBodyOneOrManyBase<SymbolDeleteResponseBodyInstance>> {
-    const parsed = SymbolDeleteResponseBodyExpected.parse(raw);
+export function SymbolGetManyResponseBodyFromRaw(
+    raw: SymbolGetManyResponseBody
+): SymbolGetManyResponseBody {
+    const parsed = SymbolGetManyResponseBodyExpected.parse(raw);
     return parsed;
 }
+
+export interface SymbolGetSingleRequestParams {
+    id: number;
+}
+
+export interface SymbolGetSingleRequestParamsRaw {
+    id: string;
+}
+
+const SymbolGetSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function SymbolGetSingleRequestParamsFromRaw(
+    raw: SymbolGetSingleRequestParamsRaw
+): SymbolGetSingleRequestParams {
+    const parsed = SymbolGetSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
+export type SymbolGetSingleRequestBody = SymbolGetRequestBody;
+
+export type SymbolGetSingleResponseBodyDataInstance =
+    SymbolGetResponseBodyDataInstance;
+
+export type SymbolGetSingleResponseBodyData =
+    SymbolGetSingleResponseBodyDataInstance;
+
+export type SymbolGetSingleResponseBody =
+    ResponseBase<SymbolGetSingleResponseBodyData>;
+
+const SymbolGetSingleResponseBodyDataInstanceExpected =
+    SymbolGetResponseBodyDataInstanceExpected;
+
+const SymbolGetSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: SymbolGetSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function SymbolGetSingleResponseBodyFromRaw(
+    raw: SymbolGetSingleResponseBody
+): SymbolGetSingleResponseBody {
+    const parsed = SymbolGetSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END GET
+
+// BEGIN POST
+
+export interface SymbolPostRequestBodyDataInstance extends SymbolProps {}
+export interface SymbolPostResponseBodyDataInstance extends SymbolProps {
+    id: number;
+}
+
+const SymbolPostRequestBodyDataInstanceExpected = SymbolPropsExpected;
+
+const SymbolPostResponseBodyDataInstanceExpected = SymbolPropsExpected.extend({
+    id: z.number(),
+});
+
+const SymbolPostManyRequestBodyDataInstanceExpected =
+    SymbolPostRequestBodyDataInstanceExpected;
+
+const SymbolPostManyRequestBodyExpected = z.array(
+    SymbolPostManyRequestBodyDataInstanceExpected
+);
+
+export type SymbolPostManyRequestBodyDataInstance =
+    SymbolPostRequestBodyDataInstance;
+
+export type SymbolPostManyRequestBody = SymbolPostManyRequestBodyDataInstance[];
+
+export function SymbolPostManyRequestBodyFromRaw(
+    raw: SymbolPostManyRequestBodyDataInstance[]
+): SymbolPostManyRequestBodyDataInstance[] {
+    const parsed = SymbolPostManyRequestBodyExpected.parse(raw);
+    return parsed;
+}
+export type SymbolPostManyResponseBodyDataInstance =
+    SymbolPostResponseBodyDataInstance;
+
+export type SymbolPostManyResponseBodyData =
+    SymbolPostManyResponseBodyDataInstance[];
+
+export type SymbolPostManyResponseBody =
+    ResponseBase<SymbolPostManyResponseBodyData>;
+
+const SymbolPostManyResponseBodyDataInstanceExpected =
+    SymbolPostResponseBodyDataInstanceExpected;
+
+const SymbolPostManyResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(SymbolPostManyResponseBodyDataInstanceExpected),
+    }),
+]);
+
+export function SymbolPostManyResponseBodyFromRaw(
+    raw: SymbolPostManyResponseBody
+): SymbolPostManyResponseBody {
+    const parsed = SymbolPostManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type SymbolPostSingleRequestBodyDataInstance =
+    SymbolPostRequestBodyDataInstance;
+export type SymbolPostSingleRequestBody =
+    SymbolPostSingleRequestBodyDataInstance;
+
+const SymbolPostSingleRequestBodyDataInstanceExpected =
+    SymbolPostRequestBodyDataInstanceExpected;
+
+const SymbolPostSingleRequestBodyExpected =
+    SymbolPostSingleRequestBodyDataInstanceExpected;
+
+export function SymbolPostSingleRequestBodyFromRaw(
+    raw: SymbolPostSingleRequestBodyDataInstance
+): SymbolPostSingleRequestBodyDataInstance {
+    const parsed = SymbolPostSingleRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type SymbolPostSingleResponseBodyDataInstance =
+    SymbolPostResponseBodyDataInstance;
+
+export type SymbolPostSingleResponseBodyData =
+    SymbolPostSingleResponseBodyDataInstance;
+
+export type SymbolPostSingleResponseBody =
+    ResponseBase<SymbolPostSingleResponseBodyData>;
+
+const SymbolPostSingleResponseBodyDataInstanceExpected =
+    SymbolPostResponseBodyDataInstanceExpected;
+
+const SymbolPostSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: SymbolPostSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function SymbolPostSingleResponseBodyFromRaw(
+    raw: SymbolPostSingleResponseBody
+): SymbolPostSingleResponseBody {
+    const parsed = SymbolPostSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END POST
+
+// BEGIN PUT
+
+export interface SymbolPutRequestBodyDataInstance extends SymbolProps {}
+export interface SymbolPutResponseBodyDataInstance extends SymbolProps {
+    id: number;
+}
+
+const SymbolPutRequestBodyDataInstanceExpected = SymbolPropsExpected;
+
+const SymbolPutResponseBodyDataInstanceExpected = SymbolPropsExpected.extend({
+    id: z.number(),
+});
+
+export interface SymbolPutManyRequestBodyDataInstance
+    extends SymbolPutRequestBodyDataInstance {
+    id: number;
+}
+export type SymbolPutManyRequestBody = SymbolPutManyRequestBodyDataInstance[];
+
+const SymbolPutManyRequestBodyDataInstanceExpected =
+    SymbolPutRequestBodyDataInstanceExpected.extend({
+        id: z.number(),
+    });
+
+const SymbolPutManyRequestBodyExpected = z.array(
+    SymbolPutManyRequestBodyDataInstanceExpected
+);
+
+export function SymbolPutManyRequestBodyFromRaw(
+    raw: SymbolPutManyRequestBodyDataInstance[]
+): SymbolPutManyRequestBodyDataInstance[] {
+    const parsed = SymbolPutManyRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type SymbolPutManyResponseBodyDataInstance =
+    SymbolPutResponseBodyDataInstance;
+
+export type SymbolPutManyResponseBodyData =
+    SymbolPutManyResponseBodyDataInstance[];
+
+export type SymbolPutManyResponseBody =
+    ResponseBase<SymbolPutManyResponseBodyData>;
+
+const SymbolPutManyResponseBodyDataInstanceExpected =
+    SymbolPutResponseBodyDataInstanceExpected;
+
+const SymbolPutManyResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(SymbolPutManyResponseBodyDataInstanceExpected),
+    }),
+]);
+
+export function SymbolPutManyResponseBodyFromRaw(
+    raw: SymbolPutManyResponseBody
+): SymbolPutManyResponseBody {
+    const parsed = SymbolPutManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+export interface SymbolPutSingleRequestParams {
+    id: number;
+}
+
+export interface SymbolPutSingleRequestParamsRaw {
+    id: string;
+}
+
+const SymbolPutSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function SymbolPutSingleRequestParamsFromRaw(
+    raw: SymbolPutSingleRequestParamsRaw
+): SymbolPutSingleRequestParams {
+    const parsed = SymbolPutSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
+export type SymbolPutSingleRequestBodyDataInstance =
+    SymbolPutRequestBodyDataInstance;
+export type SymbolPutSingleRequestBody = SymbolPutSingleRequestBodyDataInstance;
+
+const SymbolPutSingleRequestBodyDataInstanceExpected =
+    SymbolPutRequestBodyDataInstanceExpected;
+
+const SymbolPutSingleRequestBodyExpected =
+    SymbolPutSingleRequestBodyDataInstanceExpected;
+
+export function SymbolPutSingleRequestBodyFromRaw(
+    raw: SymbolPutSingleRequestBodyDataInstance
+): SymbolPutSingleRequestBodyDataInstance {
+    const parsed = SymbolPutSingleRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type SymbolPutSingleResponseBodyDataInstance =
+    SymbolPutResponseBodyDataInstance;
+
+export type SymbolPutSingleResponseBodyData =
+    SymbolPutSingleResponseBodyDataInstance;
+
+export type SymbolPutSingleResponseBody =
+    ResponseBase<SymbolPutSingleResponseBodyData>;
+
+const SymbolPutSingleResponseBodyDataInstanceExpected =
+    SymbolPutResponseBodyDataInstanceExpected;
+
+const SymbolPutSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: SymbolPutSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function SymbolPutSingleResponseBodyFromRaw(
+    raw: SymbolPutSingleResponseBody
+): SymbolPutSingleResponseBody {
+    const parsed = SymbolPutSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END PUT
+
+// BEGIN PATCH
+
+export interface SymbolPatchRequestBodyDataInstance
+    extends SymbolPropsOptional {}
+export interface SymbolPatchResponseBodyDataInstance extends SymbolProps {
+    id: number;
+}
+
+const SymbolPatchRequestBodyDataInstanceExpected = SymbolPropsOptionalExpected;
+
+const SymbolPatchResponseBodyDataInstanceExpected = SymbolPropsExpected.extend({
+    id: z.number(),
+});
+
+export interface SymbolPatchManyRequestBodyDataInstance
+    extends SymbolPatchRequestBodyDataInstance {
+    id: number;
+}
+export type SymbolPatchManyRequestBody =
+    SymbolPatchManyRequestBodyDataInstance[];
+
+const SymbolPatchManyRequestBodyDataInstanceExpected =
+    SymbolPatchRequestBodyDataInstanceExpected.extend({
+        id: z.number(),
+    });
+
+const SymbolPatchManyRequestBodyExpected = z.array(
+    SymbolPatchManyRequestBodyDataInstanceExpected
+);
+
+export function SymbolPatchManyRequestBodyFromRaw(
+    raw: SymbolPatchManyRequestBodyDataInstance[]
+): SymbolPatchManyRequestBodyDataInstance[] {
+    const parsed = SymbolPatchManyRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type SymbolPatchManyResponseBodyDataInstance =
+    SymbolPatchResponseBodyDataInstance;
+
+export type SymbolPatchManyResponseBodyData =
+    SymbolPatchManyResponseBodyDataInstance[];
+
+export type SymbolPatchManyResponseBody =
+    ResponseBase<SymbolPatchManyResponseBodyData>;
+
+const SymbolPatchManyResponseBodyDataInstanceExpected =
+    SymbolPatchResponseBodyDataInstanceExpected;
+
+const SymbolPatchManyResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(SymbolPatchManyResponseBodyDataInstanceExpected),
+    }),
+]);
+
+export function SymbolPatchManyResponseBodyFromRaw(
+    raw: SymbolPatchManyResponseBody
+): SymbolPatchManyResponseBody {
+    const parsed = SymbolPatchManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+export interface SymbolPatchSingleRequestParams {
+    id: number;
+}
+
+export interface SymbolPatchSingleRequestParamsRaw {
+    id: string;
+}
+
+const SymbolPatchSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function SymbolPatchSingleRequestParamsFromRaw(
+    raw: SymbolPatchSingleRequestParamsRaw
+): SymbolPatchSingleRequestParams {
+    const parsed = SymbolPatchSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
+export type SymbolPatchSingleRequestBodyDataInstance =
+    SymbolPatchRequestBodyDataInstance;
+export type SymbolPatchSingleRequestBody =
+    SymbolPatchSingleRequestBodyDataInstance;
+
+const SymbolPatchSingleRequestBodyDataInstanceExpected =
+    SymbolPatchRequestBodyDataInstanceExpected;
+
+const SymbolPatchSingleRequestBodyExpected =
+    SymbolPatchSingleRequestBodyDataInstanceExpected;
+
+export function SymbolPatchSingleRequestBodyFromRaw(
+    raw: SymbolPatchSingleRequestBodyDataInstance
+): SymbolPatchSingleRequestBodyDataInstance {
+    const parsed = SymbolPatchSingleRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type SymbolPatchSingleResponseBodyDataInstance =
+    SymbolPatchResponseBodyDataInstance;
+
+export type SymbolPatchSingleResponseBodyData =
+    SymbolPatchSingleResponseBodyDataInstance;
+
+export type SymbolPatchSingleResponseBody =
+    ResponseBase<SymbolPatchSingleResponseBodyData>;
+
+const SymbolPatchSingleResponseBodyDataInstanceExpected =
+    SymbolPatchResponseBodyDataInstanceExpected;
+
+const SymbolPatchSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: SymbolPatchSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function SymbolPatchSingleResponseBodyFromRaw(
+    raw: SymbolPatchSingleResponseBody
+): SymbolPatchSingleResponseBody {
+    const parsed = SymbolPatchSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END PATCH
+
+// BEGIN DELETE
+
+export type SymbolDeleteRequestBody = never;
+export interface SymbolDeleteResponseBodyDataInstance extends SymbolProps {
+    id: number;
+}
+
+export type SymbolDeleteManyRequestBody = SymbolDeleteRequestBody;
+export interface SymbolDeleteManyRequestQuery {
+    ids: number[];
+}
+
+const SymbolDeleteResponseBodyDataInstanceExpected = SymbolPropsExpected.extend(
+    {
+        id: z.number(),
+    }
+);
+
+export interface SymbolDeleteManyRequestQueryRaw {
+    ids?: string;
+}
+
+const SymbolDeleteManyRequestQueryRawExpected = z.object({
+    ids: z.string().regex(/^\d+(,\d+)*$/),
+});
+
+export function SymbolDeleteManyRequestQueryFromRaw(
+    raw: SymbolDeleteManyRequestQueryRaw
+): SymbolDeleteManyRequestQuery {
+    const parsed = SymbolDeleteManyRequestQueryRawExpected.parse(raw);
+    const ids = parsed.ids?.split(',').map((id) => parseInt(id));
+    return { ids };
+}
+export type SymbolDeleteManyResponseBodyDataInstance =
+    SymbolDeleteResponseBodyDataInstance;
+
+export type SymbolDeleteManyResponseBodyData =
+    SymbolDeleteManyResponseBodyDataInstance[];
+
+export type SymbolDeleteManyResponseBody =
+    ResponseBase<SymbolDeleteManyResponseBodyData>;
+
+const SymbolDeleteManyResponseBodyDataInstanceExpected =
+    SymbolDeleteResponseBodyDataInstanceExpected;
+
+const SymbolDeleteManyResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(SymbolDeleteManyResponseBodyDataInstanceExpected),
+    }),
+]);
+
+export function SymbolDeleteManyResponseBodyFromRaw(
+    raw: SymbolDeleteManyResponseBody
+): SymbolDeleteManyResponseBody {
+    const parsed = SymbolDeleteManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+export interface SymbolDeleteSingleRequestParams {
+    id: number;
+}
+
+export interface SymbolDeleteSingleRequestParamsRaw {
+    id: string;
+}
+
+const SymbolDeleteSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function SymbolDeleteSingleRequestParamsFromRaw(
+    raw: SymbolDeleteSingleRequestParamsRaw
+): SymbolDeleteSingleRequestParams {
+    const parsed = SymbolDeleteSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
+export type SymbolDeleteSingleRequestBody = SymbolDeleteRequestBody;
+
+export type SymbolDeleteSingleResponseBodyDataInstance =
+    SymbolDeleteResponseBodyDataInstance;
+
+export type SymbolDeleteSingleResponseBodyData =
+    SymbolDeleteSingleResponseBodyDataInstance;
+
+export type SymbolDeleteSingleResponseBody =
+    ResponseBase<SymbolDeleteSingleResponseBodyData>;
+
+const SymbolDeleteSingleResponseBodyDataInstanceExpected =
+    SymbolDeleteResponseBodyDataInstanceExpected;
+
+const SymbolDeleteSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: SymbolDeleteSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function SymbolDeleteSingleResponseBodyFromRaw(
+    raw: SymbolDeleteSingleResponseBody
+): SymbolDeleteSingleResponseBody {
+    const parsed = SymbolDeleteSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END DELETE

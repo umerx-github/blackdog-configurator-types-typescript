@@ -19,6 +19,7 @@ export interface StrategyTemplateSeaDogDiscountSchemeProps {
     status: Status;
     cashInCents: number;
     sellAtPercentile: number;
+    symbolIds: number[];
 }
 
 export interface StrategyTemplateSeaDogDiscountSchemePropsOptional {
@@ -26,6 +27,7 @@ export interface StrategyTemplateSeaDogDiscountSchemePropsOptional {
     status?: Status;
     cashInCents?: number;
     sellAtPercentile?: number;
+    symbolIds?: number[];
 }
 
 const StrategyTemplateSeaDogDiscountSchemePropsExpected = z.object({
@@ -33,6 +35,7 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z.object({
     status: StatusSchema,
     cashInCents: z.number(),
     sellAtPercentile: z.number(),
+    symbolIds: z.array(z.number()),
 });
 
 const StrategyTemplateSeaDogDiscountSchemePropsOptionalExpected =
