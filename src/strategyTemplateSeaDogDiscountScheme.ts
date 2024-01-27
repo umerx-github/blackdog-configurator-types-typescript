@@ -21,16 +21,20 @@ export interface StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     cashInCents: number;
     sellAtPercentile: number;
 }
+
+export interface StrategyTemplateSeaDogDiscountSchemeRequiredFieldsOptional {
+    strategyId?: number;
+    status?: Status;
+    cashInCents?: number;
+    sellAtPercentile?: number;
+}
 export interface StrategyTemplateSeaDogDiscountSchemeProps
     extends StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     symbolIds: number[];
 }
 
-export interface StrategyTemplateSeaDogDiscountSchemePropsOptional {
-    strategyId?: number;
-    status?: Status;
-    cashInCents?: number;
-    sellAtPercentile?: number;
+export interface StrategyTemplateSeaDogDiscountSchemePropsOptional
+    extends StrategyTemplateSeaDogDiscountSchemeRequiredFieldsOptional {
     symbolIds?: number[];
 }
 
