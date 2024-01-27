@@ -14,11 +14,14 @@ export const StatusSchema = z.enum(StatusConst);
 // = "Salmon" | "Tuna" | "Trout"
 export type Status = (typeof StatusConst)[number];
 
-export interface StrategyTemplateSeaDogDiscountSchemeProps {
+export interface StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     strategyId: number;
     status: Status;
     cashInCents: number;
     sellAtPercentile: number;
+}
+export interface StrategyTemplateSeaDogDiscountSchemeProps
+    extends StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     symbolIds: number[];
 }
 
@@ -48,7 +51,7 @@ export function StrategyTemplateSeaDogDiscountSchemePropsFromRaw(
     return parsed;
 }
 export interface StrategyTemplateSeaDogDiscountSchemeModelInterface
-    extends StrategyTemplateSeaDogDiscountSchemeProps {
+    extends StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     id: number;
 }
 
