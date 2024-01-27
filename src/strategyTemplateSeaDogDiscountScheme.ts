@@ -5,6 +5,7 @@ import {
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
+import { SymbolModelInterface } from './symbol.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -53,6 +54,7 @@ export function StrategyTemplateSeaDogDiscountSchemePropsFromRaw(
 export interface StrategyTemplateSeaDogDiscountSchemeModelInterface
     extends StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     id: number;
+    symbols: SymbolModelInterface[];
 }
 
 // BEGIN GET
