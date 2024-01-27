@@ -54,7 +54,7 @@ export function StrategyTemplateSeaDogDiscountSchemePropsFromRaw(
 export interface StrategyTemplateSeaDogDiscountSchemeModelInterface
     extends StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     id: number;
-    symbols: SymbolModelInterface[];
+    symbols?: SymbolModelInterface[];
 }
 
 // BEGIN GET
