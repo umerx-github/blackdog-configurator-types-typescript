@@ -6,14 +6,6 @@ import {
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
 
-// Single source of truth:
-const StatusConst = ['active', 'inactive'] as const;
-// Use in a Zod Schema:
-export const StatusSchema = z.enum(StatusConst);
-// Type to use in the code:
-// = "Salmon" | "Tuna" | "Trout"
-export type Status = (typeof StatusConst)[number];
-
 export interface OrderRequiredFields {
     symbolId: number;
     strategyId: number;
@@ -60,19 +52,22 @@ const OrderGetResponseBodyDataInstanceExpected = OrderPropsExpected.extend({
 
 export type OrderGetManyRequestBody = OrderGetRequestBody;
 export interface OrderGetManyRequestQuery {
+    symbolId?: number;
     strategyId?: number;
-    status?: Status;
+    alpacaOrderId?: string;
     ids?: number[];
 }
 export interface OrderGetManyRequestQueryRaw {
+    symbolId?: string;
     strategyId?: string;
-    status?: Status;
+    alpacaOrderId?: string;
     ids?: string;
 }
 
 const OrderGetManyRequestQueryRawExpected = z.object({
+    symbolId: z.string().regex(/^\d+$/).optional(),
     strategyId: z.string().regex(/^\d+$/).optional(),
-    status: StatusSchema.optional(),
+    alpacaOrderId: z.string().optional(),
     ids: z
         .string()
         .regex(/^\d+(,\d+)*$/)
@@ -83,12 +78,32 @@ export function OrderGetManyRequestQueryFromRaw(
     raw: OrderGetManyRequestQueryRaw
 ): OrderGetManyRequestQuery {
     const parsed = OrderGetManyRequestQueryRawExpected.parse(raw);
-    const ids = parsed.ids?.split(',').map((id) => parseInt(id));
+    const ids =
+        undefined === parsed.ids
+            ? undefined
+            : parsed.ids.split(',').map((id) => parseInt(id));
+    const symbolId =
+        undefined === parsed.symbolId ? undefined : parseInt(parsed.symbolId);
     const strategyId =
         undefined === parsed.strategyId
             ? undefined
             : parseInt(parsed.strategyId);
-    return { strategyId: strategyId, status: parsed.status, ids };
+    const alpacaOrderId =
+        undefined === parsed.alpacaOrderId ? undefined : parsed.alpacaOrderId;
+    const toReturn: OrderGetManyRequestQuery = {};
+    if (undefined !== ids) {
+        toReturn.ids = ids;
+    }
+    if (undefined !== symbolId) {
+        toReturn.symbolId = symbolId;
+    }
+    if (undefined !== strategyId) {
+        toReturn.strategyId = strategyId;
+    }
+    if (undefined !== alpacaOrderId) {
+        toReturn.alpacaOrderId = alpacaOrderId;
+    }
+    return toReturn;
 }
 export type OrderGetManyResponseBodyDataInstance =
     OrderGetResponseBodyDataInstance;
@@ -526,8 +541,7 @@ const OrderDeleteResponseBodyDataInstanceExpected = OrderPropsExpected.extend({
 });
 
 export interface OrderDeleteManyRequestQueryRaw {
-    status?: Status;
-    ids?: string;
+    ids: string;
 }
 
 const OrderDeleteManyRequestQueryRawExpected = z.object({
@@ -538,7 +552,7 @@ export function OrderDeleteManyRequestQueryFromRaw(
     raw: OrderDeleteManyRequestQueryRaw
 ): OrderDeleteManyRequestQuery {
     const parsed = OrderDeleteManyRequestQueryRawExpected.parse(raw);
-    const ids = parsed.ids?.split(',').map((id) => parseInt(id));
+    const ids = parsed.ids.split(',').map((id) => parseInt(id));
     return { ids };
 }
 export type OrderDeleteManyResponseBodyDataInstance =
