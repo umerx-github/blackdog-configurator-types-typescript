@@ -70,7 +70,7 @@ export interface StrategyTemplateSeaDogDiscountSchemeResponseBodyDataInstance
 
 export type StrategyTemplateSeaDogDiscountSchemeGetRequestBody = never;
 export type StrategyTemplateSeaDogDiscountSchemeGetResponseBodyDataInstance =
-    StrategyTemplateSeaDogDiscountSchemeProps;
+    StrategyTemplateSeaDogDiscountSchemeResponseBodyDataInstance;
 
 const StrategyTemplateSeaDogDiscountSchemeGetResponseBodyDataInstanceExpected =
     StrategyTemplateSeaDogDiscountSchemePropsExpected.extend({
@@ -210,7 +210,7 @@ export function StrategyTemplateSeaDogDiscountSchemeGetSingleResponseBodyFromRaw
 export interface StrategyTemplateSeaDogDiscountSchemePostRequestBodyDataInstance
     extends StrategyTemplateSeaDogDiscountSchemeProps {}
 export type StrategyTemplateSeaDogDiscountSchemePostResponseBodyDataInstance =
-    StrategyTemplateSeaDogDiscountSchemeProps;
+    StrategyTemplateSeaDogDiscountSchemeResponseBodyDataInstance;
 const StrategyTemplateSeaDogDiscountSchemePostRequestBodyDataInstanceExpected =
     StrategyTemplateSeaDogDiscountSchemePropsExpected;
 
@@ -331,7 +331,7 @@ export function StrategyTemplateSeaDogDiscountSchemePostSingleResponseBodyFromRa
 export interface StrategyTemplateSeaDogDiscountSchemePutRequestBodyDataInstance
     extends StrategyTemplateSeaDogDiscountSchemeProps {}
 export type StrategyTemplateSeaDogDiscountSchemePutResponseBodyDataInstance =
-    StrategyTemplateSeaDogDiscountSchemeProps;
+    StrategyTemplateSeaDogDiscountSchemeResponseBodyDataInstance;
 
 const StrategyTemplateSeaDogDiscountSchemePutRequestBodyDataInstanceExpected =
     StrategyTemplateSeaDogDiscountSchemePropsExpected;
@@ -483,7 +483,7 @@ export function StrategyTemplateSeaDogDiscountSchemePutSingleResponseBodyFromRaw
 export interface StrategyTemplateSeaDogDiscountSchemePatchRequestBodyDataInstance
     extends StrategyTemplateSeaDogDiscountSchemePropsOptional {}
 export type StrategyTemplateSeaDogDiscountSchemePatchResponseBodyDataInstance =
-    StrategyTemplateSeaDogDiscountSchemeProps;
+    StrategyTemplateSeaDogDiscountSchemeResponseBodyDataInstance;
 
 const StrategyTemplateSeaDogDiscountSchemePatchRequestBodyDataInstanceExpected =
     StrategyTemplateSeaDogDiscountSchemePropsOptionalExpected;
@@ -634,7 +634,7 @@ export function StrategyTemplateSeaDogDiscountSchemePatchSingleResponseBodyFromR
 
 export type StrategyTemplateSeaDogDiscountSchemeDeleteRequestBody = never;
 export type StrategyTemplateSeaDogDiscountSchemeDeleteResponseBodyDataInstance =
-    StrategyTemplateSeaDogDiscountSchemeProps;
+    StrategyTemplateSeaDogDiscountSchemeResponseBodyDataInstance;
 
 export type StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestBody =
     StrategyTemplateSeaDogDiscountSchemeDeleteRequestBody;
