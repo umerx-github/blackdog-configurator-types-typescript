@@ -6,13 +6,16 @@ import {
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
 
-export interface SymbolProps {
+export interface SymbolRequiredFields {
     name: string;
 }
 
-export interface SymbolPropsOptional {
+export interface SymbolRequiredFieldsOptional {
     name?: string;
 }
+export interface SymbolProps extends SymbolRequiredFields {}
+
+export interface SymbolPropsOptional extends SymbolRequiredFieldsOptional {}
 
 const SymbolPropsExpected = z.object({
     name: z.string(),
@@ -24,16 +27,18 @@ export function SymbolPropsFromRaw(raw: SymbolProps): SymbolProps {
     const parsed = SymbolPropsExpected.parse(raw);
     return parsed;
 }
-export interface SymbolModelInterface extends SymbolProps {
+export interface SymbolModelInterface extends SymbolRequiredFields {
+    id: number;
+}
+
+export interface SymbolResponseBodyDataInstance extends SymbolProps {
     id: number;
 }
 
 // BEGIN GET
 
 export type SymbolGetRequestBody = never;
-export interface SymbolGetResponseBodyDataInstance extends SymbolProps {
-    id: number;
-}
+export type SymbolGetResponseBodyDataInstance = SymbolResponseBodyDataInstance;
 
 const SymbolGetResponseBodyDataInstanceExpected = SymbolPropsExpected.extend({
     id: z.number(),
@@ -41,13 +46,16 @@ const SymbolGetResponseBodyDataInstanceExpected = SymbolPropsExpected.extend({
 
 export type SymbolGetManyRequestBody = SymbolGetRequestBody;
 export interface SymbolGetManyRequestQuery {
+    name?: string;
     ids?: number[];
 }
 export interface SymbolGetManyRequestQueryRaw {
+    name?: string;
     ids?: string;
 }
 
 const SymbolGetManyRequestQueryRawExpected = z.object({
+    name: z.string().optional(),
     ids: z
         .string()
         .regex(/^\d+(,\d+)*$/)
@@ -58,8 +66,19 @@ export function SymbolGetManyRequestQueryFromRaw(
     raw: SymbolGetManyRequestQueryRaw
 ): SymbolGetManyRequestQuery {
     const parsed = SymbolGetManyRequestQueryRawExpected.parse(raw);
-    const ids = parsed.ids?.split(',').map((id) => parseInt(id));
-    return { ids };
+    const ids =
+        undefined === parsed.ids
+            ? undefined
+            : parsed.ids.split(',').map((id) => parseInt(id));
+    const name = parsed.name ?? undefined;
+    const toReturn: SymbolGetManyRequestQuery = {};
+    if (undefined !== ids) {
+        toReturn.ids = ids;
+    }
+    if (undefined !== name) {
+        toReturn.name = name;
+    }
+    return toReturn;
 }
 export type SymbolGetManyResponseBodyDataInstance =
     SymbolGetResponseBodyDataInstance;
@@ -139,10 +158,7 @@ export function SymbolGetSingleResponseBodyFromRaw(
 // BEGIN POST
 
 export interface SymbolPostRequestBodyDataInstance extends SymbolProps {}
-export interface SymbolPostResponseBodyDataInstance extends SymbolProps {
-    id: number;
-}
-
+export type SymbolPostResponseBodyDataInstance = SymbolResponseBodyDataInstance;
 const SymbolPostRequestBodyDataInstanceExpected = SymbolPropsExpected;
 
 const SymbolPostResponseBodyDataInstanceExpected = SymbolPropsExpected.extend({
@@ -242,9 +258,7 @@ export function SymbolPostSingleResponseBodyFromRaw(
 // BEGIN PUT
 
 export interface SymbolPutRequestBodyDataInstance extends SymbolProps {}
-export interface SymbolPutResponseBodyDataInstance extends SymbolProps {
-    id: number;
-}
+export type SymbolPutResponseBodyDataInstance = SymbolResponseBodyDataInstance;
 
 const SymbolPutRequestBodyDataInstanceExpected = SymbolPropsExpected;
 
@@ -368,9 +382,8 @@ export function SymbolPutSingleResponseBodyFromRaw(
 
 export interface SymbolPatchRequestBodyDataInstance
     extends SymbolPropsOptional {}
-export interface SymbolPatchResponseBodyDataInstance extends SymbolProps {
-    id: number;
-}
+export type SymbolPatchResponseBodyDataInstance =
+    SymbolResponseBodyDataInstance;
 
 const SymbolPatchRequestBodyDataInstanceExpected = SymbolPropsOptionalExpected;
 
@@ -495,9 +508,8 @@ export function SymbolPatchSingleResponseBodyFromRaw(
 // BEGIN DELETE
 
 export type SymbolDeleteRequestBody = never;
-export interface SymbolDeleteResponseBodyDataInstance extends SymbolProps {
-    id: number;
-}
+export type SymbolDeleteResponseBodyDataInstance =
+    SymbolResponseBodyDataInstance;
 
 export type SymbolDeleteManyRequestBody = SymbolDeleteRequestBody;
 export interface SymbolDeleteManyRequestQuery {
@@ -511,7 +523,7 @@ const SymbolDeleteResponseBodyDataInstanceExpected = SymbolPropsExpected.extend(
 );
 
 export interface SymbolDeleteManyRequestQueryRaw {
-    ids?: string;
+    ids: string;
 }
 
 const SymbolDeleteManyRequestQueryRawExpected = z.object({
@@ -522,7 +534,7 @@ export function SymbolDeleteManyRequestQueryFromRaw(
     raw: SymbolDeleteManyRequestQueryRaw
 ): SymbolDeleteManyRequestQuery {
     const parsed = SymbolDeleteManyRequestQueryRawExpected.parse(raw);
-    const ids = parsed.ids?.split(',').map((id) => parseInt(id));
+    const ids = parsed.ids.split(',').map((id) => parseInt(id));
     return { ids };
 }
 export type SymbolDeleteManyResponseBodyDataInstance =
