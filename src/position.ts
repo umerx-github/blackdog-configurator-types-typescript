@@ -4,56 +4,22 @@ import {
     ResponseBase,
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase,
-    ResponseBodyOneOrManyBase,
 } from './response.js';
 
-import { RequestBodyOneOrManyBase } from './request.js';
-
-export interface PositionProps {
+export interface PositionRequiredFields {
     symbolId: number;
     strategyId: number;
     orderId: number;
 }
 
-export interface PositionPostRequestBodyInstance extends PositionProps {}
-export interface PositionPostResponseBodyInstance extends PositionProps {
-    id: number;
+export interface PositionRequiredFieldsOptional {
+    symbolId?: number;
+    strategyId?: number;
+    orderId?: number;
 }
-export type PositionPostRequestBody =
-    RequestBodyOneOrManyBase<PositionPostRequestBodyInstance>;
-export type PositionPostResponseBody =
-    ResponseBodyOneOrManyBase<PositionPostResponseBodyInstance>;
+export interface PositionProps extends PositionRequiredFields {}
 
-export interface PositionPutRequestBodyInstance extends PositionProps {}
-export interface PositionPutResponseBodyInstance extends PositionProps {
-    id: number;
-}
-export type PositionPutRequestBody =
-    RequestBodyOneOrManyBase<PositionPutRequestBodyInstance>;
-export type PositionPutResponseBody =
-    ResponseBodyOneOrManyBase<PositionPutResponseBodyInstance>;
-
-export interface PositionPatchRequestBodyInstance extends PositionProps {}
-export interface PositionPatchResponseBodyInstance extends PositionProps {
-    id: number;
-}
-export type PositionPatchRequestBody =
-    RequestBodyOneOrManyBase<PositionPatchRequestBodyInstance>;
-export type PositionPatchResponseBody =
-    ResponseBodyOneOrManyBase<PositionPatchResponseBodyInstance>;
-
-export interface PositionDeleteResponseBodyInstance extends PositionProps {
-    id: number;
-}
-export type PositionDeleteRequestBody = never;
-export type PositionDeleteResponseBody =
-    ResponseBodyOneOrManyBase<PositionDeleteResponseBodyInstance>;
-export interface PositionDeleteRequestParams {
-    ids?: number[];
-}
-export interface PositionDeleteRequestParamsRaw {
-    ids?: string;
-}
+export interface PositionPropsOptional extends PositionRequiredFieldsOptional {}
 
 const PositionPropsExpected = z.object({
     symbolId: z.number(),
@@ -61,152 +27,622 @@ const PositionPropsExpected = z.object({
     orderId: z.number(),
 });
 
+const PositionPropsOptionalExpected = PositionPropsExpected.partial();
+
 export function PositionPropsFromRaw(raw: PositionProps): PositionProps {
     const parsed = PositionPropsExpected.parse(raw);
     return parsed;
 }
-
-const PositionPostRequestBodyInstanceExpected = PositionPropsExpected;
-
-const PositionPostRequestBodyExpected = z.union([
-    PositionPostRequestBodyInstanceExpected,
-    z.array(PositionPostRequestBodyInstanceExpected),
-]);
-
-export function PositionPostRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<PositionPostRequestBodyInstance>
-): RequestBodyOneOrManyBase<PositionPostRequestBodyInstance> {
-    const parsed = PositionPostRequestBodyExpected.parse(raw);
-    return parsed;
+export interface PositionModelInterface extends PositionRequiredFields {
+    id: number;
 }
 
-const PositionPostResponseBodyInstanceExpected = PositionPropsExpected.extend({
-    id: z.number(),
+export interface PositionResponseBodyDataInstance extends PositionProps {
+    id: number;
+}
+
+// BEGIN GET
+
+export type PositionGetRequestBody = never;
+export type PositionGetResponseBodyDataInstance =
+    PositionResponseBodyDataInstance;
+
+const PositionGetResponseBodyDataInstanceExpected =
+    PositionPropsExpected.extend({
+        id: z.number(),
+    });
+
+export type PositionGetManyRequestBody = PositionGetRequestBody;
+export interface PositionGetManyRequestQuery {
+    symbolId?: number;
+    strategyId?: number;
+    orderId?: number;
+    ids?: number[];
+}
+export interface PositionGetManyRequestQueryRaw {
+    symbolId?: string;
+    strategyId?: string;
+    orderId?: number;
+    ids?: string;
+}
+
+const PositionGetManyRequestQueryRawExpected = z.object({
+    symbolId: z.string().regex(/^\d+$/).optional(),
+    strategyId: z.string().regex(/^\d+$/).optional(),
+    orderId: z.string().regex(/^\d+$/).optional(),
+    ids: z
+        .string()
+        .regex(/^\d+(,\d+)*$/)
+        .optional(),
 });
 
-const PositionPostResponseBodyExpected = z.union([
+export function PositionGetManyRequestQueryFromRaw(
+    raw: PositionGetManyRequestQueryRaw
+): PositionGetManyRequestQuery {
+    const parsed = PositionGetManyRequestQueryRawExpected.parse(raw);
+    const ids =
+        undefined === parsed.ids
+            ? undefined
+            : parsed.ids.split(',').map((id) => parseInt(id));
+    const symbolId =
+        undefined === parsed.symbolId ? undefined : parseInt(parsed.symbolId);
+    const strategyId =
+        undefined === parsed.strategyId
+            ? undefined
+            : parseInt(parsed.strategyId);
+    const orderId =
+        undefined === parsed.orderId ? undefined : parseInt(parsed.orderId);
+    const toReturn: PositionGetManyRequestQuery = {};
+    if (undefined !== ids) {
+        toReturn.ids = ids;
+    }
+    if (undefined !== symbolId) {
+        toReturn.symbolId = symbolId;
+    }
+    if (undefined !== strategyId) {
+        toReturn.strategyId = strategyId;
+    }
+    if (undefined !== orderId) {
+        toReturn.orderId = orderId;
+    }
+    return toReturn;
+}
+export type PositionGetManyResponseBodyDataInstance =
+    PositionGetResponseBodyDataInstance;
+
+export type PositionGetManyResponseBodyData =
+    PositionGetManyResponseBodyDataInstance[];
+
+export type PositionGetManyResponseBody =
+    ResponseBase<PositionGetManyResponseBodyData>;
+
+const PositionGetManyResponseBodyDataInstanceExpected =
+    PositionGetResponseBodyDataInstanceExpected;
+
+const PositionGetManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            PositionPostResponseBodyInstanceExpected,
-            z.array(PositionPostResponseBodyInstanceExpected),
-        ]),
+        data: z.array(PositionGetManyResponseBodyDataInstanceExpected),
     }),
 ]);
 
-export function PositionPostResponseBodyFromRaw(
-    raw: ResponseBase<ResponseBodyOneOrManyBase<PositionPostResponseBodyInstance>>
-): ResponseBase<ResponseBodyOneOrManyBase<PositionPostResponseBodyInstance>> {
-    const parsed = PositionPostResponseBodyExpected.parse(raw);
+export function PositionGetManyResponseBodyFromRaw(
+    raw: PositionGetManyResponseBody
+): PositionGetManyResponseBody {
+    const parsed = PositionGetManyResponseBodyExpected.parse(raw);
     return parsed;
 }
 
-const PositionPutRequestBodyInstanceExpected = PositionPropsExpected;
-
-const PositionPutRequestBodyExpected = z.union([
-    PositionPutRequestBodyInstanceExpected,
-    z.array(PositionPutRequestBodyInstanceExpected),
-]);
-
-export function PositionPutRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<PositionPutRequestBodyInstance>
-): RequestBodyOneOrManyBase<PositionPutRequestBodyInstance> {
-    const parsed = PositionPutRequestBodyExpected.parse(raw);
-    return parsed;
+export interface PositionGetSingleRequestParams {
+    id: number;
 }
 
-const PositionPutResponseBodyInstanceExpected = PositionPropsExpected.extend({
-    id: z.number(),
+export interface PositionGetSingleRequestParamsRaw {
+    id: string;
+}
+
+const PositionGetSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
 });
 
-const PositionPutResponseBodyExpected = z.union([
+export function PositionGetSingleRequestParamsFromRaw(
+    raw: PositionGetSingleRequestParamsRaw
+): PositionGetSingleRequestParams {
+    const parsed = PositionGetSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
+export type PositionGetSingleRequestBody = PositionGetRequestBody;
+
+export type PositionGetSingleResponseBodyDataInstance =
+    PositionGetResponseBodyDataInstance;
+
+export type PositionGetSingleResponseBodyData =
+    PositionGetSingleResponseBodyDataInstance;
+
+export type PositionGetSingleResponseBody =
+    ResponseBase<PositionGetSingleResponseBodyData>;
+
+const PositionGetSingleResponseBodyDataInstanceExpected =
+    PositionGetResponseBodyDataInstanceExpected;
+
+const PositionGetSingleResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            PositionPutResponseBodyInstanceExpected,
-            z.array(PositionPutResponseBodyInstanceExpected),
-        ]),
+        data: PositionGetSingleResponseBodyDataInstanceExpected,
     }),
 ]);
 
-export function PositionPutResponseBodyFromRaw(
-    raw: ResponseBase<ResponseBodyOneOrManyBase<PositionPutResponseBodyInstance>>
-): ResponseBase<ResponseBodyOneOrManyBase<PositionPutResponseBodyInstance>> {
-    const parsed = PositionPutResponseBodyExpected.parse(raw);
+export function PositionGetSingleResponseBodyFromRaw(
+    raw: PositionGetSingleResponseBody
+): PositionGetSingleResponseBody {
+    const parsed = PositionGetSingleResponseBodyExpected.parse(raw);
     return parsed;
 }
 
-const PositionPatchRequestBodyInstanceExpected = PositionPropsExpected;
+// END GET
 
-const PositionPatchRequestBodyExpected = z.union([
-    PositionPatchRequestBodyInstanceExpected,
-    z.array(PositionPatchRequestBodyInstanceExpected),
-]);
+// BEGIN POST
 
-export function PositionPatchRequestBodyFromRaw(
-    raw: RequestBodyOneOrManyBase<PositionPatchRequestBodyInstance>
-): RequestBodyOneOrManyBase<PositionPatchRequestBodyInstance> {
-    const parsed = PositionPatchRequestBodyExpected.parse(raw);
+export interface PositionPostRequestBodyDataInstance extends PositionProps {}
+export type PositionPostResponseBodyDataInstance =
+    PositionResponseBodyDataInstance;
+const PositionPostRequestBodyDataInstanceExpected = PositionPropsExpected;
+
+const PositionPostResponseBodyDataInstanceExpected =
+    PositionPropsExpected.extend({
+        id: z.number(),
+    });
+
+const PositionPostManyRequestBodyDataInstanceExpected =
+    PositionPostRequestBodyDataInstanceExpected;
+
+const PositionPostManyRequestBodyExpected = z.array(
+    PositionPostManyRequestBodyDataInstanceExpected
+);
+
+export type PositionPostManyRequestBodyDataInstance =
+    PositionPostRequestBodyDataInstance;
+
+export type PositionPostManyRequestBody =
+    PositionPostManyRequestBodyDataInstance[];
+
+export function PositionPostManyRequestBodyFromRaw(
+    raw: PositionPostManyRequestBodyDataInstance[]
+): PositionPostManyRequestBodyDataInstance[] {
+    const parsed = PositionPostManyRequestBodyExpected.parse(raw);
     return parsed;
 }
+export type PositionPostManyResponseBodyDataInstance =
+    PositionPostResponseBodyDataInstance;
 
-const PositionPatchResponseBodyInstanceExpected = PositionPropsExpected.extend({
-    id: z.number(),
-});
+export type PositionPostManyResponseBodyData =
+    PositionPostManyResponseBodyDataInstance[];
 
-const PositionPatchResponseBodyExpected = z.union([
+export type PositionPostManyResponseBody =
+    ResponseBase<PositionPostManyResponseBodyData>;
+
+const PositionPostManyResponseBodyDataInstanceExpected =
+    PositionPostResponseBodyDataInstanceExpected;
+
+const PositionPostManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            PositionPatchResponseBodyInstanceExpected,
-            z.array(PositionPatchResponseBodyInstanceExpected),
-        ]),
+        data: z.array(PositionPostManyResponseBodyDataInstanceExpected),
     }),
 ]);
 
-export function PositionPatchResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<PositionPatchResponseBodyInstance>
-    >
-): ResponseBase<ResponseBodyOneOrManyBase<PositionPatchResponseBodyInstance>> {
-    const parsed = PositionPatchResponseBodyExpected.parse(raw);
+export function PositionPostManyResponseBodyFromRaw(
+    raw: PositionPostManyResponseBody
+): PositionPostManyResponseBody {
+    const parsed = PositionPostManyResponseBodyExpected.parse(raw);
     return parsed;
 }
 
-// Typing Express Request: https://stackoverflow.com/questions/48027563/typescript-type-annotation-for-res-body
+export type PositionPostSingleRequestBodyDataInstance =
+    PositionPostRequestBodyDataInstance;
+export type PositionPostSingleRequestBody =
+    PositionPostSingleRequestBodyDataInstance;
 
-const PositionDeleteRequestParamsExpected = z.object({
+const PositionPostSingleRequestBodyDataInstanceExpected =
+    PositionPostRequestBodyDataInstanceExpected;
+
+const PositionPostSingleRequestBodyExpected =
+    PositionPostSingleRequestBodyDataInstanceExpected;
+
+export function PositionPostSingleRequestBodyFromRaw(
+    raw: PositionPostSingleRequestBodyDataInstance
+): PositionPostSingleRequestBodyDataInstance {
+    const parsed = PositionPostSingleRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type PositionPostSingleResponseBodyDataInstance =
+    PositionPostResponseBodyDataInstance;
+
+export type PositionPostSingleResponseBodyData =
+    PositionPostSingleResponseBodyDataInstance;
+
+export type PositionPostSingleResponseBody =
+    ResponseBase<PositionPostSingleResponseBodyData>;
+
+const PositionPostSingleResponseBodyDataInstanceExpected =
+    PositionPostResponseBodyDataInstanceExpected;
+
+const PositionPostSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: PositionPostSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function PositionPostSingleResponseBodyFromRaw(
+    raw: PositionPostSingleResponseBody
+): PositionPostSingleResponseBody {
+    const parsed = PositionPostSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END POST
+
+// BEGIN PUT
+
+export interface PositionPutRequestBodyDataInstance extends PositionProps {}
+export type PositionPutResponseBodyDataInstance =
+    PositionResponseBodyDataInstance;
+
+const PositionPutRequestBodyDataInstanceExpected = PositionPropsExpected;
+
+const PositionPutResponseBodyDataInstanceExpected =
+    PositionPropsExpected.extend({
+        id: z.number(),
+    });
+
+export interface PositionPutManyRequestBodyDataInstance
+    extends PositionPutRequestBodyDataInstance {
+    id: number;
+}
+export type PositionPutManyRequestBody =
+    PositionPutManyRequestBodyDataInstance[];
+
+const PositionPutManyRequestBodyDataInstanceExpected =
+    PositionPutRequestBodyDataInstanceExpected.extend({
+        id: z.number(),
+    });
+
+const PositionPutManyRequestBodyExpected = z.array(
+    PositionPutManyRequestBodyDataInstanceExpected
+);
+
+export function PositionPutManyRequestBodyFromRaw(
+    raw: PositionPutManyRequestBodyDataInstance[]
+): PositionPutManyRequestBodyDataInstance[] {
+    const parsed = PositionPutManyRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type PositionPutManyResponseBodyDataInstance =
+    PositionPutResponseBodyDataInstance;
+
+export type PositionPutManyResponseBodyData =
+    PositionPutManyResponseBodyDataInstance[];
+
+export type PositionPutManyResponseBody =
+    ResponseBase<PositionPutManyResponseBodyData>;
+
+const PositionPutManyResponseBodyDataInstanceExpected =
+    PositionPutResponseBodyDataInstanceExpected;
+
+const PositionPutManyResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(PositionPutManyResponseBodyDataInstanceExpected),
+    }),
+]);
+
+export function PositionPutManyResponseBodyFromRaw(
+    raw: PositionPutManyResponseBody
+): PositionPutManyResponseBody {
+    const parsed = PositionPutManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+export interface PositionPutSingleRequestParams {
+    id: number;
+}
+
+export interface PositionPutSingleRequestParamsRaw {
+    id: string;
+}
+
+const PositionPutSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function PositionPutSingleRequestParamsFromRaw(
+    raw: PositionPutSingleRequestParamsRaw
+): PositionPutSingleRequestParams {
+    const parsed = PositionPutSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
+export type PositionPutSingleRequestBodyDataInstance =
+    PositionPutRequestBodyDataInstance;
+export type PositionPutSingleRequestBody =
+    PositionPutSingleRequestBodyDataInstance;
+
+const PositionPutSingleRequestBodyDataInstanceExpected =
+    PositionPutRequestBodyDataInstanceExpected;
+
+const PositionPutSingleRequestBodyExpected =
+    PositionPutSingleRequestBodyDataInstanceExpected;
+
+export function PositionPutSingleRequestBodyFromRaw(
+    raw: PositionPutSingleRequestBodyDataInstance
+): PositionPutSingleRequestBodyDataInstance {
+    const parsed = PositionPutSingleRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type PositionPutSingleResponseBodyDataInstance =
+    PositionPutResponseBodyDataInstance;
+
+export type PositionPutSingleResponseBodyData =
+    PositionPutSingleResponseBodyDataInstance;
+
+export type PositionPutSingleResponseBody =
+    ResponseBase<PositionPutSingleResponseBodyData>;
+
+const PositionPutSingleResponseBodyDataInstanceExpected =
+    PositionPutResponseBodyDataInstanceExpected;
+
+const PositionPutSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: PositionPutSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function PositionPutSingleResponseBodyFromRaw(
+    raw: PositionPutSingleResponseBody
+): PositionPutSingleResponseBody {
+    const parsed = PositionPutSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END PUT
+
+// BEGIN PATCH
+
+export interface PositionPatchRequestBodyDataInstance
+    extends PositionPropsOptional {}
+export type PositionPatchResponseBodyDataInstance =
+    PositionResponseBodyDataInstance;
+
+const PositionPatchRequestBodyDataInstanceExpected =
+    PositionPropsOptionalExpected;
+
+const PositionPatchResponseBodyDataInstanceExpected =
+    PositionPropsExpected.extend({
+        id: z.number(),
+    });
+
+export interface PositionPatchManyRequestBodyDataInstance
+    extends PositionPatchRequestBodyDataInstance {
+    id: number;
+}
+export type PositionPatchManyRequestBody =
+    PositionPatchManyRequestBodyDataInstance[];
+
+const PositionPatchManyRequestBodyDataInstanceExpected =
+    PositionPatchRequestBodyDataInstanceExpected.extend({
+        id: z.number(),
+    });
+
+const PositionPatchManyRequestBodyExpected = z.array(
+    PositionPatchManyRequestBodyDataInstanceExpected
+);
+
+export function PositionPatchManyRequestBodyFromRaw(
+    raw: PositionPatchManyRequestBodyDataInstance[]
+): PositionPatchManyRequestBodyDataInstance[] {
+    const parsed = PositionPatchManyRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type PositionPatchManyResponseBodyDataInstance =
+    PositionPatchResponseBodyDataInstance;
+
+export type PositionPatchManyResponseBodyData =
+    PositionPatchManyResponseBodyDataInstance[];
+
+export type PositionPatchManyResponseBody =
+    ResponseBase<PositionPatchManyResponseBodyData>;
+
+const PositionPatchManyResponseBodyDataInstanceExpected =
+    PositionPatchResponseBodyDataInstanceExpected;
+
+const PositionPatchManyResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(PositionPatchManyResponseBodyDataInstanceExpected),
+    }),
+]);
+
+export function PositionPatchManyResponseBodyFromRaw(
+    raw: PositionPatchManyResponseBody
+): PositionPatchManyResponseBody {
+    const parsed = PositionPatchManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+export interface PositionPatchSingleRequestParams {
+    id: number;
+}
+
+export interface PositionPatchSingleRequestParamsRaw {
+    id: string;
+}
+
+const PositionPatchSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function PositionPatchSingleRequestParamsFromRaw(
+    raw: PositionPatchSingleRequestParamsRaw
+): PositionPatchSingleRequestParams {
+    const parsed = PositionPatchSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
+export type PositionPatchSingleRequestBodyDataInstance =
+    PositionPatchRequestBodyDataInstance;
+export type PositionPatchSingleRequestBody =
+    PositionPatchSingleRequestBodyDataInstance;
+
+const PositionPatchSingleRequestBodyDataInstanceExpected =
+    PositionPatchRequestBodyDataInstanceExpected;
+
+const PositionPatchSingleRequestBodyExpected =
+    PositionPatchSingleRequestBodyDataInstanceExpected;
+
+export function PositionPatchSingleRequestBodyFromRaw(
+    raw: PositionPatchSingleRequestBodyDataInstance
+): PositionPatchSingleRequestBodyDataInstance {
+    const parsed = PositionPatchSingleRequestBodyExpected.parse(raw);
+    return parsed;
+}
+
+export type PositionPatchSingleResponseBodyDataInstance =
+    PositionPatchResponseBodyDataInstance;
+
+export type PositionPatchSingleResponseBodyData =
+    PositionPatchSingleResponseBodyDataInstance;
+
+export type PositionPatchSingleResponseBody =
+    ResponseBase<PositionPatchSingleResponseBodyData>;
+
+const PositionPatchSingleResponseBodyDataInstanceExpected =
+    PositionPatchResponseBodyDataInstanceExpected;
+
+const PositionPatchSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: PositionPatchSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function PositionPatchSingleResponseBodyFromRaw(
+    raw: PositionPatchSingleResponseBody
+): PositionPatchSingleResponseBody {
+    const parsed = PositionPatchSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END PATCH
+
+// BEGIN DELETE
+
+export type PositionDeleteRequestBody = never;
+export type PositionDeleteResponseBodyDataInstance =
+    PositionResponseBodyDataInstance;
+
+export type PositionDeleteManyRequestBody = PositionDeleteRequestBody;
+export interface PositionDeleteManyRequestQuery {
+    ids: number[];
+}
+
+const PositionDeleteResponseBodyDataInstanceExpected =
+    PositionPropsExpected.extend({
+        id: z.number(),
+    });
+
+export interface PositionDeleteManyRequestQueryRaw {
+    ids: string;
+}
+
+const PositionDeleteManyRequestQueryRawExpected = z.object({
     ids: z.string().regex(/^\d+(,\d+)*$/),
-    // .optional(),
 });
 
-export function PositionDeleteRequestParamsFromRaw(
-    raw: PositionDeleteRequestParamsRaw
-): PositionDeleteRequestParams {
-    const parsed = PositionDeleteRequestParamsExpected.parse(raw);
-    const ids = parsed.ids?.split(',').map((id) => parseInt(id));
+export function PositionDeleteManyRequestQueryFromRaw(
+    raw: PositionDeleteManyRequestQueryRaw
+): PositionDeleteManyRequestQuery {
+    const parsed = PositionDeleteManyRequestQueryRawExpected.parse(raw);
+    const ids = parsed.ids.split(',').map((id) => parseInt(id));
     return { ids };
 }
+export type PositionDeleteManyResponseBodyDataInstance =
+    PositionDeleteResponseBodyDataInstance;
 
-const PositionDeleteResponseBodyInstanceExpected = PositionPropsExpected.extend({
-    id: z.number(),
-});
+export type PositionDeleteManyResponseBodyData =
+    PositionDeleteManyResponseBodyDataInstance[];
 
-const PositionDeleteResponseBodyExpected = z.union([
+export type PositionDeleteManyResponseBody =
+    ResponseBase<PositionDeleteManyResponseBodyData>;
+
+const PositionDeleteManyResponseBodyDataInstanceExpected =
+    PositionDeleteResponseBodyDataInstanceExpected;
+
+const PositionDeleteManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase.extend({
-        data: z.union([
-            PositionDeleteResponseBodyInstanceExpected,
-            z.array(PositionDeleteResponseBodyInstanceExpected),
-        ]),
+        data: z.array(PositionDeleteManyResponseBodyDataInstanceExpected),
     }),
 ]);
 
-export function PositionDeleteResponseBodyFromRaw(
-    raw: ResponseBase<
-        ResponseBodyOneOrManyBase<PositionDeleteResponseBodyInstance>
-    >
-): ResponseBase<ResponseBodyOneOrManyBase<PositionDeleteResponseBodyInstance>> {
-    const parsed = PositionDeleteResponseBodyExpected.parse(raw);
+export function PositionDeleteManyResponseBodyFromRaw(
+    raw: PositionDeleteManyResponseBody
+): PositionDeleteManyResponseBody {
+    const parsed = PositionDeleteManyResponseBodyExpected.parse(raw);
     return parsed;
 }
+
+export interface PositionDeleteSingleRequestParams {
+    id: number;
+}
+
+export interface PositionDeleteSingleRequestParamsRaw {
+    id: string;
+}
+
+const PositionDeleteSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function PositionDeleteSingleRequestParamsFromRaw(
+    raw: PositionDeleteSingleRequestParamsRaw
+): PositionDeleteSingleRequestParams {
+    const parsed = PositionDeleteSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
+export type PositionDeleteSingleRequestBody = PositionDeleteRequestBody;
+
+export type PositionDeleteSingleResponseBodyDataInstance =
+    PositionDeleteResponseBodyDataInstance;
+
+export type PositionDeleteSingleResponseBodyData =
+    PositionDeleteSingleResponseBodyDataInstance;
+
+export type PositionDeleteSingleResponseBody =
+    ResponseBase<PositionDeleteSingleResponseBodyData>;
+
+const PositionDeleteSingleResponseBodyDataInstanceExpected =
+    PositionDeleteResponseBodyDataInstanceExpected;
+
+const PositionDeleteSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: PositionDeleteSingleResponseBodyDataInstanceExpected,
+    }),
+]);
+
+export function PositionDeleteSingleResponseBodyFromRaw(
+    raw: PositionDeleteSingleResponseBody
+): PositionDeleteSingleResponseBody {
+    const parsed = PositionDeleteSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END DELETE
