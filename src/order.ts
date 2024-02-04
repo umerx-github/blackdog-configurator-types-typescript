@@ -25,6 +25,7 @@ export interface OrderRequiredFieldsOptional {
     symbolId?: number;
     strategyId?: number;
     alpacaOrderId?: string;
+    status?: Status;
 }
 export interface OrderProps extends OrderRequiredFields {}
 
