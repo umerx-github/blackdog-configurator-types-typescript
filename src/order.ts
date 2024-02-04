@@ -14,11 +14,19 @@ export const StatusSchema = z.enum(StatusConst);
 // = "Salmon" | "Tuna" | "Trout"
 export type Status = (typeof StatusConst)[number];
 
+const SideConst = ['buy', 'sell'] as const;
+// Use in a Zod Schema:
+export const SideSchema = z.enum(SideConst);
+// Type to use in the code:
+// = "Salmon" | "Tuna" | "Trout"
+export type Side = (typeof SideConst)[number];
+
 export interface OrderRequiredFields {
     symbolId: number;
     strategyId: number;
     alpacaOrderId: string;
     status: Status;
+    side: Side;
 }
 
 export interface OrderRequiredFieldsOptional {
@@ -26,6 +34,7 @@ export interface OrderRequiredFieldsOptional {
     strategyId?: number;
     alpacaOrderId?: string;
     status?: Status;
+    side?: Side;
 }
 export interface OrderProps extends OrderRequiredFields {}
 
@@ -36,6 +45,7 @@ const OrderPropsExpected = z.object({
     strategyId: z.number(),
     alpacaOrderId: z.string(),
     status: StatusSchema,
+    side: SideSchema,
 });
 
 const OrderPropsOptionalExpected = OrderPropsExpected.partial();
@@ -67,6 +77,7 @@ export interface OrderGetManyRequestQuery {
     strategyId?: number;
     alpacaOrderId?: string;
     status?: Status;
+    side?: Side;
     ids?: number[];
 }
 export interface OrderGetManyRequestQueryRaw {
@@ -74,6 +85,7 @@ export interface OrderGetManyRequestQueryRaw {
     strategyId?: string;
     alpacaOrderId?: string;
     status?: string;
+    side?: string;
     ids?: string;
 }
 
@@ -82,6 +94,7 @@ const OrderGetManyRequestQueryRawExpected = z.object({
     strategyId: z.string().regex(/^\d+$/).optional(),
     alpacaOrderId: z.string().optional(),
     status: StatusSchema.optional(),
+    side: SideSchema.optional(),
     ids: z
         .string()
         .regex(/^\d+(,\d+)*$/)
@@ -119,6 +132,9 @@ export function OrderGetManyRequestQueryFromRaw(
     }
     if (undefined !== parsed.status) {
         toReturn.status = parsed.status;
+    }
+    if (undefined !== parsed.side) {
+        toReturn.side = parsed.side;
     }
     return toReturn;
 }
