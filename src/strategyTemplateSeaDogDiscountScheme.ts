@@ -20,6 +20,9 @@ export interface StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     status: Status;
     cashInCents: number;
     sellAtPercentile: number;
+    alpacaAPIKey: string;
+    alpacaAPISecret: string;
+    alpacaAPIPaper: boolean;
 }
 
 export interface StrategyTemplateSeaDogDiscountSchemeRequiredFieldsOptional {
@@ -27,6 +30,9 @@ export interface StrategyTemplateSeaDogDiscountSchemeRequiredFieldsOptional {
     status?: Status;
     cashInCents?: number;
     sellAtPercentile?: number;
+    alpacaAPIKey?: string;
+    alpacaAPISecret?: string;
+    alpacaAPIPaper?: boolean;
 }
 export interface StrategyTemplateSeaDogDiscountSchemeProps
     extends StrategyTemplateSeaDogDiscountSchemeRequiredFields {
@@ -44,6 +50,9 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z.object({
     cashInCents: z.number(),
     sellAtPercentile: z.number(),
     symbolIds: z.array(z.number()),
+    alpacaAPIKey: z.string(),
+    alpacaAPISecret: z.string(),
+    alpacaAPIPaper: z.boolean(),
 });
 
 const StrategyTemplateSeaDogDiscountSchemePropsOptionalExpected =
