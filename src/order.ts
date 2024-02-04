@@ -6,10 +6,19 @@ import {
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
 
+// Single source of truth:
+const StatusConst = ['open', 'closed'] as const;
+// Use in a Zod Schema:
+export const StatusSchema = z.enum(StatusConst);
+// Type to use in the code:
+// = "Salmon" | "Tuna" | "Trout"
+export type Status = (typeof StatusConst)[number];
+
 export interface OrderRequiredFields {
     symbolId: number;
     strategyId: number;
     alpacaOrderId: string;
+    status: Status;
 }
 
 export interface OrderRequiredFieldsOptional {
@@ -25,6 +34,7 @@ const OrderPropsExpected = z.object({
     symbolId: z.number(),
     strategyId: z.number(),
     alpacaOrderId: z.string(),
+    status: StatusSchema,
 });
 
 const OrderPropsOptionalExpected = OrderPropsExpected.partial();
@@ -55,12 +65,14 @@ export interface OrderGetManyRequestQuery {
     symbolId?: number;
     strategyId?: number;
     alpacaOrderId?: string;
+    status?: Status;
     ids?: number[];
 }
 export interface OrderGetManyRequestQueryRaw {
     symbolId?: string;
     strategyId?: string;
     alpacaOrderId?: string;
+    status?: string;
     ids?: string;
 }
 
@@ -68,6 +80,7 @@ const OrderGetManyRequestQueryRawExpected = z.object({
     symbolId: z.string().regex(/^\d+$/).optional(),
     strategyId: z.string().regex(/^\d+$/).optional(),
     alpacaOrderId: z.string().optional(),
+    status: StatusSchema.optional(),
     ids: z
         .string()
         .regex(/^\d+(,\d+)*$/)
@@ -102,6 +115,9 @@ export function OrderGetManyRequestQueryFromRaw(
     }
     if (undefined !== alpacaOrderId) {
         toReturn.alpacaOrderId = alpacaOrderId;
+    }
+    if (undefined !== parsed.status) {
+        toReturn.status = parsed.status;
     }
     return toReturn;
 }

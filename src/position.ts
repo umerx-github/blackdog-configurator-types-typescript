@@ -9,13 +9,11 @@ import {
 export interface PositionRequiredFields {
     symbolId: number;
     strategyId: number;
-    orderId: number;
 }
 
 export interface PositionRequiredFieldsOptional {
     symbolId?: number;
     strategyId?: number;
-    orderId?: number;
 }
 export interface PositionProps extends PositionRequiredFields {}
 
@@ -24,7 +22,6 @@ export interface PositionPropsOptional extends PositionRequiredFieldsOptional {}
 const PositionPropsExpected = z.object({
     symbolId: z.number(),
     strategyId: z.number(),
-    orderId: z.number(),
 });
 
 const PositionPropsOptionalExpected = PositionPropsExpected.partial();
@@ -56,20 +53,17 @@ export type PositionGetManyRequestBody = PositionGetRequestBody;
 export interface PositionGetManyRequestQuery {
     symbolId?: number;
     strategyId?: number;
-    orderId?: number;
     ids?: number[];
 }
 export interface PositionGetManyRequestQueryRaw {
     symbolId?: string;
     strategyId?: string;
-    orderId?: number;
     ids?: string;
 }
 
 const PositionGetManyRequestQueryRawExpected = z.object({
     symbolId: z.string().regex(/^\d+$/).optional(),
     strategyId: z.string().regex(/^\d+$/).optional(),
-    orderId: z.string().regex(/^\d+$/).optional(),
     ids: z
         .string()
         .regex(/^\d+(,\d+)*$/)
@@ -90,8 +84,6 @@ export function PositionGetManyRequestQueryFromRaw(
         undefined === parsed.strategyId
             ? undefined
             : parseInt(parsed.strategyId);
-    const orderId =
-        undefined === parsed.orderId ? undefined : parseInt(parsed.orderId);
     const toReturn: PositionGetManyRequestQuery = {};
     if (undefined !== ids) {
         toReturn.ids = ids;
@@ -101,9 +93,6 @@ export function PositionGetManyRequestQueryFromRaw(
     }
     if (undefined !== strategyId) {
         toReturn.strategyId = strategyId;
-    }
-    if (undefined !== orderId) {
-        toReturn.orderId = orderId;
     }
     return toReturn;
 }
