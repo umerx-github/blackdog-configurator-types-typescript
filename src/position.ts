@@ -9,11 +9,13 @@ import {
 export interface PositionRequiredFields {
     symbolId: number;
     strategyId: number;
+    quantity: number;
 }
 
 export interface PositionRequiredFieldsOptional {
     symbolId?: number;
     strategyId?: number;
+    quantity?: number;
 }
 export interface PositionProps extends PositionRequiredFields {}
 
@@ -22,6 +24,7 @@ export interface PositionPropsOptional extends PositionRequiredFieldsOptional {}
 const PositionPropsExpected = z.object({
     symbolId: z.number(),
     strategyId: z.number(),
+    quantity: z.number(),
 });
 
 const PositionPropsOptionalExpected = PositionPropsExpected.partial();

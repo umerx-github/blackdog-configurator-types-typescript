@@ -27,6 +27,7 @@ export interface OrderRequiredFields {
     alpacaOrderId: string;
     status: Status;
     side: Side;
+    quantity: number;
 }
 
 export interface OrderRequiredFieldsOptional {
@@ -35,6 +36,7 @@ export interface OrderRequiredFieldsOptional {
     alpacaOrderId?: string;
     status?: Status;
     side?: Side;
+    quantity?: number;
 }
 export interface OrderProps extends OrderRequiredFields {}
 
@@ -46,6 +48,7 @@ const OrderPropsExpected = z.object({
     alpacaOrderId: z.string(),
     status: StatusSchema,
     side: SideSchema,
+    quantity: z.number(),
 });
 
 const OrderPropsOptionalExpected = OrderPropsExpected.partial();
