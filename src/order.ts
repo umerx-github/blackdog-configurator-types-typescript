@@ -21,32 +21,34 @@ export const SideSchema = z.enum(SideConst);
 // = "Salmon" | "Tuna" | "Trout"
 export type Side = (typeof SideConst)[number];
 
-export interface OrderRequiredFields {
+export interface OrderProps {
     symbolId: number;
     strategyId: number;
     alpacaOrderId: string;
-    status: Status;
     side: Side;
     quantity: number;
 }
 
-export interface OrderRequiredFieldsOptional {
+export interface OrderPropsOptional {
     symbolId?: number;
     strategyId?: number;
     alpacaOrderId?: string;
-    status?: Status;
     side?: Side;
     quantity?: number;
 }
-export interface OrderProps extends OrderRequiredFields {}
 
-export interface OrderPropsOptional extends OrderRequiredFieldsOptional {}
+export interface OrderRequiredFields extends OrderProps {
+    status: Status;
+}
+
+export interface OrderRequiredFieldsOptional extends OrderPropsOptional {
+    status?: Status;
+}
 
 const OrderPropsExpected = z.object({
     symbolId: z.number(),
     strategyId: z.number(),
     alpacaOrderId: z.string(),
-    status: StatusSchema,
     side: SideSchema,
     quantity: z.number(),
 });
@@ -57,11 +59,15 @@ export function OrderPropsFromRaw(raw: OrderProps): OrderProps {
     const parsed = OrderPropsExpected.parse(raw);
     return parsed;
 }
+
+const OrderRequiredFieldsExpected = OrderPropsExpected.extend({
+    status: StatusSchema,
+});
 export interface OrderModelInterface extends OrderRequiredFields {
     id: number;
 }
 
-export interface OrderResponseBodyDataInstance extends OrderProps {
+export interface OrderResponseBodyDataInstance extends OrderRequiredFields {
     id: number;
 }
 
@@ -70,9 +76,10 @@ export interface OrderResponseBodyDataInstance extends OrderProps {
 export type OrderGetRequestBody = never;
 export type OrderGetResponseBodyDataInstance = OrderResponseBodyDataInstance;
 
-const OrderGetResponseBodyDataInstanceExpected = OrderPropsExpected.extend({
-    id: z.number(),
-});
+const OrderGetResponseBodyDataInstanceExpected =
+    OrderRequiredFieldsExpected.extend({
+        id: z.number(),
+    });
 
 export type OrderGetManyRequestBody = OrderGetRequestBody;
 export interface OrderGetManyRequestQuery {
@@ -222,9 +229,10 @@ export interface OrderPostRequestBodyDataInstance extends OrderProps {}
 export type OrderPostResponseBodyDataInstance = OrderResponseBodyDataInstance;
 const OrderPostRequestBodyDataInstanceExpected = OrderPropsExpected;
 
-const OrderPostResponseBodyDataInstanceExpected = OrderPropsExpected.extend({
-    id: z.number(),
-});
+const OrderPostResponseBodyDataInstanceExpected =
+    OrderRequiredFieldsExpected.extend({
+        id: z.number(),
+    });
 
 const OrderPostManyRequestBodyDataInstanceExpected =
     OrderPostRequestBodyDataInstanceExpected;
@@ -322,9 +330,10 @@ export type OrderPutResponseBodyDataInstance = OrderResponseBodyDataInstance;
 
 const OrderPutRequestBodyDataInstanceExpected = OrderPropsExpected;
 
-const OrderPutResponseBodyDataInstanceExpected = OrderPropsExpected.extend({
-    id: z.number(),
-});
+const OrderPutResponseBodyDataInstanceExpected =
+    OrderRequiredFieldsExpected.extend({
+        id: z.number(),
+    });
 
 export interface OrderPutManyRequestBodyDataInstance
     extends OrderPutRequestBodyDataInstance {
@@ -445,9 +454,10 @@ export type OrderPatchResponseBodyDataInstance = OrderResponseBodyDataInstance;
 
 const OrderPatchRequestBodyDataInstanceExpected = OrderPropsOptionalExpected;
 
-const OrderPatchResponseBodyDataInstanceExpected = OrderPropsExpected.extend({
-    id: z.number(),
-});
+const OrderPatchResponseBodyDataInstanceExpected =
+    OrderRequiredFieldsExpected.extend({
+        id: z.number(),
+    });
 
 export interface OrderPatchManyRequestBodyDataInstance
     extends OrderPatchRequestBodyDataInstance {
@@ -572,9 +582,10 @@ export interface OrderDeleteManyRequestQuery {
     ids: number[];
 }
 
-const OrderDeleteResponseBodyDataInstanceExpected = OrderPropsExpected.extend({
-    id: z.number(),
-});
+const OrderDeleteResponseBodyDataInstanceExpected =
+    OrderRequiredFieldsExpected.extend({
+        id: z.number(),
+    });
 
 export interface OrderDeleteManyRequestQueryRaw {
     ids: string;
