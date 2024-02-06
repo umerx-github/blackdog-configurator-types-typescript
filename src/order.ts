@@ -45,13 +45,15 @@ export interface OrderRequiredFieldsOptional extends OrderPropsOptional {
     status?: Status;
 }
 
-const OrderPropsExpected = z.object({
-    symbolId: z.number(),
-    strategyId: z.number(),
-    alpacaOrderId: z.string(),
-    side: SideSchema,
-    quantity: z.number(),
-});
+const OrderPropsExpected = z
+    .object({
+        symbolId: z.number(),
+        strategyId: z.number(),
+        alpacaOrderId: z.string(),
+        side: SideSchema,
+        quantity: z.number(),
+    })
+    .strict();
 
 const OrderPropsOptionalExpected = OrderPropsExpected.partial();
 
@@ -99,17 +101,19 @@ export interface OrderGetManyRequestQueryRaw {
     ids?: string;
 }
 
-const OrderGetManyRequestQueryRawExpected = z.object({
-    symbolId: z.string().regex(/^\d+$/).optional(),
-    strategyId: z.string().regex(/^\d+$/).optional(),
-    alpacaOrderId: z.string().optional(),
-    status: StatusSchema.optional(),
-    side: SideSchema.optional(),
-    ids: z
-        .string()
-        .regex(/^\d+(,\d+)*$/)
-        .optional(),
-});
+const OrderGetManyRequestQueryRawExpected = z
+    .object({
+        symbolId: z.string().regex(/^\d+$/).optional(),
+        strategyId: z.string().regex(/^\d+$/).optional(),
+        alpacaOrderId: z.string().optional(),
+        status: StatusSchema.optional(),
+        side: SideSchema.optional(),
+        ids: z
+            .string()
+            .regex(/^\d+(,\d+)*$/)
+            .optional(),
+    })
+    .strict();
 
 export function OrderGetManyRequestQueryFromRaw(
     raw: OrderGetManyRequestQueryRaw
@@ -182,9 +186,11 @@ export interface OrderGetSingleRequestParamsRaw {
     id: string;
 }
 
-const OrderGetSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const OrderGetSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function OrderGetSingleRequestParamsFromRaw(
     raw: OrderGetSingleRequestParamsRaw
@@ -391,9 +397,11 @@ export interface OrderPutSingleRequestParamsRaw {
     id: string;
 }
 
-const OrderPutSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const OrderPutSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function OrderPutSingleRequestParamsFromRaw(
     raw: OrderPutSingleRequestParamsRaw
@@ -515,9 +523,11 @@ export interface OrderPatchSingleRequestParamsRaw {
     id: string;
 }
 
-const OrderPatchSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const OrderPatchSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function OrderPatchSingleRequestParamsFromRaw(
     raw: OrderPatchSingleRequestParamsRaw
@@ -591,9 +601,11 @@ export interface OrderDeleteManyRequestQueryRaw {
     ids: string;
 }
 
-const OrderDeleteManyRequestQueryRawExpected = z.object({
-    ids: z.string().regex(/^\d+(,\d+)*$/),
-});
+const OrderDeleteManyRequestQueryRawExpected = z
+    .object({
+        ids: z.string().regex(/^\d+(,\d+)*$/),
+    })
+    .strict();
 
 export function OrderDeleteManyRequestQueryFromRaw(
     raw: OrderDeleteManyRequestQueryRaw
@@ -636,9 +648,11 @@ export interface OrderDeleteSingleRequestParamsRaw {
     id: string;
 }
 
-const OrderDeleteSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const OrderDeleteSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function OrderDeleteSingleRequestParamsFromRaw(
     raw: OrderDeleteSingleRequestParamsRaw
