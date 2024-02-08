@@ -18,7 +18,7 @@ export interface SymbolProps extends SymbolRequiredFields {}
 export interface SymbolPropsOptional extends SymbolRequiredFieldsOptional {}
 
 const SymbolPropsExpected = z.object({
-    name: z.string(),
+    name: z.string().transform((val) => val.trim().toUpperCase()),
 });
 
 const SymbolPropsOptionalExpected = SymbolPropsExpected.partial();
@@ -55,7 +55,10 @@ export interface SymbolGetManyRequestQueryRaw {
 }
 
 const SymbolGetManyRequestQueryRawExpected = z.object({
-    name: z.string().optional(),
+    name: z
+        .string()
+        .optional()
+        .transform((val) => val?.trim().toUpperCase()),
     ids: z
         .string()
         .regex(/^\d+(,\d+)*$/)
