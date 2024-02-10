@@ -21,11 +21,13 @@ export interface PositionProps extends PositionRequiredFields {}
 
 export interface PositionPropsOptional extends PositionRequiredFieldsOptional {}
 
-const PositionPropsExpected = z.object({
-    symbolId: z.number(),
-    strategyId: z.number(),
-    quantity: z.number(),
-});
+const PositionPropsExpected = z
+    .object({
+        symbolId: z.number(),
+        strategyId: z.number(),
+        quantity: z.number(),
+    })
+    .strict();
 
 const PositionPropsOptionalExpected = PositionPropsExpected.partial();
 
@@ -64,14 +66,16 @@ export interface PositionGetManyRequestQueryRaw {
     ids?: string;
 }
 
-const PositionGetManyRequestQueryRawExpected = z.object({
-    symbolId: z.string().regex(/^\d+$/).optional(),
-    strategyId: z.string().regex(/^\d+$/).optional(),
-    ids: z
-        .string()
-        .regex(/^\d+(,\d+)*$/)
-        .optional(),
-});
+const PositionGetManyRequestQueryRawExpected = z
+    .object({
+        symbolId: z.string().regex(/^\d+$/).optional(),
+        strategyId: z.string().regex(/^\d+$/).optional(),
+        ids: z
+            .string()
+            .regex(/^\d+(,\d+)*$/)
+            .optional(),
+    })
+    .strict();
 
 export function PositionGetManyRequestQueryFromRaw(
     raw: PositionGetManyRequestQueryRaw
@@ -133,9 +137,11 @@ export interface PositionGetSingleRequestParamsRaw {
     id: string;
 }
 
-const PositionGetSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const PositionGetSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function PositionGetSingleRequestParamsFromRaw(
     raw: PositionGetSingleRequestParamsRaw
@@ -347,9 +353,11 @@ export interface PositionPutSingleRequestParamsRaw {
     id: string;
 }
 
-const PositionPutSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const PositionPutSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function PositionPutSingleRequestParamsFromRaw(
     raw: PositionPutSingleRequestParamsRaw
@@ -476,9 +484,11 @@ export interface PositionPatchSingleRequestParamsRaw {
     id: string;
 }
 
-const PositionPatchSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const PositionPatchSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function PositionPatchSingleRequestParamsFromRaw(
     raw: PositionPatchSingleRequestParamsRaw
@@ -553,9 +563,11 @@ export interface PositionDeleteManyRequestQueryRaw {
     ids: string;
 }
 
-const PositionDeleteManyRequestQueryRawExpected = z.object({
-    ids: z.string().regex(/^\d+(,\d+)*$/),
-});
+const PositionDeleteManyRequestQueryRawExpected = z
+    .object({
+        ids: z.string().regex(/^\d+(,\d+)*$/),
+    })
+    .strict();
 
 export function PositionDeleteManyRequestQueryFromRaw(
     raw: PositionDeleteManyRequestQueryRaw
@@ -598,9 +610,11 @@ export interface PositionDeleteSingleRequestParamsRaw {
     id: string;
 }
 
-const PositionDeleteSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const PositionDeleteSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function PositionDeleteSingleRequestParamsFromRaw(
     raw: PositionDeleteSingleRequestParamsRaw

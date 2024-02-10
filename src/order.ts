@@ -711,9 +711,11 @@ export interface OrderFillPostSingleResponseBody {
     data: OrderResponseBodyDataInstance;
 }
 
-export const OrderFillPostSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+export const OrderFillPostSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function OrderFillPostSingleRequestParamsFromRaw(
     raw: OrderFillPostSingleRequestParamsRaw
@@ -741,9 +743,11 @@ export interface OrderCancelPostSingleResponseBody {
     data: OrderResponseBodyDataInstance;
 }
 
-export const OrderCancelPostSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+export const OrderCancelPostSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function OrderCancelPostSingleRequestParamsFromRaw(
     raw: OrderCancelPostSingleRequestParamsRaw

@@ -17,9 +17,11 @@ export interface SymbolProps extends SymbolRequiredFields {}
 
 export interface SymbolPropsOptional extends SymbolRequiredFieldsOptional {}
 
-const SymbolPropsExpected = z.object({
-    name: z.string().transform((val) => val.trim().toUpperCase()),
-});
+const SymbolPropsExpected = z
+    .object({
+        name: z.string().transform((val) => val.trim().toUpperCase()),
+    })
+    .strict();
 
 const SymbolPropsOptionalExpected = SymbolPropsExpected.partial();
 
@@ -54,16 +56,18 @@ export interface SymbolGetManyRequestQueryRaw {
     ids?: string;
 }
 
-const SymbolGetManyRequestQueryRawExpected = z.object({
-    name: z
-        .string()
-        .optional()
-        .transform((val) => val?.trim().toUpperCase()),
-    ids: z
-        .string()
-        .regex(/^\d+(,\d+)*$/)
-        .optional(),
-});
+const SymbolGetManyRequestQueryRawExpected = z
+    .object({
+        name: z
+            .string()
+            .optional()
+            .transform((val) => val?.trim().toUpperCase()),
+        ids: z
+            .string()
+            .regex(/^\d+(,\d+)*$/)
+            .optional(),
+    })
+    .strict();
 
 export function SymbolGetManyRequestQueryFromRaw(
     raw: SymbolGetManyRequestQueryRaw
@@ -117,9 +121,11 @@ export interface SymbolGetSingleRequestParamsRaw {
     id: string;
 }
 
-const SymbolGetSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const SymbolGetSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function SymbolGetSingleRequestParamsFromRaw(
     raw: SymbolGetSingleRequestParamsRaw
@@ -325,9 +331,11 @@ export interface SymbolPutSingleRequestParamsRaw {
     id: string;
 }
 
-const SymbolPutSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const SymbolPutSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function SymbolPutSingleRequestParamsFromRaw(
     raw: SymbolPutSingleRequestParamsRaw
@@ -451,9 +459,11 @@ export interface SymbolPatchSingleRequestParamsRaw {
     id: string;
 }
 
-const SymbolPatchSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const SymbolPatchSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function SymbolPatchSingleRequestParamsFromRaw(
     raw: SymbolPatchSingleRequestParamsRaw
@@ -529,9 +539,11 @@ export interface SymbolDeleteManyRequestQueryRaw {
     ids: string;
 }
 
-const SymbolDeleteManyRequestQueryRawExpected = z.object({
-    ids: z.string().regex(/^\d+(,\d+)*$/),
-});
+const SymbolDeleteManyRequestQueryRawExpected = z
+    .object({
+        ids: z.string().regex(/^\d+(,\d+)*$/),
+    })
+    .strict();
 
 export function SymbolDeleteManyRequestQueryFromRaw(
     raw: SymbolDeleteManyRequestQueryRaw
@@ -574,9 +586,11 @@ export interface SymbolDeleteSingleRequestParamsRaw {
     id: string;
 }
 
-const SymbolDeleteSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const SymbolDeleteSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function SymbolDeleteSingleRequestParamsFromRaw(
     raw: SymbolDeleteSingleRequestParamsRaw

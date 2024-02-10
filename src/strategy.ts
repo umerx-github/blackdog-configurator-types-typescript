@@ -32,12 +32,14 @@ export interface StrategyPropsOptional {
     cashInCents?: number;
 }
 
-const StrategyPropsExpected = z.object({
-    status: StatusSchema,
-    title: z.string(),
-    strategyTemplateName: StrategyTemplateNameSchema,
-    cashInCents: z.number(),
-});
+const StrategyPropsExpected = z
+    .object({
+        status: StatusSchema,
+        title: z.string(),
+        strategyTemplateName: StrategyTemplateNameSchema,
+        cashInCents: z.number(),
+    })
+    .strict();
 
 const StrategyPropsOptionalExpected = StrategyPropsExpected.partial();
 
@@ -71,13 +73,15 @@ export interface StrategyGetManyRequestQueryRaw {
     ids?: string;
 }
 
-const StrategyGetManyRequestQueryRawExpected = z.object({
-    status: StatusSchema.optional(),
-    ids: z
-        .string()
-        .regex(/^\d+(,\d+)*$/)
-        .optional(),
-});
+const StrategyGetManyRequestQueryRawExpected = z
+    .object({
+        status: StatusSchema.optional(),
+        ids: z
+            .string()
+            .regex(/^\d+(,\d+)*$/)
+            .optional(),
+    })
+    .strict();
 
 export function StrategyGetManyRequestQueryFromRaw(
     raw: StrategyGetManyRequestQueryRaw
@@ -120,9 +124,11 @@ export interface StrategyGetSingleRequestParamsRaw {
     id: string;
 }
 
-const StrategyGetSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const StrategyGetSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function StrategyGetSingleRequestParamsFromRaw(
     raw: StrategyGetSingleRequestParamsRaw
@@ -337,9 +343,11 @@ export interface StrategyPutSingleRequestParamsRaw {
     id: string;
 }
 
-const StrategyPutSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const StrategyPutSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function StrategyPutSingleRequestParamsFromRaw(
     raw: StrategyPutSingleRequestParamsRaw
@@ -467,9 +475,11 @@ export interface StrategyPatchSingleRequestParamsRaw {
     id: string;
 }
 
-const StrategyPatchSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const StrategyPatchSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function StrategyPatchSingleRequestParamsFromRaw(
     raw: StrategyPatchSingleRequestParamsRaw
@@ -546,9 +556,11 @@ export interface StrategyDeleteManyRequestQueryRaw {
     ids?: string;
 }
 
-const StrategyDeleteManyRequestQueryRawExpected = z.object({
-    ids: z.string().regex(/^\d+(,\d+)*$/),
-});
+const StrategyDeleteManyRequestQueryRawExpected = z
+    .object({
+        ids: z.string().regex(/^\d+(,\d+)*$/),
+    })
+    .strict();
 
 export function StrategyDeleteManyRequestQueryFromRaw(
     raw: StrategyDeleteManyRequestQueryRaw
@@ -591,9 +603,11 @@ export interface StrategyDeleteSingleRequestParamsRaw {
     id: string;
 }
 
-const StrategyDeleteSingleRequestParamsExpected = z.object({
-    id: z.string().regex(/^\d+$/),
-});
+const StrategyDeleteSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
 
 export function StrategyDeleteSingleRequestParamsFromRaw(
     raw: StrategyDeleteSingleRequestParamsRaw

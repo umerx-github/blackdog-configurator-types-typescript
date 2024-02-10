@@ -24,10 +24,12 @@ export interface StrategyTemplateSeaDogDiscountSchemeSymbolPropsOptional {
     symbolId?: number;
 }
 
-const StrategyTemplateSeaDogDiscountSchemeSymbolPropsExpected = z.object({
-    strategyTemplateSeaDogDiscountSchemeId: z.number(),
-    symbolId: z.number(),
-});
+const StrategyTemplateSeaDogDiscountSchemeSymbolPropsExpected = z
+    .object({
+        strategyTemplateSeaDogDiscountSchemeId: z.number(),
+        symbolId: z.number(),
+    })
+    .strict();
 
 const StrategyTemplateSeaDogDiscountSchemeSymbolPropsOptionalExpected =
     StrategyTemplateSeaDogDiscountSchemeSymbolPropsExpected.partial();
@@ -71,18 +73,20 @@ export interface StrategyTemplateSeaDogDiscountSchemeSymbolGetManyRequestQueryRa
 }
 
 const StrategyTemplateSeaDogDiscountSchemeSymbolGetManyRequestQueryRawExpected =
-    z.object({
-        strategyTemplateSeaDogDiscountSchemeId: z
-            .string()
-            .regex(/^\d+$/)
-            .optional(),
-        symbolId: z.string().regex(/^\d+$/).optional(),
-        status: StatusSchema.optional(),
-        ids: z
-            .string()
-            .regex(/^\d+(,\d+)*$/)
-            .optional(),
-    });
+    z
+        .object({
+            strategyTemplateSeaDogDiscountSchemeId: z
+                .string()
+                .regex(/^\d+$/)
+                .optional(),
+            symbolId: z.string().regex(/^\d+$/).optional(),
+            status: StatusSchema.optional(),
+            ids: z
+                .string()
+                .regex(/^\d+(,\d+)*$/)
+                .optional(),
+        })
+        .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolGetManyRequestQueryFromRaw(
     raw: StrategyTemplateSeaDogDiscountSchemeSymbolGetManyRequestQueryRaw
@@ -146,9 +150,11 @@ export interface StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleRequestParam
 }
 
 const StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleRequestParamsExpected =
-    z.object({
-        id: z.string().regex(/^\d+$/),
-    });
+    z
+        .object({
+            id: z.string().regex(/^\d+$/),
+        })
+        .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleRequestParamsFromRaw(
     raw: StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleRequestParamsRaw
@@ -407,9 +413,11 @@ export interface StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestParam
 }
 
 const StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestParamsExpected =
-    z.object({
-        id: z.string().regex(/^\d+$/),
-    });
+    z
+        .object({
+            id: z.string().regex(/^\d+$/),
+        })
+        .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestParamsFromRaw(
     raw: StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestParamsRaw
@@ -561,9 +569,11 @@ export interface StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestPar
 }
 
 const StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestParamsExpected =
-    z.object({
-        id: z.string().regex(/^\d+$/),
-    });
+    z
+        .object({
+            id: z.string().regex(/^\d+$/),
+        })
+        .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestParamsFromRaw(
     raw: StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestParamsRaw
@@ -653,9 +663,11 @@ export interface StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQuer
 }
 
 const StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQueryRawExpected =
-    z.object({
-        ids: z.string().regex(/^\d+(,\d+)*$/),
-    });
+    z
+        .object({
+            ids: z.string().regex(/^\d+(,\d+)*$/),
+        })
+        .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQueryFromRaw(
     raw: StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQueryRaw
@@ -708,9 +720,11 @@ export interface StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleRequestPa
 }
 
 const StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleRequestParamsExpected =
-    z.object({
-        id: z.string().regex(/^\d+$/),
-    });
+    z
+        .object({
+            id: z.string().regex(/^\d+$/),
+        })
+        .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleRequestParamsFromRaw(
     raw: StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleRequestParamsRaw
