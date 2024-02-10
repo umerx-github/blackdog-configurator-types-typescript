@@ -720,3 +720,33 @@ export function OrderFillPostSingleRequestParamsFromRaw(
 }
 
 // END FILL
+
+// BEGIN CANCEL
+
+export interface OrderCancelPostSingleRequestParamsRaw {
+    id: string;
+}
+
+export interface OrderCancelPostSingleRequestParams {
+    id: number;
+}
+
+export type OrderCancelPostSingleRequestBody = never;
+export interface OrderCancelPostSingleResponseBody {
+    status: string;
+    message: string;
+    data: OrderResponseBodyDataInstance;
+}
+
+export const OrderCancelPostSingleRequestParamsExpected = z.object({
+    id: z.string().regex(/^\d+$/),
+});
+
+export function OrderCancelPostSingleRequestParamsFromRaw(
+    raw: OrderCancelPostSingleRequestParamsRaw
+): OrderCancelPostSingleRequestParams {
+    const parsed = OrderCancelPostSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
+// END CANCEL
