@@ -18,7 +18,6 @@ export type Status = (typeof StatusConst)[number];
 export interface StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     strategyId: number;
     status: Status;
-    cashInCents: number;
     sellAtPercentile: number;
     alpacaAPIKey: string;
     alpacaAPISecret: string;
@@ -28,7 +27,6 @@ export interface StrategyTemplateSeaDogDiscountSchemeRequiredFields {
 export interface StrategyTemplateSeaDogDiscountSchemeRequiredFieldsOptional {
     strategyId?: number;
     status?: Status;
-    cashInCents?: number;
     sellAtPercentile?: number;
     alpacaAPIKey?: string;
     alpacaAPISecret?: string;
@@ -47,7 +45,6 @@ export interface StrategyTemplateSeaDogDiscountSchemePropsOptional
 const StrategyTemplateSeaDogDiscountSchemePropsExpected = z.object({
     strategyId: z.number(),
     status: StatusSchema,
-    cashInCents: z.number(),
     sellAtPercentile: z.number(),
     symbolIds: z.array(z.number()),
     alpacaAPIKey: z.string(),

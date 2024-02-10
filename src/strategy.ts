@@ -9,7 +9,6 @@ import {
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
-import { Strategy } from '../index.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -23,18 +22,21 @@ export interface StrategyProps {
     status: Status;
     title: string;
     strategyTemplateName: StrategyTemplateName;
+    cashInCents: number;
 }
 
 export interface StrategyPropsOptional {
     status?: Status;
     title?: string;
     strategyTemplateName?: StrategyTemplateName;
+    cashInCents?: number;
 }
 
 const StrategyPropsExpected = z.object({
     status: StatusSchema,
     title: z.string(),
     strategyTemplateName: StrategyTemplateNameSchema,
+    cashInCents: z.number(),
 });
 
 const StrategyPropsOptionalExpected = StrategyPropsExpected.partial();
