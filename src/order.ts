@@ -27,6 +27,7 @@ export interface OrderProps {
     alpacaOrderId: string;
     side: Side;
     quantity: number;
+    averagePriceInCents: number;
 }
 
 export interface OrderPropsOptional {
@@ -35,6 +36,7 @@ export interface OrderPropsOptional {
     alpacaOrderId?: string;
     side?: Side;
     quantity?: number;
+    averagePriceInCents?: number;
 }
 
 export interface OrderRequiredFields extends OrderProps {
@@ -52,6 +54,7 @@ const OrderPropsExpected = z
         alpacaOrderId: z.string(),
         side: SideSchema,
         quantity: z.number(),
+        averagePriceInCents: z.number(),
     })
     .strict();
 
