@@ -25,7 +25,7 @@ const PositionPropsExpected = z
     .object({
         symbolId: z.number(),
         strategyId: z.number(),
-        quantity: z.number(),
+        quantity: z.number().min(0, 'Quantity must be positive'),
     })
     .strict();
 

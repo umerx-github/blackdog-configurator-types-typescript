@@ -53,8 +53,11 @@ const OrderPropsExpected = z
         strategyId: z.number(),
         alpacaOrderId: z.string(),
         side: SideSchema,
-        quantity: z.number(),
-        averagePriceInCents: z.number(),
+        quantity: z.number().min(0, 'Quantity must be positive'),
+        averagePriceInCents: z
+            .number()
+            .min(0, 'Average price must be positive')
+            .step(1),
     })
     .strict();
 
@@ -704,7 +707,25 @@ export interface OrderFillPostSingleRequestParams {
     id: number;
 }
 
-export type OrderFillPostSingleRequestBody = never;
+export type OrderFillPostSingleRequestBody = {
+    averagePriceInCents: number;
+};
+
+const OrderFillPostSingleRequestBodyExpected = z
+    .object({
+        averagePriceInCents: z
+            .number()
+            .min(0, 'Average price must be positive')
+            .step(1),
+    })
+    .strict();
+
+export function OrderFillPostSingleRequestBodyFromRaw(
+    raw: OrderFillPostSingleRequestBody
+): OrderFillPostSingleRequestBody {
+    return OrderFillPostSingleRequestBodyExpected.parse(raw);
+}
+
 export interface OrderFillPostSingleResponseBody {
     status: string;
     message: string;
