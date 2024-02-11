@@ -22,6 +22,7 @@ export interface StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     alpacaAPIKey: string;
     alpacaAPISecret: string;
     alpacaAPIPaper: boolean;
+    timeframeInDays: number;
 }
 
 export interface StrategyTemplateSeaDogDiscountSchemeRequiredFieldsOptional {
@@ -31,6 +32,7 @@ export interface StrategyTemplateSeaDogDiscountSchemeRequiredFieldsOptional {
     alpacaAPIKey?: string;
     alpacaAPISecret?: string;
     alpacaAPIPaper?: boolean;
+    timeframeInDays?: number;
 }
 export interface StrategyTemplateSeaDogDiscountSchemeProps
     extends StrategyTemplateSeaDogDiscountSchemeRequiredFields {
@@ -51,6 +53,7 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z
         alpacaAPIKey: z.string(),
         alpacaAPISecret: z.string(),
         alpacaAPIPaper: z.boolean(),
+        timeframeInDays: z.number().min(0).step(1),
     })
     .strict();
 
