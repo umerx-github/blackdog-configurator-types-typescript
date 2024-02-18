@@ -10,12 +10,14 @@ export interface PositionRequiredFields {
     symbolId: number;
     strategyId: number;
     quantity: number;
+    averagePriceInCents: number;
 }
 
 export interface PositionRequiredFieldsOptional {
     symbolId?: number;
     strategyId?: number;
     quantity?: number;
+    averagePriceInCents?: number;
 }
 export interface PositionProps extends PositionRequiredFields {}
 
@@ -26,6 +28,9 @@ const PositionPropsExpected = z
         symbolId: z.number(),
         strategyId: z.number(),
         quantity: z.number().min(0, 'Quantity must be positive'),
+        averagePriceInCents: z
+            .number()
+            .min(0, 'Average price must be positive'),
     })
     .strict();
 
