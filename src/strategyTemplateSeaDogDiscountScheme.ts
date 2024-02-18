@@ -18,20 +18,24 @@ export type Status = (typeof StatusConst)[number];
 export interface StrategyTemplateSeaDogDiscountSchemeRequiredFields {
     strategyId: number;
     status: Status;
-    sellAtPercentile: number;
     alpacaAPIKey: string;
     alpacaAPISecret: string;
     alpacaAPIPaper: boolean;
+    buyAtPercentile: number;
+    sellAtPercentile: number;
+    minimumGainPercent: number;
     timeframeInDays: number;
 }
 
 export interface StrategyTemplateSeaDogDiscountSchemeRequiredFieldsOptional {
     strategyId?: number;
     status?: Status;
-    sellAtPercentile?: number;
     alpacaAPIKey?: string;
     alpacaAPISecret?: string;
     alpacaAPIPaper?: boolean;
+    buyAtPercentile?: number;
+    sellAtPercentile?: number;
+    minimumGainPercent?: number;
     timeframeInDays?: number;
 }
 export interface StrategyTemplateSeaDogDiscountSchemeProps
@@ -48,12 +52,14 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z
     .object({
         strategyId: z.number(),
         status: StatusSchema,
-        sellAtPercentile: z.number(),
-        symbolIds: z.array(z.number()),
         alpacaAPIKey: z.string(),
         alpacaAPISecret: z.string(),
         alpacaAPIPaper: z.boolean(),
+        sellAtPercentile: z.number(),
+        buyAtPercentile: z.number(),
+        minimumGainPercent: z.number(),
         timeframeInDays: z.number().min(0).step(1),
+        symbolIds: z.array(z.number()),
     })
     .strict();
 
