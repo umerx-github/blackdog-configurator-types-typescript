@@ -63,7 +63,7 @@ const OrderPropsExpected = z
 
 const OrderPropsOptionalExpected = OrderPropsExpected.partial();
 
-export function OrderPropsFromRaw(raw: OrderProps): OrderProps {
+export function OrderPropsFromRaw(raw: any): OrderProps {
     const parsed = OrderPropsExpected.parse(raw);
     return parsed;
 }
@@ -122,7 +122,7 @@ const OrderGetManyRequestQueryRawExpected = z
     .strict();
 
 export function OrderGetManyRequestQueryFromRaw(
-    raw: OrderGetManyRequestQueryRaw
+    raw: any
 ): OrderGetManyRequestQuery {
     const parsed = OrderGetManyRequestQueryRawExpected.parse(raw);
     const ids =
@@ -178,7 +178,7 @@ const OrderGetManyResponseBodyExpected = z.union([
 ]);
 
 export function OrderGetManyResponseBodyFromRaw(
-    raw: OrderGetManyResponseBody
+    raw: any
 ): OrderGetManyResponseBody {
     const parsed = OrderGetManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -199,7 +199,7 @@ const OrderGetSingleRequestParamsExpected = z
     .strict();
 
 export function OrderGetSingleRequestParamsFromRaw(
-    raw: OrderGetSingleRequestParamsRaw
+    raw: any
 ): OrderGetSingleRequestParams {
     const parsed = OrderGetSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -227,7 +227,7 @@ const OrderGetSingleResponseBodyExpected = z.union([
 ]);
 
 export function OrderGetSingleResponseBodyFromRaw(
-    raw: OrderGetSingleResponseBody
+    raw: any
 ): OrderGetSingleResponseBody {
     const parsed = OrderGetSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -259,7 +259,7 @@ export type OrderPostManyRequestBodyDataInstance =
 export type OrderPostManyRequestBody = OrderPostManyRequestBodyDataInstance[];
 
 export function OrderPostManyRequestBodyFromRaw(
-    raw: OrderPostManyRequestBodyDataInstance[]
+    raw: any
 ): OrderPostManyRequestBodyDataInstance[] {
     const parsed = OrderPostManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -284,7 +284,7 @@ const OrderPostManyResponseBodyExpected = z.union([
 ]);
 
 export function OrderPostManyResponseBodyFromRaw(
-    raw: OrderPostManyResponseBody
+    raw: any
 ): OrderPostManyResponseBody {
     const parsed = OrderPostManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -301,7 +301,7 @@ const OrderPostSingleRequestBodyExpected =
     OrderPostSingleRequestBodyDataInstanceExpected;
 
 export function OrderPostSingleRequestBodyFromRaw(
-    raw: OrderPostSingleRequestBodyDataInstance
+    raw: any
 ): OrderPostSingleRequestBodyDataInstance {
     const parsed = OrderPostSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -327,7 +327,7 @@ const OrderPostSingleResponseBodyExpected = z.union([
 ]);
 
 export function OrderPostSingleResponseBodyFromRaw(
-    raw: OrderPostSingleResponseBody
+    raw: any
 ): OrderPostSingleResponseBody {
     const parsed = OrderPostSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -363,7 +363,7 @@ const OrderPutManyRequestBodyExpected = z.array(
 );
 
 export function OrderPutManyRequestBodyFromRaw(
-    raw: OrderPutManyRequestBodyDataInstance[]
+    raw: any
 ): OrderPutManyRequestBodyDataInstance[] {
     const parsed = OrderPutManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -389,7 +389,7 @@ const OrderPutManyResponseBodyExpected = z.union([
 ]);
 
 export function OrderPutManyResponseBodyFromRaw(
-    raw: OrderPutManyResponseBody
+    raw: any
 ): OrderPutManyResponseBody {
     const parsed = OrderPutManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -410,7 +410,7 @@ const OrderPutSingleRequestParamsExpected = z
     .strict();
 
 export function OrderPutSingleRequestParamsFromRaw(
-    raw: OrderPutSingleRequestParamsRaw
+    raw: any
 ): OrderPutSingleRequestParams {
     const parsed = OrderPutSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -427,7 +427,7 @@ const OrderPutSingleRequestBodyExpected =
     OrderPutSingleRequestBodyDataInstanceExpected;
 
 export function OrderPutSingleRequestBodyFromRaw(
-    raw: OrderPutSingleRequestBodyDataInstance
+    raw: any
 ): OrderPutSingleRequestBodyDataInstance {
     const parsed = OrderPutSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -453,7 +453,7 @@ const OrderPutSingleResponseBodyExpected = z.union([
 ]);
 
 export function OrderPutSingleResponseBodyFromRaw(
-    raw: OrderPutSingleResponseBody
+    raw: any
 ): OrderPutSingleResponseBody {
     const parsed = OrderPutSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -489,7 +489,7 @@ const OrderPatchManyRequestBodyExpected = z.array(
 );
 
 export function OrderPatchManyRequestBodyFromRaw(
-    raw: OrderPatchManyRequestBodyDataInstance[]
+    raw: any
 ): OrderPatchManyRequestBodyDataInstance[] {
     const parsed = OrderPatchManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -515,7 +515,7 @@ const OrderPatchManyResponseBodyExpected = z.union([
 ]);
 
 export function OrderPatchManyResponseBodyFromRaw(
-    raw: OrderPatchManyResponseBody
+    raw: any
 ): OrderPatchManyResponseBody {
     const parsed = OrderPatchManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -536,7 +536,7 @@ const OrderPatchSingleRequestParamsExpected = z
     .strict();
 
 export function OrderPatchSingleRequestParamsFromRaw(
-    raw: OrderPatchSingleRequestParamsRaw
+    raw: any
 ): OrderPatchSingleRequestParams {
     const parsed = OrderPatchSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -554,7 +554,7 @@ const OrderPatchSingleRequestBodyExpected =
     OrderPatchSingleRequestBodyDataInstanceExpected;
 
 export function OrderPatchSingleRequestBodyFromRaw(
-    raw: OrderPatchSingleRequestBodyDataInstance
+    raw: any
 ): OrderPatchSingleRequestBodyDataInstance {
     const parsed = OrderPatchSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -580,7 +580,7 @@ const OrderPatchSingleResponseBodyExpected = z.union([
 ]);
 
 export function OrderPatchSingleResponseBodyFromRaw(
-    raw: OrderPatchSingleResponseBody
+    raw: any
 ): OrderPatchSingleResponseBody {
     const parsed = OrderPatchSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -614,7 +614,7 @@ const OrderDeleteManyRequestQueryRawExpected = z
     .strict();
 
 export function OrderDeleteManyRequestQueryFromRaw(
-    raw: OrderDeleteManyRequestQueryRaw
+    raw: any
 ): OrderDeleteManyRequestQuery {
     const parsed = OrderDeleteManyRequestQueryRawExpected.parse(raw);
     const ids = parsed.ids.split(',').map((id) => parseInt(id));
@@ -640,7 +640,7 @@ const OrderDeleteManyResponseBodyExpected = z.union([
 ]);
 
 export function OrderDeleteManyResponseBodyFromRaw(
-    raw: OrderDeleteManyResponseBody
+    raw: any
 ): OrderDeleteManyResponseBody {
     const parsed = OrderDeleteManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -661,7 +661,7 @@ const OrderDeleteSingleRequestParamsExpected = z
     .strict();
 
 export function OrderDeleteSingleRequestParamsFromRaw(
-    raw: OrderDeleteSingleRequestParamsRaw
+    raw: any
 ): OrderDeleteSingleRequestParams {
     const parsed = OrderDeleteSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -689,7 +689,7 @@ const OrderDeleteSingleResponseBodyExpected = z.union([
 ]);
 
 export function OrderDeleteSingleResponseBodyFromRaw(
-    raw: OrderDeleteSingleResponseBody
+    raw: any
 ): OrderDeleteSingleResponseBody {
     const parsed = OrderDeleteSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -721,7 +721,7 @@ const OrderFillPostSingleRequestBodyExpected = z
     .strict();
 
 export function OrderFillPostSingleRequestBodyFromRaw(
-    raw: OrderFillPostSingleRequestBody
+    raw: any
 ): OrderFillPostSingleRequestBody {
     return OrderFillPostSingleRequestBodyExpected.parse(raw);
 }
@@ -739,7 +739,7 @@ export const OrderFillPostSingleRequestParamsExpected = z
     .strict();
 
 export function OrderFillPostSingleRequestParamsFromRaw(
-    raw: OrderFillPostSingleRequestParamsRaw
+    raw: any
 ): OrderFillPostSingleRequestParams {
     const parsed = OrderFillPostSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -771,7 +771,7 @@ export const OrderCancelPostSingleRequestParamsExpected = z
     .strict();
 
 export function OrderCancelPostSingleRequestParamsFromRaw(
-    raw: OrderCancelPostSingleRequestParamsRaw
+    raw: any
 ): OrderCancelPostSingleRequestParams {
     const parsed = OrderCancelPostSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };

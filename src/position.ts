@@ -36,7 +36,7 @@ const PositionPropsExpected = z
 
 const PositionPropsOptionalExpected = PositionPropsExpected.partial();
 
-export function PositionPropsFromRaw(raw: PositionProps): PositionProps {
+export function PositionPropsFromRaw(raw: any): PositionProps {
     const parsed = PositionPropsExpected.parse(raw);
     return parsed;
 }
@@ -83,7 +83,7 @@ const PositionGetManyRequestQueryRawExpected = z
     .strict();
 
 export function PositionGetManyRequestQueryFromRaw(
-    raw: PositionGetManyRequestQueryRaw
+    raw: any
 ): PositionGetManyRequestQuery {
     const parsed = PositionGetManyRequestQueryRawExpected.parse(raw);
     const ids =
@@ -128,7 +128,7 @@ const PositionGetManyResponseBodyExpected = z.union([
 ]);
 
 export function PositionGetManyResponseBodyFromRaw(
-    raw: PositionGetManyResponseBody
+    raw: any
 ): PositionGetManyResponseBody {
     const parsed = PositionGetManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -149,7 +149,7 @@ const PositionGetSingleRequestParamsExpected = z
     .strict();
 
 export function PositionGetSingleRequestParamsFromRaw(
-    raw: PositionGetSingleRequestParamsRaw
+    raw: any
 ): PositionGetSingleRequestParams {
     const parsed = PositionGetSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -177,7 +177,7 @@ const PositionGetSingleResponseBodyExpected = z.union([
 ]);
 
 export function PositionGetSingleResponseBodyFromRaw(
-    raw: PositionGetSingleResponseBody
+    raw: any
 ): PositionGetSingleResponseBody {
     const parsed = PositionGetSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -211,7 +211,7 @@ export type PositionPostManyRequestBody =
     PositionPostManyRequestBodyDataInstance[];
 
 export function PositionPostManyRequestBodyFromRaw(
-    raw: PositionPostManyRequestBodyDataInstance[]
+    raw: any
 ): PositionPostManyRequestBodyDataInstance[] {
     const parsed = PositionPostManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -236,7 +236,7 @@ const PositionPostManyResponseBodyExpected = z.union([
 ]);
 
 export function PositionPostManyResponseBodyFromRaw(
-    raw: PositionPostManyResponseBody
+    raw: any
 ): PositionPostManyResponseBody {
     const parsed = PositionPostManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -254,7 +254,7 @@ const PositionPostSingleRequestBodyExpected =
     PositionPostSingleRequestBodyDataInstanceExpected;
 
 export function PositionPostSingleRequestBodyFromRaw(
-    raw: PositionPostSingleRequestBodyDataInstance
+    raw: any
 ): PositionPostSingleRequestBodyDataInstance {
     const parsed = PositionPostSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -280,7 +280,7 @@ const PositionPostSingleResponseBodyExpected = z.union([
 ]);
 
 export function PositionPostSingleResponseBodyFromRaw(
-    raw: PositionPostSingleResponseBody
+    raw: any
 ): PositionPostSingleResponseBody {
     const parsed = PositionPostSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -318,7 +318,7 @@ const PositionPutManyRequestBodyExpected = z.array(
 );
 
 export function PositionPutManyRequestBodyFromRaw(
-    raw: PositionPutManyRequestBodyDataInstance[]
+    raw: any
 ): PositionPutManyRequestBodyDataInstance[] {
     const parsed = PositionPutManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -344,7 +344,7 @@ const PositionPutManyResponseBodyExpected = z.union([
 ]);
 
 export function PositionPutManyResponseBodyFromRaw(
-    raw: PositionPutManyResponseBody
+    raw: any
 ): PositionPutManyResponseBody {
     const parsed = PositionPutManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -365,7 +365,7 @@ const PositionPutSingleRequestParamsExpected = z
     .strict();
 
 export function PositionPutSingleRequestParamsFromRaw(
-    raw: PositionPutSingleRequestParamsRaw
+    raw: any
 ): PositionPutSingleRequestParams {
     const parsed = PositionPutSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -383,7 +383,7 @@ const PositionPutSingleRequestBodyExpected =
     PositionPutSingleRequestBodyDataInstanceExpected;
 
 export function PositionPutSingleRequestBodyFromRaw(
-    raw: PositionPutSingleRequestBodyDataInstance
+    raw: any
 ): PositionPutSingleRequestBodyDataInstance {
     const parsed = PositionPutSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -409,7 +409,7 @@ const PositionPutSingleResponseBodyExpected = z.union([
 ]);
 
 export function PositionPutSingleResponseBodyFromRaw(
-    raw: PositionPutSingleResponseBody
+    raw: any
 ): PositionPutSingleResponseBody {
     const parsed = PositionPutSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -449,7 +449,7 @@ const PositionPatchManyRequestBodyExpected = z.array(
 );
 
 export function PositionPatchManyRequestBodyFromRaw(
-    raw: PositionPatchManyRequestBodyDataInstance[]
+    raw: any
 ): PositionPatchManyRequestBodyDataInstance[] {
     const parsed = PositionPatchManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -475,7 +475,7 @@ const PositionPatchManyResponseBodyExpected = z.union([
 ]);
 
 export function PositionPatchManyResponseBodyFromRaw(
-    raw: PositionPatchManyResponseBody
+    raw: any
 ): PositionPatchManyResponseBody {
     const parsed = PositionPatchManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -496,7 +496,7 @@ const PositionPatchSingleRequestParamsExpected = z
     .strict();
 
 export function PositionPatchSingleRequestParamsFromRaw(
-    raw: PositionPatchSingleRequestParamsRaw
+    raw: any
 ): PositionPatchSingleRequestParams {
     const parsed = PositionPatchSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -514,7 +514,7 @@ const PositionPatchSingleRequestBodyExpected =
     PositionPatchSingleRequestBodyDataInstanceExpected;
 
 export function PositionPatchSingleRequestBodyFromRaw(
-    raw: PositionPatchSingleRequestBodyDataInstance
+    raw: any
 ): PositionPatchSingleRequestBodyDataInstance {
     const parsed = PositionPatchSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -540,7 +540,7 @@ const PositionPatchSingleResponseBodyExpected = z.union([
 ]);
 
 export function PositionPatchSingleResponseBodyFromRaw(
-    raw: PositionPatchSingleResponseBody
+    raw: any
 ): PositionPatchSingleResponseBody {
     const parsed = PositionPatchSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -575,7 +575,7 @@ const PositionDeleteManyRequestQueryRawExpected = z
     .strict();
 
 export function PositionDeleteManyRequestQueryFromRaw(
-    raw: PositionDeleteManyRequestQueryRaw
+    raw: any
 ): PositionDeleteManyRequestQuery {
     const parsed = PositionDeleteManyRequestQueryRawExpected.parse(raw);
     const ids = parsed.ids.split(',').map((id) => parseInt(id));
@@ -601,7 +601,7 @@ const PositionDeleteManyResponseBodyExpected = z.union([
 ]);
 
 export function PositionDeleteManyResponseBodyFromRaw(
-    raw: PositionDeleteManyResponseBody
+    raw: any
 ): PositionDeleteManyResponseBody {
     const parsed = PositionDeleteManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -622,7 +622,7 @@ const PositionDeleteSingleRequestParamsExpected = z
     .strict();
 
 export function PositionDeleteSingleRequestParamsFromRaw(
-    raw: PositionDeleteSingleRequestParamsRaw
+    raw: any
 ): PositionDeleteSingleRequestParams {
     const parsed = PositionDeleteSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -650,7 +650,7 @@ const PositionDeleteSingleResponseBodyExpected = z.union([
 ]);
 
 export function PositionDeleteSingleResponseBodyFromRaw(
-    raw: PositionDeleteSingleResponseBody
+    raw: any
 ): PositionDeleteSingleResponseBody {
     const parsed = PositionDeleteSingleResponseBodyExpected.parse(raw);
     return parsed;

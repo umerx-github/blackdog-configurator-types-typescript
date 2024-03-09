@@ -35,7 +35,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPropsOptionalExpected =
     StrategyTemplateSeaDogDiscountSchemeSymbolPropsExpected.partial();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPropsFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolProps
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolProps {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPropsExpected.parse(raw);
@@ -89,7 +89,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolGetManyRequestQueryRawExpected =
         .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolGetManyRequestQueryFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolGetManyRequestQueryRaw
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolGetManyRequestQuery {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolGetManyRequestQueryRawExpected.parse(
@@ -132,7 +132,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolGetManyResponseBodyExpected =
     ]);
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolGetManyResponseBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolGetManyResponseBody
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolGetManyResponseBody {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolGetManyResponseBodyExpected.parse(
@@ -157,7 +157,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleRequestParamsExpected =
         .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleRequestParamsFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleRequestParamsRaw
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleRequestParams {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleRequestParamsExpected.parse(
@@ -190,7 +190,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleResponseBodyExpected =
     ]);
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleResponseBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleResponseBody
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleResponseBody {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolGetSingleResponseBodyExpected.parse(
@@ -233,7 +233,7 @@ export type StrategyTemplateSeaDogDiscountSchemeSymbolPostManyRequestBody =
     StrategyTemplateSeaDogDiscountSchemeSymbolPostManyRequestBodyDataInstance[];
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPostManyRequestBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPostManyRequestBodyDataInstance[]
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPostManyRequestBodyDataInstance[] {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPostManyRequestBodyExpected.parse(
@@ -264,7 +264,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPostManyResponseBodyExpected =
     ]);
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPostManyResponseBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPostManyResponseBody
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPostManyResponseBody {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPostManyResponseBodyExpected.parse(
@@ -285,7 +285,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleRequestBodyExpected =
     StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleRequestBodyDataInstanceExpected;
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleRequestBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleRequestBodyDataInstance
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleRequestBodyDataInstance {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleRequestBodyExpected.parse(
@@ -315,7 +315,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleResponseBodyExpected =
     ]);
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleResponseBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleResponseBody
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleResponseBody {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPostSingleResponseBodyExpected.parse(
@@ -363,7 +363,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPutManyRequestBodyExpected =
     );
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPutManyRequestBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPutManyRequestBodyDataInstance[]
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPutManyRequestBodyDataInstance[] {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPutManyRequestBodyExpected.parse(
@@ -395,7 +395,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPutManyResponseBodyExpected =
     ]);
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPutManyResponseBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPutManyResponseBody
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPutManyResponseBody {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPutManyResponseBodyExpected.parse(
@@ -420,7 +420,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestParamsExpected =
         .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestParamsFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestParamsRaw
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestParams {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestParamsExpected.parse(
@@ -441,7 +441,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestBodyExpected =
     StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestBodyDataInstanceExpected;
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestBodyDataInstance
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestBodyDataInstance {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleRequestBodyExpected.parse(
@@ -471,7 +471,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleResponseBodyExpected =
     ]);
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleResponseBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleResponseBody
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleResponseBody {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPutSingleResponseBodyExpected.parse(
@@ -519,7 +519,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPatchManyRequestBodyExpected =
     );
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPatchManyRequestBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPatchManyRequestBodyDataInstance[]
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPatchManyRequestBodyDataInstance[] {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPatchManyRequestBodyExpected.parse(
@@ -551,7 +551,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPatchManyResponseBodyExpected =
     ]);
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPatchManyResponseBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPatchManyResponseBody
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPatchManyResponseBody {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPatchManyResponseBodyExpected.parse(
@@ -576,7 +576,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestParamsExpected
         .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestParamsFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestParamsRaw
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestParams {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestParamsExpected.parse(
@@ -597,7 +597,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestBodyExpected =
     StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestBodyDataInstanceExpected;
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestBodyDataInstance
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestBodyDataInstance {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleRequestBodyExpected.parse(
@@ -627,7 +627,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleResponseBodyExpected 
     ]);
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleResponseBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleResponseBody
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleResponseBody {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolPatchSingleResponseBodyExpected.parse(
@@ -670,7 +670,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQueryRawExpecte
         .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQueryFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQueryRaw
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQuery {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQueryRawExpected.parse(
@@ -702,7 +702,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyResponseBodyExpected =
     ]);
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyResponseBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyResponseBody
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyResponseBody {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyResponseBodyExpected.parse(
@@ -727,7 +727,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleRequestParamsExpecte
         .strict();
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleRequestParamsFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleRequestParamsRaw
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleRequestParams {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleRequestParamsExpected.parse(
@@ -760,7 +760,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleResponseBodyExpected
     ]);
 
 export function StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleResponseBodyFromRaw(
-    raw: StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleResponseBody
+    raw: any
 ): StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleResponseBody {
     const parsed =
         StrategyTemplateSeaDogDiscountSchemeSymbolDeleteSingleResponseBodyExpected.parse(

@@ -25,7 +25,7 @@ const SymbolPropsExpected = z
 
 const SymbolPropsOptionalExpected = SymbolPropsExpected.partial();
 
-export function SymbolPropsFromRaw(raw: SymbolProps): SymbolProps {
+export function SymbolPropsFromRaw(raw: any): SymbolProps {
     const parsed = SymbolPropsExpected.parse(raw);
     return parsed;
 }
@@ -70,7 +70,7 @@ const SymbolGetManyRequestQueryRawExpected = z
     .strict();
 
 export function SymbolGetManyRequestQueryFromRaw(
-    raw: SymbolGetManyRequestQueryRaw
+    raw: any
 ): SymbolGetManyRequestQuery {
     const parsed = SymbolGetManyRequestQueryRawExpected.parse(raw);
     const ids =
@@ -107,7 +107,7 @@ const SymbolGetManyResponseBodyExpected = z.union([
 ]);
 
 export function SymbolGetManyResponseBodyFromRaw(
-    raw: SymbolGetManyResponseBody
+    raw: any
 ): SymbolGetManyResponseBody {
     const parsed = SymbolGetManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -128,7 +128,7 @@ const SymbolGetSingleRequestParamsExpected = z
     .strict();
 
 export function SymbolGetSingleRequestParamsFromRaw(
-    raw: SymbolGetSingleRequestParamsRaw
+    raw: any
 ): SymbolGetSingleRequestParams {
     const parsed = SymbolGetSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -156,7 +156,7 @@ const SymbolGetSingleResponseBodyExpected = z.union([
 ]);
 
 export function SymbolGetSingleResponseBodyFromRaw(
-    raw: SymbolGetSingleResponseBody
+    raw: any
 ): SymbolGetSingleResponseBody {
     const parsed = SymbolGetSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -187,7 +187,7 @@ export type SymbolPostManyRequestBodyDataInstance =
 export type SymbolPostManyRequestBody = SymbolPostManyRequestBodyDataInstance[];
 
 export function SymbolPostManyRequestBodyFromRaw(
-    raw: SymbolPostManyRequestBodyDataInstance[]
+    raw: any
 ): SymbolPostManyRequestBodyDataInstance[] {
     const parsed = SymbolPostManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -212,7 +212,7 @@ const SymbolPostManyResponseBodyExpected = z.union([
 ]);
 
 export function SymbolPostManyResponseBodyFromRaw(
-    raw: SymbolPostManyResponseBody
+    raw: any
 ): SymbolPostManyResponseBody {
     const parsed = SymbolPostManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -230,7 +230,7 @@ const SymbolPostSingleRequestBodyExpected =
     SymbolPostSingleRequestBodyDataInstanceExpected;
 
 export function SymbolPostSingleRequestBodyFromRaw(
-    raw: SymbolPostSingleRequestBodyDataInstance
+    raw: any
 ): SymbolPostSingleRequestBodyDataInstance {
     const parsed = SymbolPostSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -256,7 +256,7 @@ const SymbolPostSingleResponseBodyExpected = z.union([
 ]);
 
 export function SymbolPostSingleResponseBodyFromRaw(
-    raw: SymbolPostSingleResponseBody
+    raw: any
 ): SymbolPostSingleResponseBody {
     const parsed = SymbolPostSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -291,7 +291,7 @@ const SymbolPutManyRequestBodyExpected = z.array(
 );
 
 export function SymbolPutManyRequestBodyFromRaw(
-    raw: SymbolPutManyRequestBodyDataInstance[]
+    raw: any
 ): SymbolPutManyRequestBodyDataInstance[] {
     const parsed = SymbolPutManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -317,7 +317,7 @@ const SymbolPutManyResponseBodyExpected = z.union([
 ]);
 
 export function SymbolPutManyResponseBodyFromRaw(
-    raw: SymbolPutManyResponseBody
+    raw: any
 ): SymbolPutManyResponseBody {
     const parsed = SymbolPutManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -338,7 +338,7 @@ const SymbolPutSingleRequestParamsExpected = z
     .strict();
 
 export function SymbolPutSingleRequestParamsFromRaw(
-    raw: SymbolPutSingleRequestParamsRaw
+    raw: any
 ): SymbolPutSingleRequestParams {
     const parsed = SymbolPutSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -355,7 +355,7 @@ const SymbolPutSingleRequestBodyExpected =
     SymbolPutSingleRequestBodyDataInstanceExpected;
 
 export function SymbolPutSingleRequestBodyFromRaw(
-    raw: SymbolPutSingleRequestBodyDataInstance
+    raw: any
 ): SymbolPutSingleRequestBodyDataInstance {
     const parsed = SymbolPutSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -381,7 +381,7 @@ const SymbolPutSingleResponseBodyExpected = z.union([
 ]);
 
 export function SymbolPutSingleResponseBodyFromRaw(
-    raw: SymbolPutSingleResponseBody
+    raw: any
 ): SymbolPutSingleResponseBody {
     const parsed = SymbolPutSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -419,7 +419,7 @@ const SymbolPatchManyRequestBodyExpected = z.array(
 );
 
 export function SymbolPatchManyRequestBodyFromRaw(
-    raw: SymbolPatchManyRequestBodyDataInstance[]
+    raw: any
 ): SymbolPatchManyRequestBodyDataInstance[] {
     const parsed = SymbolPatchManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -445,7 +445,7 @@ const SymbolPatchManyResponseBodyExpected = z.union([
 ]);
 
 export function SymbolPatchManyResponseBodyFromRaw(
-    raw: SymbolPatchManyResponseBody
+    raw: any
 ): SymbolPatchManyResponseBody {
     const parsed = SymbolPatchManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -466,7 +466,7 @@ const SymbolPatchSingleRequestParamsExpected = z
     .strict();
 
 export function SymbolPatchSingleRequestParamsFromRaw(
-    raw: SymbolPatchSingleRequestParamsRaw
+    raw: any
 ): SymbolPatchSingleRequestParams {
     const parsed = SymbolPatchSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -484,7 +484,7 @@ const SymbolPatchSingleRequestBodyExpected =
     SymbolPatchSingleRequestBodyDataInstanceExpected;
 
 export function SymbolPatchSingleRequestBodyFromRaw(
-    raw: SymbolPatchSingleRequestBodyDataInstance
+    raw: any
 ): SymbolPatchSingleRequestBodyDataInstance {
     const parsed = SymbolPatchSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -510,7 +510,7 @@ const SymbolPatchSingleResponseBodyExpected = z.union([
 ]);
 
 export function SymbolPatchSingleResponseBodyFromRaw(
-    raw: SymbolPatchSingleResponseBody
+    raw: any
 ): SymbolPatchSingleResponseBody {
     const parsed = SymbolPatchSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -546,7 +546,7 @@ const SymbolDeleteManyRequestQueryRawExpected = z
     .strict();
 
 export function SymbolDeleteManyRequestQueryFromRaw(
-    raw: SymbolDeleteManyRequestQueryRaw
+    raw: any
 ): SymbolDeleteManyRequestQuery {
     const parsed = SymbolDeleteManyRequestQueryRawExpected.parse(raw);
     const ids = parsed.ids.split(',').map((id) => parseInt(id));
@@ -572,7 +572,7 @@ const SymbolDeleteManyResponseBodyExpected = z.union([
 ]);
 
 export function SymbolDeleteManyResponseBodyFromRaw(
-    raw: SymbolDeleteManyResponseBody
+    raw: any
 ): SymbolDeleteManyResponseBody {
     const parsed = SymbolDeleteManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -593,7 +593,7 @@ const SymbolDeleteSingleRequestParamsExpected = z
     .strict();
 
 export function SymbolDeleteSingleRequestParamsFromRaw(
-    raw: SymbolDeleteSingleRequestParamsRaw
+    raw: any
 ): SymbolDeleteSingleRequestParams {
     const parsed = SymbolDeleteSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -621,7 +621,7 @@ const SymbolDeleteSingleResponseBodyExpected = z.union([
 ]);
 
 export function SymbolDeleteSingleResponseBodyFromRaw(
-    raw: SymbolDeleteSingleResponseBody
+    raw: any
 ): SymbolDeleteSingleResponseBody {
     const parsed = SymbolDeleteSingleResponseBodyExpected.parse(raw);
     return parsed;

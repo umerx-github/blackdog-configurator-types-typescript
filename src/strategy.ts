@@ -43,7 +43,7 @@ const StrategyPropsExpected = z
 
 const StrategyPropsOptionalExpected = StrategyPropsExpected.partial();
 
-export function StrategyPropsFromRaw(raw: StrategyProps): StrategyProps {
+export function StrategyPropsFromRaw(raw: any): StrategyProps {
     const parsed = StrategyPropsExpected.parse(raw);
     return parsed;
 }
@@ -84,7 +84,7 @@ const StrategyGetManyRequestQueryRawExpected = z
     .strict();
 
 export function StrategyGetManyRequestQueryFromRaw(
-    raw: StrategyGetManyRequestQueryRaw
+    raw: any
 ): StrategyGetManyRequestQuery {
     const parsed = StrategyGetManyRequestQueryRawExpected.parse(raw);
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
@@ -110,7 +110,7 @@ const StrategyGetManyResponseBodyExpected = z.union([
 ]);
 
 export function StrategyGetManyResponseBodyFromRaw(
-    raw: StrategyGetManyResponseBody
+    raw: any
 ): StrategyGetManyResponseBody {
     const parsed = StrategyGetManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -131,7 +131,7 @@ const StrategyGetSingleRequestParamsExpected = z
     .strict();
 
 export function StrategyGetSingleRequestParamsFromRaw(
-    raw: StrategyGetSingleRequestParamsRaw
+    raw: any
 ): StrategyGetSingleRequestParams {
     const parsed = StrategyGetSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -159,7 +159,7 @@ const StrategyGetSingleResponseBodyExpected = z.union([
 ]);
 
 export function StrategyGetSingleResponseBodyFromRaw(
-    raw: StrategyGetSingleResponseBody
+    raw: any
 ): StrategyGetSingleResponseBody {
     const parsed = StrategyGetSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -195,7 +195,7 @@ export type StrategyPostManyRequestBody =
     StrategyPostManyRequestBodyDataInstance[];
 
 export function StrategyPostManyRequestBodyFromRaw(
-    raw: StrategyPostManyRequestBodyDataInstance[]
+    raw: any
 ): StrategyPostManyRequestBodyDataInstance[] {
     const parsed = StrategyPostManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -220,7 +220,7 @@ const StrategyPostManyResponseBodyExpected = z.union([
 ]);
 
 export function StrategyPostManyResponseBodyFromRaw(
-    raw: StrategyPostManyResponseBody
+    raw: any
 ): StrategyPostManyResponseBody {
     const parsed = StrategyPostManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -238,7 +238,7 @@ const StrategyPostSingleRequestBodyExpected =
     StrategyPostSingleRequestBodyDataInstanceExpected;
 
 export function StrategyPostSingleRequestBodyFromRaw(
-    raw: StrategyPostSingleRequestBodyDataInstance
+    raw: any
 ): StrategyPostSingleRequestBodyDataInstance {
     const parsed = StrategyPostSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -264,7 +264,7 @@ const StrategyPostSingleResponseBodyExpected = z.union([
 ]);
 
 export function StrategyPostSingleResponseBodyFromRaw(
-    raw: StrategyPostSingleResponseBody
+    raw: any
 ): StrategyPostSingleResponseBody {
     const parsed = StrategyPostSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -303,7 +303,7 @@ const StrategyPutManyRequestBodyExpected = z.array(
 );
 
 export function StrategyPutManyRequestBodyFromRaw(
-    raw: StrategyPutManyRequestBodyDataInstance[]
+    raw: any
 ): StrategyPutManyRequestBodyDataInstance[] {
     const parsed = StrategyPutManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -329,7 +329,7 @@ const StrategyPutManyResponseBodyExpected = z.union([
 ]);
 
 export function StrategyPutManyResponseBodyFromRaw(
-    raw: StrategyPutManyResponseBody
+    raw: any
 ): StrategyPutManyResponseBody {
     const parsed = StrategyPutManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -350,7 +350,7 @@ const StrategyPutSingleRequestParamsExpected = z
     .strict();
 
 export function StrategyPutSingleRequestParamsFromRaw(
-    raw: StrategyPutSingleRequestParamsRaw
+    raw: any
 ): StrategyPutSingleRequestParams {
     const parsed = StrategyPutSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -368,7 +368,7 @@ const StrategyPutSingleRequestBodyExpected =
     StrategyPutSingleRequestBodyDataInstanceExpected;
 
 export function StrategyPutSingleRequestBodyFromRaw(
-    raw: StrategyPutSingleRequestBodyDataInstance
+    raw: any
 ): StrategyPutSingleRequestBodyDataInstance {
     const parsed = StrategyPutSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -394,7 +394,7 @@ const StrategyPutSingleResponseBodyExpected = z.union([
 ]);
 
 export function StrategyPutSingleResponseBodyFromRaw(
-    raw: StrategyPutSingleResponseBody
+    raw: any
 ): StrategyPutSingleResponseBody {
     const parsed = StrategyPutSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -435,7 +435,7 @@ const StrategyPatchManyRequestBodyExpected = z.array(
 );
 
 export function StrategyPatchManyRequestBodyFromRaw(
-    raw: StrategyPatchManyRequestBodyDataInstance[]
+    raw: any
 ): StrategyPatchManyRequestBodyDataInstance[] {
     const parsed = StrategyPatchManyRequestBodyExpected.parse(raw);
     return parsed;
@@ -461,7 +461,7 @@ const StrategyPatchManyResponseBodyExpected = z.union([
 ]);
 
 export function StrategyPatchManyResponseBodyFromRaw(
-    raw: StrategyPatchManyResponseBody
+    raw: any
 ): StrategyPatchManyResponseBody {
     const parsed = StrategyPatchManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -482,7 +482,7 @@ const StrategyPatchSingleRequestParamsExpected = z
     .strict();
 
 export function StrategyPatchSingleRequestParamsFromRaw(
-    raw: StrategyPatchSingleRequestParamsRaw
+    raw: any
 ): StrategyPatchSingleRequestParams {
     const parsed = StrategyPatchSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -500,7 +500,7 @@ const StrategyPatchSingleRequestBodyExpected =
     StrategyPatchSingleRequestBodyDataInstanceExpected;
 
 export function StrategyPatchSingleRequestBodyFromRaw(
-    raw: StrategyPatchSingleRequestBodyDataInstance
+    raw: any
 ): StrategyPatchSingleRequestBodyDataInstance {
     const parsed = StrategyPatchSingleRequestBodyExpected.parse(raw);
     return parsed;
@@ -526,7 +526,7 @@ const StrategyPatchSingleResponseBodyExpected = z.union([
 ]);
 
 export function StrategyPatchSingleResponseBodyFromRaw(
-    raw: StrategyPatchSingleResponseBody
+    raw: any
 ): StrategyPatchSingleResponseBody {
     const parsed = StrategyPatchSingleResponseBodyExpected.parse(raw);
     return parsed;
@@ -563,7 +563,7 @@ const StrategyDeleteManyRequestQueryRawExpected = z
     .strict();
 
 export function StrategyDeleteManyRequestQueryFromRaw(
-    raw: StrategyDeleteManyRequestQueryRaw
+    raw: any
 ): StrategyDeleteManyRequestQuery {
     const parsed = StrategyDeleteManyRequestQueryRawExpected.parse(raw);
     const ids = parsed.ids?.split(',').map((id) => parseInt(id));
@@ -589,7 +589,7 @@ const StrategyDeleteManyResponseBodyExpected = z.union([
 ]);
 
 export function StrategyDeleteManyResponseBodyFromRaw(
-    raw: StrategyDeleteManyResponseBody
+    raw: any
 ): StrategyDeleteManyResponseBody {
     const parsed = StrategyDeleteManyResponseBodyExpected.parse(raw);
     return parsed;
@@ -610,7 +610,7 @@ const StrategyDeleteSingleRequestParamsExpected = z
     .strict();
 
 export function StrategyDeleteSingleRequestParamsFromRaw(
-    raw: StrategyDeleteSingleRequestParamsRaw
+    raw: any
 ): StrategyDeleteSingleRequestParams {
     const parsed = StrategyDeleteSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
@@ -638,7 +638,7 @@ const StrategyDeleteSingleResponseBodyExpected = z.union([
 ]);
 
 export function StrategyDeleteSingleResponseBodyFromRaw(
-    raw: StrategyDeleteSingleResponseBody
+    raw: any
 ): StrategyDeleteSingleResponseBody {
     const parsed = StrategyDeleteSingleResponseBodyExpected.parse(raw);
     return parsed;
