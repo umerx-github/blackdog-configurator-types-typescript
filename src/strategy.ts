@@ -9,6 +9,7 @@ import {
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
+import { Strategy } from '../index.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -51,17 +52,23 @@ export interface StrategyModelInterface extends StrategyProps {
     id: number;
 }
 
-// BEGIN GET
-
-export type StrategyGetRequestBody = never;
-export interface StrategyGetResponseBodyDataInstance extends StrategyProps {
+export interface StrategyResponseBodyDataInstance extends StrategyProps {
     id: number;
 }
 
+const StrategyResponseBodyDataInstanceExpected = StrategyPropsExpected.extend({
+    id: z.number(),
+});
+
+// BEGIN GET
+
+export type StrategyGetRequestBody = never;
+
+export type StrategyGetResponseBodyDataInstance =
+    StrategyResponseBodyDataInstance;
+
 const StrategyGetResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyResponseBodyDataInstanceExpected;
 
 export type StrategyGetManyRequestBody = StrategyGetRequestBody;
 export interface StrategyGetManyRequestQuery {
@@ -170,16 +177,13 @@ export function StrategyGetSingleResponseBodyFromRaw(
 // BEGIN POST
 
 export interface StrategyPostRequestBodyDataInstance extends StrategyProps {}
-export interface StrategyPostResponseBodyDataInstance extends StrategyProps {
-    id: number;
-}
+export type StrategyPostResponseBodyDataInstance =
+    StrategyResponseBodyDataInstance;
 
 const StrategyPostRequestBodyDataInstanceExpected = StrategyPropsExpected;
 
 const StrategyPostResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyResponseBodyDataInstanceExpected;
 
 const StrategyPostManyRequestBodyDataInstanceExpected =
     StrategyPostRequestBodyDataInstanceExpected;
@@ -275,16 +279,13 @@ export function StrategyPostSingleResponseBodyFromRaw(
 // BEGIN PUT
 
 export interface StrategyPutRequestBodyDataInstance extends StrategyProps {}
-export interface StrategyPutResponseBodyDataInstance extends StrategyProps {
-    id: number;
-}
+export type StrategyPutResponseBodyDataInstance =
+    StrategyResponseBodyDataInstance;
 
 const StrategyPutRequestBodyDataInstanceExpected = StrategyPropsExpected;
 
 const StrategyPutResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyResponseBodyDataInstanceExpected;
 
 export interface StrategyPutManyRequestBodyDataInstance
     extends StrategyPutRequestBodyDataInstance {
@@ -406,17 +407,14 @@ export function StrategyPutSingleResponseBodyFromRaw(
 
 export interface StrategyPatchRequestBodyDataInstance
     extends StrategyPropsOptional {}
-export interface StrategyPatchResponseBodyDataInstance extends StrategyProps {
-    id: number;
-}
+export type StrategyPatchResponseBodyDataInstance =
+    StrategyResponseBodyDataInstance;
 
 const StrategyPatchRequestBodyDataInstanceExpected =
     StrategyPropsOptionalExpected;
 
 const StrategyPatchResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyResponseBodyDataInstanceExpected;
 
 export interface StrategyPatchManyRequestBodyDataInstance
     extends StrategyPatchRequestBodyDataInstance {
@@ -537,9 +535,8 @@ export function StrategyPatchSingleResponseBodyFromRaw(
 // BEGIN DELETE
 
 export type StrategyDeleteRequestBody = never;
-export interface StrategyDeleteResponseBodyDataInstance extends StrategyProps {
-    id: number;
-}
+export type StrategyDeleteResponseBodyDataInstance =
+    StrategyResponseBodyDataInstance;
 
 export type StrategyDeleteManyRequestBody = StrategyDeleteRequestBody;
 export interface StrategyDeleteManyRequestQuery {
@@ -547,9 +544,7 @@ export interface StrategyDeleteManyRequestQuery {
 }
 
 const StrategyDeleteResponseBodyDataInstanceExpected =
-    StrategyPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyResponseBodyDataInstanceExpected;
 
 export interface StrategyDeleteManyRequestQueryRaw {
     status?: Status;
