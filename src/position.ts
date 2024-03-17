@@ -27,10 +27,22 @@ const PositionPropsExpected = z
     .object({
         symbolId: z.number(),
         strategyId: z.number(),
-        quantity: z.number().min(0, 'Quantity must be positive'),
+        quantity: z
+            .number()
+            .min(0, 'Quantity must be positive')
+            .max(
+                Number.MAX_SAFE_INTEGER,
+                `Quantity must be less than or equal to ${Number.MAX_SAFE_INTEGER}`
+            )
+            .step(1, 'Quantity must be an integer'),
         averagePriceInCents: z
             .number()
-            .min(0, 'Average price must be positive'),
+            .min(0, 'Average price in cents must be positive')
+            .max(
+                Number.MAX_SAFE_INTEGER,
+                `Average price in cents must be less than or equal to ${Number.MAX_SAFE_INTEGER}`
+            )
+            .step(1, 'Average price in cents must be an integer'),
     })
     .strict();
 
