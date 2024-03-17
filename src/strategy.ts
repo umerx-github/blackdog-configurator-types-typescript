@@ -38,7 +38,14 @@ const StrategyPropsExpected = z
         status: StatusSchema,
         title: z.string(),
         strategyTemplateName: StrategyTemplateNameSchema,
-        cashInCents: z.number().min(0, 'Cash must be positive').step(1),
+        cashInCents: z
+            .number()
+            .min(0, 'Cash must be positive')
+            .max(
+                Number.MAX_SAFE_INTEGER,
+                `Cash must be less than ${Number.MAX_SAFE_INTEGER}`
+            )
+            .step(1),
     })
     .strict();
 
