@@ -43,9 +43,9 @@ const StrategyPropsExpected = z
             .min(0, 'Cash must be positive')
             .max(
                 Number.MAX_SAFE_INTEGER,
-                `Cash must be less than ${Number.MAX_SAFE_INTEGER}`
+                `Cash must be less than or equal to ${Number.MAX_SAFE_INTEGER}`
             )
-            .step(1),
+            .step(1, 'Cash must be an integer'),
     })
     .strict();
 
