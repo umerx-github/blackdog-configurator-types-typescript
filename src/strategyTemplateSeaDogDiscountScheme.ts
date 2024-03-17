@@ -55,10 +55,26 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z
         alpacaAPIKey: z.string(),
         alpacaAPISecret: z.string(),
         alpacaAPIPaper: z.boolean(),
-        sellAtPercentile: z.number(),
-        buyAtPercentile: z.number(),
-        minimumGainPercent: z.number(),
-        timeframeInDays: z.number().min(0).step(1),
+        sellAtPercentile: z
+            .number()
+            .min(Number.MIN_VALUE) // Minimum value for a DOUBLE column
+            .max(Number.MAX_VALUE), // Maximum value for a DOUBLE column
+        buyAtPercentile: z
+            .number()
+            .min(Number.MIN_VALUE) // Minimum value for a DOUBLE column
+            .max(Number.MAX_VALUE), // Maximum value for a DOUBLE column
+        minimumGainPercent: z
+            .number()
+            .min(Number.MIN_VALUE) // Minimum value for a DOUBLE column
+            .max(Number.MAX_VALUE), // Maximum value for a DOUBLE column
+        timeframeInDays: z
+            .number()
+            .max(
+                Number.MAX_SAFE_INTEGER,
+                `Timeframe in days must be less than or equal to ${Number.MAX_SAFE_INTEGER}`
+            )
+            .step(1)
+            .positive('Timeframe in days must be positive'),
         symbolIds: z.array(z.number()),
     })
     .strict();
