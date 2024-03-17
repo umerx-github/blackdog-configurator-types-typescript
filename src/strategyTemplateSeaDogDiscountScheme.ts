@@ -57,15 +57,15 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z
         alpacaAPIPaper: z.boolean(),
         sellAtPercentile: z
             .number()
-            .min(Number.MIN_VALUE) // Minimum value for a DOUBLE column
+            .min(-Number.MIN_VALUE) // Minimum value for a DOUBLE column
             .max(Number.MAX_VALUE), // Maximum value for a DOUBLE column
         buyAtPercentile: z
             .number()
-            .min(Number.MIN_VALUE) // Minimum value for a DOUBLE column
+            .min(-Number.MIN_VALUE) // Minimum value for a DOUBLE column
             .max(Number.MAX_VALUE), // Maximum value for a DOUBLE column
         minimumGainPercent: z
             .number()
-            .min(Number.MIN_VALUE) // Minimum value for a DOUBLE column
+            .min(-Number.MIN_VALUE) // Minimum value for a DOUBLE column
             .max(Number.MAX_VALUE), // Maximum value for a DOUBLE column
         timeframeInDays: z
             .number()
