@@ -10,6 +10,7 @@ import {
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
 import { Strategy } from '../index.js';
+import { getPrecisionValidator } from './util.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -40,12 +41,12 @@ const StrategyPropsExpected = z
         strategyTemplateName: StrategyTemplateNameSchema,
         cashInCents: z
             .number()
-            .min(0, 'Cash must be positive')
-            .max(
-                Number.MAX_SAFE_INTEGER,
-                `Cash must be less than or equal to ${Number.MAX_SAFE_INTEGER}`
-            )
-            .step(1, 'Cash must be an integer'),
+            .step(1, 'Cash must be an integer')
+            .positive('Cash must be positive')
+            .refine(
+                getPrecisionValidator(19),
+                'Cash must have 19 or fewer digits'
+            ),
     })
     .strict();
 

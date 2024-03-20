@@ -5,6 +5,7 @@ import {
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
+import { getPrecisionValidator } from './util.js';
 
 // Single source of truth:
 const StatusConst = ['open', 'closed'] as const;
@@ -55,20 +56,20 @@ const OrderPropsExpected = z
         side: SideSchema,
         quantity: z
             .number()
-            .min(0, 'Quantity must be positive')
-            .max(
-                Number.MAX_SAFE_INTEGER,
-                `Quantity must be less than or equal to ${Number.MAX_SAFE_INTEGER}`
-            )
-            .step(1, 'Quantity must be an integer'),
+            .step(1, 'Quantity must be an integer')
+            .positive('Quantity must be positive')
+            .refine(
+                getPrecisionValidator(19),
+                'Quantity must have 19 or fewer digits'
+            ),
         averagePriceInCents: z
             .number()
-            .min(0, 'Average price in cents must be positive')
-            .max(
-                Number.MAX_SAFE_INTEGER,
-                `Average price in cents must be less than or equal to ${Number.MAX_SAFE_INTEGER}`
-            )
-            .step(1, 'Average price in cents must be an integer'),
+            .step(1, 'Average price in cents must be an integer')
+            .positive('Average price in cents must be positive')
+            .refine(
+                getPrecisionValidator(19),
+                'Average price in cents must have 19 or fewer digits'
+            ),
     })
     .strict();
 

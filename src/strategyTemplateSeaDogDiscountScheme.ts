@@ -6,10 +6,7 @@ import {
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
 import { SymbolModelInterface } from './symbol.js';
-import {
-    MySQLDoubleMaxPrecision,
-    validateMySQLDoublePrecision,
-} from './util.js';
+import { getPrecisionValidator } from './util.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -62,29 +59,29 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z
         sellAtPercentile: z
             .number()
             .refine(
-                validateMySQLDoublePrecision,
-                `Sell at percentile must be ${MySQLDoubleMaxPrecision} digits or less`
+                getPrecisionValidator(15),
+                `Sell at percentile must have 15 or fewer digits`
             ),
         buyAtPercentile: z
             .number()
             .refine(
-                validateMySQLDoublePrecision,
-                `Buy at percentile must be ${MySQLDoubleMaxPrecision} digits or less`
+                getPrecisionValidator(15),
+                `Buy at percentile must have 15 or fewer digits`
             ),
         minimumGainPercent: z
             .number()
             .refine(
-                validateMySQLDoublePrecision,
-                `Minimum gain percent must be ${MySQLDoubleMaxPrecision} digits or less`
+                getPrecisionValidator(15),
+                `Minimum gain percent must have 15 or fewer digits`
             ),
         timeframeInDays: z
             .number()
-            .max(
-                Number.MAX_SAFE_INTEGER,
-                `Timeframe in days must be less than or equal to ${Number.MAX_SAFE_INTEGER}`
-            )
             .step(1)
-            .positive('Timeframe in days must be positive'),
+            .positive('Timeframe in days must be positive')
+            .refine(
+                getPrecisionValidator(19),
+                `Timeframe in days must have 19 or fewer digits`
+            ),
         symbolIds: z.array(z.number()),
     })
     .strict();
