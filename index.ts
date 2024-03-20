@@ -7,3 +7,4 @@ export * as Position from './src/position.js';
 export * as StrategyTemplate from './src/strategyTemplate.js';
 export * as StrategyTemplateSeaDogDiscountScheme from './src/strategyTemplateSeaDogDiscountScheme.js';
 export * as StrategyTemplateSeaDogDiscountSchemeSymbol from './src/strategyTemplateSeaDogDiscountSchemeSymbol.js';
+export * as Util from './src/util.js';

@@ -6,6 +6,10 @@ import {
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
 import { SymbolModelInterface } from './symbol.js';
+import {
+    MySQLDoubleMaxPrecision,
+    validateMySQLDoublePrecision,
+} from './util.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -57,16 +61,22 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z
         alpacaAPIPaper: z.boolean(),
         sellAtPercentile: z
             .number()
-            .min(-Number.MIN_VALUE) // Minimum value for a DOUBLE column
-            .max(Number.MAX_VALUE), // Maximum value for a DOUBLE column
+            .refine(
+                validateMySQLDoublePrecision,
+                `Sell at percentile must be ${MySQLDoubleMaxPrecision} digits or less`
+            ),
         buyAtPercentile: z
             .number()
-            .min(-Number.MIN_VALUE) // Minimum value for a DOUBLE column
-            .max(Number.MAX_VALUE), // Maximum value for a DOUBLE column
+            .refine(
+                validateMySQLDoublePrecision,
+                `Buy at percentile must be ${MySQLDoubleMaxPrecision} digits or less`
+            ),
         minimumGainPercent: z
             .number()
-            .min(-Number.MIN_VALUE) // Minimum value for a DOUBLE column
-            .max(Number.MAX_VALUE), // Maximum value for a DOUBLE column
+            .refine(
+                validateMySQLDoublePrecision,
+                `Minimum gain percent must be ${MySQLDoubleMaxPrecision} digits or less`
+            ),
         timeframeInDays: z
             .number()
             .max(
