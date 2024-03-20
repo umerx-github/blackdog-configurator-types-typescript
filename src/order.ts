@@ -59,7 +59,9 @@ const OrderPropsExpected = z
             .step(1, 'Quantity must be an integer')
             .positive('Quantity must be positive')
             .refine(
-                getPrecisionValidator(19),
+                getPrecisionValidator(
+                    15
+                ) /* JavaScript Number only supports 15 digits of precision, MySQL BigInt supports 19. JS BigInt would support more */,
                 'Quantity must have 19 or fewer digits'
             ),
         averagePriceInCents: z
@@ -67,7 +69,9 @@ const OrderPropsExpected = z
             .step(1, 'Average price in cents must be an integer')
             .positive('Average price in cents must be positive')
             .refine(
-                getPrecisionValidator(19),
+                getPrecisionValidator(
+                    15
+                ) /* JavaScript Number only supports 15 digits of precision, MySQL BigInt supports 19. JS BigInt would support more */,
                 'Average price in cents must have 19 or fewer digits'
             ),
     })

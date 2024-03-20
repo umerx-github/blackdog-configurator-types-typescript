@@ -79,7 +79,9 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z
             .step(1)
             .positive('Timeframe in days must be positive')
             .refine(
-                getPrecisionValidator(19),
+                getPrecisionValidator(
+                    15
+                ) /* JavaScript Number only supports 15 digits of precision, MySQL BigInt supports 19. JS BigInt would support more */,
                 `Timeframe in days must have 19 or fewer digits`
             ),
         symbolIds: z.array(z.number()),

@@ -44,7 +44,9 @@ const StrategyPropsExpected = z
             .step(1, 'Cash must be an integer')
             .positive('Cash must be positive')
             .refine(
-                getPrecisionValidator(19),
+                getPrecisionValidator(
+                    15
+                ) /* JavaScript Number only supports 15 digits of precision, MySQL BigInt supports 19. JS BigInt would support more */,
                 'Cash must have 19 or fewer digits'
             ),
     })
