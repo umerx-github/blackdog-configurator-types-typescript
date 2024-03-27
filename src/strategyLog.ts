@@ -6,7 +6,7 @@ import {
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
 
-import { LogLevel } from './log.js';
+import { LogLevel, LogLevelSchema } from './log.js';
 
 export interface StrategyLogRequiredFields {
     strategyId: number;
@@ -29,7 +29,7 @@ export interface StrategyLogPropsOptional
 const StrategyLogPropsExpected = z
     .object({
         strategyId: z.number(),
-        level: z.nativeEnum(LogLevel),
+        level: LogLevelSchema,
         message: z.string(),
         data: z.unknown(),
     })
