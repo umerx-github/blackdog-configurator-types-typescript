@@ -26,19 +26,19 @@ export interface StrategyLogProps extends StrategyLogRequiredFields {}
 export interface StrategyLogPropsOptional
     extends StrategyLogRequiredFieldsOptional {}
 
-const MySQLJSONSchema: ZodSchema<unknown> = z.union([
-    z.string(),
-    z.number(),
-    z.object({}),
-    z.array(z.any()),
-]);
+// const MySQLJSONSchema: ZodSchema<unknown> = z.union([
+//     z.string(),
+//     z.number(),
+//     z.object({}),
+//     z.array(z.any()),
+// ]);
 
 const StrategyLogPropsExpected = z
     .object({
         strategyId: z.number(),
         level: LogLevelSchema,
         message: z.string(),
-        data: MySQLJSONSchema.optional(),
+        data: z.any(),
     })
     .strict();
 
