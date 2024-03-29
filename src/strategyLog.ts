@@ -12,14 +12,14 @@ export interface StrategyLogRequiredFields {
     strategyId: number;
     level: LogLevel;
     message: string;
-    data?: unknown;
+    data: string;
 }
 
 export interface StrategyLogRequiredFieldsOptional {
     strategyId?: number;
     level?: LogLevel;
     message?: string;
-    data?: unknown;
+    data?: string;
 }
 export interface StrategyLogProps extends StrategyLogRequiredFields {}
 
@@ -31,7 +31,14 @@ const StrategyLogPropsExpected = z
         strategyId: z.number(),
         level: LogLevelSchema,
         message: z.string(),
-        data: z.unknown(),
+        data: z.string().refine((data) => {
+            try {
+                JSON.parse(data);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }),
     })
     .strict();
 
