@@ -33,12 +33,36 @@ export interface StrategyLogPropsOptional
 //     z.array(z.any()),
 // ]);
 
+const testSchema = z.object({}).refine(
+    (data) => {
+        return (
+            typeof data === 'object' && !Array.isArray(data) && data !== null
+        );
+    },
+    {
+        message: 'Input is not a plain JavaScript object',
+    }
+);
+
+const otherTestSchema = z.any().refine((data) => {
+    try {
+        if (typeof data === 'object' && !Array.isArray(data) && data !== null) {
+            JSON.stringify(data);
+            return true;
+        }
+    } catch (e) {
+        return false;
+    }
+    return false;
+});
+
 const StrategyLogPropsExpected = z
     .object({
         strategyId: z.number(),
         level: LogLevelSchema,
         message: z.string(),
-        data: z.any(),
+        // must be object that will be serialized to JSON
+        data: testSchema,
     })
     .strict();
 
