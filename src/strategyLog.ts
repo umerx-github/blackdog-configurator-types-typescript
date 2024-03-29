@@ -62,7 +62,7 @@ const StrategyLogPropsExpected = z
         level: LogLevelSchema,
         message: z.string(),
         // must be object that will be serialized to JSON
-        data: testSchema,
+        data: otherTestSchema,
     })
     .strict();
 
