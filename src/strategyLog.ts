@@ -1,4 +1,4 @@
-import { ZodUnknown, any, z } from 'zod';
+import { ZodUnknown, any, z, ZodSchema } from 'zod';
 
 import {
     ResponseBase,
@@ -26,19 +26,19 @@ export interface StrategyLogProps extends StrategyLogRequiredFields {}
 export interface StrategyLogPropsOptional
     extends StrategyLogRequiredFieldsOptional {}
 
+const MySQLJSONSchema: ZodSchema<unknown> = z.union([
+    z.string(),
+    z.number(),
+    z.object({}),
+    z.array(z.any()),
+]);
+
 const StrategyLogPropsExpected = z
     .object({
         strategyId: z.number(),
         level: LogLevelSchema,
         message: z.string(),
-        data: z.any().refine((data) => {
-            try {
-                JSON.parse(data);
-                return true;
-            } catch (e) {
-                return false;
-            }
-        }),
+        data: MySQLJSONSchema.optional(),
     })
     .strict();
 
