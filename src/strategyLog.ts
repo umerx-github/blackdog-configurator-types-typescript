@@ -44,17 +44,27 @@ const testSchema = z.object({}).refine(
     }
 );
 
-const otherTestSchema = z.any().refine((data) => {
-    try {
-        if (typeof data === 'object' && !Array.isArray(data) && data !== null) {
-            JSON.stringify(data);
-            return true;
+const otherTestSchema = z.any().refine(
+    (data) => {
+        try {
+            if (
+                typeof data === 'object' &&
+                !Array.isArray(data) &&
+                data !== null
+            ) {
+                JSON.stringify(data);
+                return true;
+            }
+        } catch (e) {
+            return false;
         }
-    } catch (e) {
         return false;
+    },
+    {
+        message:
+            'Input is not a plain JavaScript object that can be serialized to JSON',
     }
-    return false;
-});
+);
 
 const StrategyLogPropsExpected = z
     .object({
