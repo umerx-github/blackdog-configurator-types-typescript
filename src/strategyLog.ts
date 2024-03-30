@@ -45,12 +45,18 @@ export function StrategyLogPropsFromRaw(raw: any): StrategyLogProps {
 }
 export interface StrategyLogModelInterface extends StrategyLogRequiredFields {
     id: number;
-    timestamp: BigInt;
+    timestamp: number;
 }
 
 const StrategyLogModelInterfaceExpected = StrategyLogPropsExpected.extend({
     id: z.number(),
-    timestamp: z.bigint(),
+    // timestamp limitations: https://stackoverflow.com/a/54802348
+    timestamp: z
+        .number()
+        .refine(
+            (timestamp) =>
+                timestamp < 8640000000000000 && timestamp > -8640000000000000
+        ),
 });
 
 export interface StrategyLogResponseBodyDataInstance
