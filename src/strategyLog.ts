@@ -1,4 +1,4 @@
-import { ZodUnknown, any, z, ZodSchema } from 'zod';
+import { z } from 'zod';
 
 import {
     ResponseBase,
@@ -7,54 +7,25 @@ import {
 } from './response.js';
 
 import { LogLevel, LogLevelSchema } from './log.js';
+import { JSONDataSchema } from './json.js';
 
 export interface StrategyLogRequiredFields {
     strategyId: number;
     level: LogLevel;
     message: string;
-    data?: any;
+    data?: object;
 }
 
 export interface StrategyLogRequiredFieldsOptional {
     strategyId?: number;
     level?: LogLevel;
     message?: string;
-    data?: any;
+    data?: object;
 }
 export interface StrategyLogProps extends StrategyLogRequiredFields {}
 
 export interface StrategyLogPropsOptional
     extends StrategyLogRequiredFieldsOptional {}
-
-// const MySQLJSONSchema: ZodSchema<unknown> = z.union([
-//     z.string(),
-//     z.number(),
-//     z.object({}),
-//     z.array(z.any()),
-// ]);
-
-const testSchema = z.object({}).refine(
-    (data) => {
-        return (
-            typeof data === 'object' && !Array.isArray(data) && data !== null
-        );
-    },
-    {
-        message: 'Input is not a plain JavaScript object',
-    }
-);
-
-const otherTestSchema = z.any().refine((data) => {
-    try {
-        if (typeof data === 'object' && !Array.isArray(data) && data !== null) {
-            JSON.stringify(data);
-            return true;
-        }
-    } catch (e) {
-        return false;
-    }
-    return false;
-}, "Input can't be serialized to JSON");
 
 const StrategyLogPropsExpected = z
     .object({
@@ -62,7 +33,7 @@ const StrategyLogPropsExpected = z
         level: LogLevelSchema,
         message: z.string(),
         // must be object that will be serialized to JSON
-        data: otherTestSchema,
+        data: JSONDataSchema.optional(),
     })
     .strict();
 
