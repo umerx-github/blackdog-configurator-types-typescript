@@ -45,11 +45,19 @@ export function StrategyLogPropsFromRaw(raw: any): StrategyLogProps {
 }
 export interface StrategyLogModelInterface extends StrategyLogRequiredFields {
     id: number;
+    timestamp: BigInt;
 }
 
-export interface StrategyLogResponseBodyDataInstance extends StrategyLogProps {
-    id: number;
-}
+const StrategyLogModelInterfaceExpected = StrategyLogPropsExpected.extend({
+    id: z.number(),
+    timestamp: z.bigint(),
+});
+
+export interface StrategyLogResponseBodyDataInstance
+    extends StrategyLogModelInterface {}
+
+const StrategyLogResponseBodyDataInstanceExpected =
+    StrategyLogModelInterfaceExpected;
 
 // BEGIN GET
 
@@ -58,10 +66,7 @@ export type StrategyLogGetResponseBodyDataInstance =
     StrategyLogResponseBodyDataInstance;
 
 const StrategyLogGetResponseBodyDataInstanceExpected =
-    StrategyLogPropsExpected.extend({
-        id: z.number(),
-    });
-
+    StrategyLogResponseBodyDataInstanceExpected;
 export type StrategyLogGetManyRequestBody = StrategyLogGetRequestBody;
 export interface StrategyLogGetManyRequestQuery {
     strategyIds?: number[];
@@ -216,9 +221,7 @@ export type StrategyLogPostResponseBodyDataInstance =
 const StrategyLogPostRequestBodyDataInstanceExpected = StrategyLogPropsExpected;
 
 const StrategyLogPostResponseBodyDataInstanceExpected =
-    StrategyLogPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyLogResponseBodyDataInstanceExpected;
 
 const StrategyLogPostManyRequestBodyDataInstanceExpected =
     StrategyLogPostRequestBodyDataInstanceExpected;
@@ -321,9 +324,7 @@ export type StrategyLogPutResponseBodyDataInstance =
 const StrategyLogPutRequestBodyDataInstanceExpected = StrategyLogPropsExpected;
 
 const StrategyLogPutResponseBodyDataInstanceExpected =
-    StrategyLogPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyLogResponseBodyDataInstanceExpected;
 
 export interface StrategyLogPutManyRequestBodyDataInstance
     extends StrategyLogPutRequestBodyDataInstance {
@@ -452,10 +453,7 @@ const StrategyLogPatchRequestBodyDataInstanceExpected =
     StrategyLogPropsOptionalExpected;
 
 const StrategyLogPatchResponseBodyDataInstanceExpected =
-    StrategyLogPropsExpected.extend({
-        id: z.number(),
-    });
-
+    StrategyLogResponseBodyDataInstanceExpected;
 export interface StrategyLogPatchManyRequestBodyDataInstance
     extends StrategyLogPatchRequestBodyDataInstance {
     id: number;
@@ -584,9 +582,7 @@ export interface StrategyLogDeleteManyRequestQuery {
 }
 
 const StrategyLogDeleteResponseBodyDataInstanceExpected =
-    StrategyLogPropsExpected.extend({
-        id: z.number(),
-    });
+    StrategyLogResponseBodyDataInstanceExpected;
 
 export interface StrategyLogDeleteManyRequestQueryRaw {
     ids: string;
