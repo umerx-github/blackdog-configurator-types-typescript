@@ -6,6 +6,7 @@ import {
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
 import { getPrecisionValidator } from './util.js';
+import { Response } from '../index.js';
 
 // Single source of truth:
 const StatusConst = ['open', 'closed'] as const;
@@ -742,11 +743,10 @@ export function OrderFillPostSingleRequestBodyFromRaw(
     return OrderFillPostSingleRequestBodyExpected.parse(raw);
 }
 
-export interface OrderFillPostSingleResponseBody {
-    status: string;
-    message: string;
-    data: OrderResponseBodyDataInstance;
-}
+export interface OrderFillPostSingleResponseBodyData
+    extends OrderResponseBodyDataInstance {}
+export type OrderFillPostSingleResponseBody =
+    ResponseBase<OrderFillPostSingleResponseBodyData>;
 
 export const OrderFillPostSingleRequestParamsExpected = z
     .object({
@@ -774,11 +774,10 @@ export interface OrderCancelPostSingleRequestParams {
 }
 
 export type OrderCancelPostSingleRequestBody = never;
-export interface OrderCancelPostSingleResponseBody {
-    status: string;
-    message: string;
-    data: OrderResponseBodyDataInstance;
-}
+export interface OrderCancelPostSingleResponseBodyData
+    extends OrderResponseBodyDataInstance {}
+export type OrderCancelPostSingleResponseBody =
+    ResponseBase<OrderCancelPostSingleResponseBodyData>;
 
 export const OrderCancelPostSingleRequestParamsExpected = z
     .object({
