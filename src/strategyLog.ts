@@ -2,12 +2,19 @@ import { z } from 'zod';
 
 import {
     ResponseBase,
+    ResponseBasePaginated,
     ResponseBaseErrorExpected,
     ResponseBaseSuccessExpectedBase,
+    ResponseBaseSuccessPaginatedExpectedBase,
 } from './response.js';
 
 import { LogLevel, LogLevelSchema } from './log.js';
 import { JSONDataSchema } from './json.js';
+import {
+    RequestQueryBasePaginated,
+    RequestQueryBasePaginatedRaw,
+    RequestQueryBasePaginatedRawExpected,
+} from './request.js';
 
 export interface StrategyLogRequiredFields {
     strategyId: number;
@@ -74,12 +81,14 @@ export type StrategyLogGetResponseBodyDataInstance =
 const StrategyLogGetResponseBodyDataInstanceExpected =
     StrategyLogResponseBodyDataInstanceExpected;
 export type StrategyLogGetManyRequestBody = StrategyLogGetRequestBody;
-export interface StrategyLogGetManyRequestQuery {
+export interface StrategyLogGetManyRequestQuery
+    extends RequestQueryBasePaginated {
     strategyIds?: number[];
     ids?: number[];
     levels?: LogLevel[];
 }
-export interface StrategyLogGetManyRequestQueryRaw {
+export interface StrategyLogGetManyRequestQueryRaw
+    extends RequestQueryBasePaginatedRaw {
     strategyIds?: string;
     ids?: string;
     levels?: string;
@@ -96,8 +105,8 @@ export interface StrategyLogGetManyRequestQueryRaw {
     debug = 'debug',
 }
 */
-const StrategyLogGetManyRequestQueryRawExpected = z
-    .object({
+const StrategyLogGetManyRequestQueryRawExpected =
+    RequestQueryBasePaginatedRawExpected.extend({
         strategyIds: z
             .string()
             .regex(/^\d+(,\d+)*$/)
@@ -112,13 +121,18 @@ const StrategyLogGetManyRequestQueryRawExpected = z
                 /^(emergency|alert|critical|error|warning|notice|info|debug)(,(emergency|alert|critical|error|warning|notice|info|debug))*$/
             )
             .optional(),
-    })
-    .strict();
+    }).strict();
 
 export function StrategyLogGetManyRequestQueryFromRaw(
     raw: any
 ): StrategyLogGetManyRequestQuery {
     const parsed = StrategyLogGetManyRequestQueryRawExpected.parse(raw);
+    const pageNumber =
+        undefined === parsed.pageNumber
+            ? undefined
+            : parseInt(parsed.pageNumber);
+    const pageSize =
+        undefined === parsed.pageSize ? undefined : parseInt(parsed.pageSize);
     const ids =
         undefined === parsed.ids
             ? undefined
@@ -128,8 +142,13 @@ export function StrategyLogGetManyRequestQueryFromRaw(
             ? undefined
             : parsed.strategyIds.split(',').map((id) => parseInt(id));
     const levels = parsed.levels ? parsed.levels.split(',') : undefined;
-
     const toReturn: StrategyLogGetManyRequestQuery = {};
+    if (undefined !== pageNumber) {
+        toReturn.pageNumber = pageNumber;
+    }
+    if (undefined !== pageSize) {
+        toReturn.pageSize = pageSize;
+    }
     if (undefined !== ids) {
         toReturn.ids = ids;
     }
@@ -148,14 +167,14 @@ export type StrategyLogGetManyResponseBodyData =
     StrategyLogGetManyResponseBodyDataInstance[];
 
 export type StrategyLogGetManyResponseBody =
-    ResponseBase<StrategyLogGetManyResponseBodyData>;
+    ResponseBasePaginated<StrategyLogGetManyResponseBodyData>;
 
 const StrategyLogGetManyResponseBodyDataInstanceExpected =
     StrategyLogGetResponseBodyDataInstanceExpected;
 
 const StrategyLogGetManyResponseBodyExpected = z.union([
     ResponseBaseErrorExpected,
-    ResponseBaseSuccessExpectedBase.extend({
+    ResponseBaseSuccessPaginatedExpectedBase.extend({
         data: z.array(StrategyLogGetManyResponseBodyDataInstanceExpected),
     }),
 ]);
