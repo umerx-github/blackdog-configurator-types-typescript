@@ -50,9 +50,12 @@ export function StrategyLogPropsFromRaw(raw: any): StrategyLogProps {
     const parsed = StrategyLogPropsExpected.parse(raw);
     return parsed;
 }
-export interface StrategyLogModelInterface extends StrategyLogRequiredFields {
-    id: number;
+
+export interface StrategyLogModelProps extends StrategyLogRequiredFields {
     timestamp: number;
+}
+export interface StrategyLogModelInterface extends StrategyLogModelProps {
+    id: number
 }
 
 const StrategyLogModelInterfaceExpected = StrategyLogPropsExpected.extend({
