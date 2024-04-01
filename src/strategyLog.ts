@@ -8,7 +8,7 @@ import {
     ResponseBaseSuccessPaginatedExpectedBase,
 } from './response.js';
 
-import { LogLevel, LogLevelSchema } from './log.js';
+import { LogData, LogDataSchema, LogLevel, LogLevelSchema } from './log.js';
 import { JSONDataSchema } from './json.js';
 import {
     RequestQueryBasePaginated,
@@ -20,14 +20,14 @@ export interface StrategyLogRequiredFields {
     strategyId: number;
     level: LogLevel;
     message: string;
-    data?: object;
+    data?: LogData;
 }
 
 export interface StrategyLogRequiredFieldsOptional {
     strategyId?: number;
     level?: LogLevel;
     message?: string;
-    data?: object;
+    data?: LogData;
 }
 export interface StrategyLogProps extends StrategyLogRequiredFields {}
 
@@ -40,7 +40,7 @@ const StrategyLogPropsExpected = z
         level: LogLevelSchema,
         message: z.string(),
         // must be object that will be serialized to JSON
-        data: JSONDataSchema.optional(),
+        data: LogDataSchema.optional(),
     })
     .strict();
 

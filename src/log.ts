@@ -15,3 +15,11 @@ export const LogLevelSchema = z.enum(LogLevelConst);
 // Type to use in the code:
 // = "Salmon" | "Tuna" | "Trout"
 export type LogLevel = (typeof LogLevelConst)[number];
+
+export interface LogData {
+    rawData?: any;
+}
+
+export const LogDataSchema = z.object({
+    rawData: z.any(),
+});
