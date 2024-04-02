@@ -27,6 +27,9 @@ export const LogDataSchema = z
     .refine((data) => {
         // if data is defined
         try {
+            if (!data.hasOwnProperty('rawData')) {
+                return false;
+            }
             JSON.stringify(data);
             return true;
         } catch (e) {
