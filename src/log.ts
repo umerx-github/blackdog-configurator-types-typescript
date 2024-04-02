@@ -24,12 +24,20 @@ export const LogDataSchema = z
     .object({
         rawData: z.any(),
     })
+    .strict()
     .refine((data) => {
-        // if data is defined
         try {
             if (!data.hasOwnProperty('rawData')) {
                 return false;
             }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }, 'Input is missing rawData key')
+    .refine((data) => {
+        // if data is defined
+        try {
             JSON.stringify(data);
             return true;
         } catch (e) {
