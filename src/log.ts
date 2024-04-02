@@ -20,6 +20,16 @@ export interface LogData {
     rawData?: any;
 }
 
-export const LogDataSchema = z.object({
-    rawData: z.any(),
-});
+export const LogDataSchema = z
+    .object({
+        rawData: z.any(),
+    })
+    .refine((data) => {
+        // if data is defined
+        try {
+            JSON.stringify(data);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }, "Input can't be serialized to JSON");
