@@ -65,16 +65,19 @@ export interface PositionResponseBodyDataInstance extends PositionProps {
     id: number;
 }
 
+export const PositionResponseBodyDataInstanceExpected =
+    PositionPropsExpected.extend({
+        id: z.number(),
+    });
+
 // BEGIN GET
 
 export type PositionGetRequestBody = never;
 export type PositionGetResponseBodyDataInstance =
     PositionResponseBodyDataInstance;
 
-const PositionGetResponseBodyDataInstanceExpected =
-    PositionPropsExpected.extend({
-        id: z.number(),
-    });
+export const PositionGetResponseBodyDataInstanceExpected =
+    PositionResponseBodyDataInstanceExpected;
 
 export type PositionGetManyRequestBody = PositionGetRequestBody;
 export interface PositionGetManyRequestQuery {
@@ -210,9 +213,7 @@ export type PositionPostResponseBodyDataInstance =
 const PositionPostRequestBodyDataInstanceExpected = PositionPropsExpected;
 
 const PositionPostResponseBodyDataInstanceExpected =
-    PositionPropsExpected.extend({
-        id: z.number(),
-    });
+    PositionResponseBodyDataInstanceExpected;
 
 const PositionPostManyRequestBodyDataInstanceExpected =
     PositionPostRequestBodyDataInstanceExpected;
@@ -314,9 +315,7 @@ export type PositionPutResponseBodyDataInstance =
 const PositionPutRequestBodyDataInstanceExpected = PositionPropsExpected;
 
 const PositionPutResponseBodyDataInstanceExpected =
-    PositionPropsExpected.extend({
-        id: z.number(),
-    });
+    PositionResponseBodyDataInstanceExpected;
 
 export interface PositionPutManyRequestBodyDataInstance
     extends PositionPutRequestBodyDataInstance {
@@ -445,9 +444,7 @@ const PositionPatchRequestBodyDataInstanceExpected =
     PositionPropsOptionalExpected;
 
 const PositionPatchResponseBodyDataInstanceExpected =
-    PositionPropsExpected.extend({
-        id: z.number(),
-    });
+    PositionResponseBodyDataInstanceExpected;
 
 export interface PositionPatchManyRequestBodyDataInstance
     extends PositionPatchRequestBodyDataInstance {
@@ -577,9 +574,7 @@ export interface PositionDeleteManyRequestQuery {
 }
 
 const PositionDeleteResponseBodyDataInstanceExpected =
-    PositionPropsExpected.extend({
-        id: z.number(),
-    });
+    PositionResponseBodyDataInstanceExpected;
 
 export interface PositionDeleteManyRequestQueryRaw {
     ids: string;
