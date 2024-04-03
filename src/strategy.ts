@@ -11,6 +11,11 @@ import {
 } from './response.js';
 import { Strategy } from '../index.js';
 import { getPrecisionValidator } from './util.js';
+import {
+    PositionModelInterface,
+    PositionResponseBodyDataInstance,
+    PositionResponseBodyDataInstanceExpected,
+} from './position.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -650,3 +655,58 @@ export function StrategyDeleteSingleResponseBodyFromRaw(
 }
 
 // END DELETE
+
+// BEGIN GET ASSETS
+
+export interface StrategyAssetsGetSingleRequestParamsRaw {
+    id: string;
+}
+
+export interface StrategyAssetsGetSingleRequestParams {
+    id: number;
+}
+
+export type StrategyAssetsGetSingleRequestBody = never;
+export interface StrategyAssetsGetSingleResponseBodyData {
+    cashInCents: number;
+    openOrdersValueInCents: number;
+    positions: PositionResponseBodyDataInstance[];
+}
+
+export type StrategyAssetsGetSingleResponseBody =
+    ResponseBase<StrategyAssetsGetSingleResponseBodyData>;
+
+export const StrategyAssetsGetSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
+
+export function StrategyAssetsGetSingleRequestParamsFromRaw(
+    raw: any
+): StrategyAssetsGetSingleRequestParams {
+    const parsed = StrategyAssetsGetSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
+export const StrategyAssetsGetSingleResponseBodyDataExpected = z.object({
+    cashInCents: z.number(),
+    openOrdersValueInCents: z.number(),
+    positions: z.array(PositionResponseBodyDataInstanceExpected),
+});
+
+export const StrategyAssetsGetSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: StrategyAssetsGetSingleResponseBodyDataExpected,
+    }),
+]);
+
+export function StrategyAssetsGetSingleResponseBodyFromRaw(
+    raw: any
+): StrategyAssetsGetSingleResponseBody {
+    const parsed = StrategyAssetsGetSingleResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END GET ASSETS
