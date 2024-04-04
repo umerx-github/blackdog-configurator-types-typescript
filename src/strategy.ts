@@ -667,14 +667,14 @@ export interface StrategyAssetsGetSingleRequestParams {
 }
 
 export type StrategyAssetsGetSingleRequestBody = never;
-export interface StrategyAssetsGetSingleResponseBodyData {
+export interface StrategyAssetsGetSingleResponseBodyDataInstance {
     cashInCents: number;
     openOrdersValueInCents: number;
     positions: PositionResponseBodyDataInstance[];
 }
 
 export type StrategyAssetsGetSingleResponseBody =
-    ResponseBase<StrategyAssetsGetSingleResponseBodyData>;
+    ResponseBase<StrategyAssetsGetSingleResponseBodyDataInstance>;
 
 export const StrategyAssetsGetSingleRequestParamsExpected = z
     .object({
