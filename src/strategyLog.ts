@@ -55,7 +55,7 @@ export interface StrategyLogModelProps extends StrategyLogRequiredFields {
     timestamp: number;
 }
 export interface StrategyLogModelInterface extends StrategyLogModelProps {
-    id: number
+    id: number;
 }
 
 const StrategyLogModelInterfaceExpected = StrategyLogPropsExpected.extend({
@@ -65,7 +65,8 @@ const StrategyLogModelInterfaceExpected = StrategyLogPropsExpected.extend({
         .number()
         .refine(
             (timestamp) =>
-                timestamp < 8640000000000000 && timestamp > -8640000000000000
+                timestamp < 8640000000000000 && timestamp > -8640000000000000,
+            `timestamp must be a valid timestamp between -8640000000000000 and 8640000000000000`
         ),
 });
 
