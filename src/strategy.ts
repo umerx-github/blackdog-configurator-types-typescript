@@ -747,7 +747,11 @@ export interface StrategyAggregateValuesGetManyRequestQueryRaw {
 export type StrategyAggregateValuesGetManyRequestBody = never;
 export interface StrategyAggregateValuesGetManyResponseBodyDataInstance {
     timestamp: number;
-    valueInCents: number;
+    averageValueInCents: number;
+    openValueInCents: number;
+    highestValueInCents: number;
+    lowestValueInCents: number;
+    closeValueInCents: number;
 }
 
 export type StrategyAggregateValuesGetManyResponseBody = ResponseBase<
@@ -826,7 +830,36 @@ export function StrategyAggregateValuesGetManyRequestQueryFromRaw(
 export const StrategyAggregateValuesGetManyResponseBodyDataInstanceExpected = z
     .object({
         timestamp: TimestampSchema,
-        valueInCents: z.number().refine(NumberTypes.refineToPrecision(15)),
+        averageValueInCents: z
+            .number()
+            .refine(
+                NumberTypes.refineToPrecision(15),
+                'Value must be 15 or fewer digits'
+            ),
+        openValueInCents: z
+            .number()
+            .refine(
+                NumberTypes.refineToPrecision(15),
+                'Value must be 15 or fewer digits'
+            ),
+        closeValueInCents: z
+            .number()
+            .refine(
+                NumberTypes.refineToPrecision(15),
+                'Value must be 15 or fewer digits'
+            ),
+        highestValueInCents: z
+            .number()
+            .refine(
+                NumberTypes.refineToPrecision(15),
+                'Value must be 15 or fewer digits'
+            ),
+        lowestValueInCents: z
+            .number()
+            .refine(
+                NumberTypes.refineToPrecision(15),
+                'Value must be 15 or fewer digits'
+            ),
     })
     .strict();
 
