@@ -6,7 +6,7 @@ import {
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
 import { SymbolModelInterface } from './symbol.js';
-import { getPrecisionValidator } from './util.js';
+import { refineToPrecision } from './number.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -59,19 +59,19 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z
         sellAtPercentile: z
             .number()
             .refine(
-                getPrecisionValidator(15),
+                refineToPrecision(15),
                 `Sell at percentile must have 15 or fewer digits`
             ),
         buyAtPercentile: z
             .number()
             .refine(
-                getPrecisionValidator(15),
+                refineToPrecision(15),
                 `Buy at percentile must have 15 or fewer digits`
             ),
         minimumGainPercent: z
             .number()
             .refine(
-                getPrecisionValidator(15),
+                refineToPrecision(15),
                 `Minimum gain percent must have 15 or fewer digits`
             ),
         timeframeInDays: z
@@ -79,7 +79,7 @@ const StrategyTemplateSeaDogDiscountSchemePropsExpected = z
             .step(1)
             .positive('Timeframe in days must be positive')
             .refine(
-                getPrecisionValidator(
+                refineToPrecision(
                     15
                 ) /* JavaScript Number only supports 15 digits of precision, MySQL BigInt supports 19. JS BigInt would support more */,
                 `Timeframe in days must have 19 or fewer digits`

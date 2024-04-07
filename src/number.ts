@@ -1,4 +1,4 @@
-export function getPrecisionValidator(precision: number) {
+export function refineToPrecision(precision: number) {
     return function (value: number): boolean {
         // Make sure the scale of the number is correct
         let maxLength = precision;

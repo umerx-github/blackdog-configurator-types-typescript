@@ -10,4 +10,3 @@ export * as StrategyTemplateSeaDogDiscountSchemeSymbol from './src/strategyTempl
 export * as Log from './src/log.js';
 export * as StrategyLog from './src/strategyLog.js';
 export * as StrategyValue from './src/strategyValue.js';
-export * as Util from './src/util.js';

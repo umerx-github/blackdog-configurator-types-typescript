@@ -13,7 +13,8 @@ import {
     RequestQueryBasePaginatedRaw,
     RequestQueryBasePaginatedRawExpected,
 } from './request.js';
-import { getPrecisionValidator } from './util.js';
+import { refineToPrecision } from './number.js';
+import { TimestampSchema } from './timestamp.js';
 
 export interface StrategyValueRequiredFields {
     strategyId: number;
@@ -35,7 +36,7 @@ const StrategyValuePropsExpected = z
         valueInCents: z
             .number()
             .refine(
-                getPrecisionValidator(15),
+                refineToPrecision(15),
                 `valueInCents must have 15 or fewer digits`
             ),
         // must be object that will be serialized to JSON
@@ -59,13 +60,7 @@ export interface StrategyValueModelInterface extends StrategyValueModelProps {
 const StrategyValueModelInterfaceExpected = StrategyValuePropsExpected.extend({
     id: z.number(),
     // timestamp limitations: https://stackoverflow.com/a/54802348
-    timestamp: z
-        .number()
-        .refine(
-            (timestamp) =>
-                timestamp < 8640000000000000 && timestamp > -8640000000000000,
-            `timestamp must be a valid timestamp between -8640000000000000 and 8640000000000000`
-        ),
+    timestamp: TimestampSchema,
 });
 
 export interface StrategyValueResponseBodyDataInstance

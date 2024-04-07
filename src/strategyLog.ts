@@ -15,6 +15,7 @@ import {
     RequestQueryBasePaginatedRaw,
     RequestQueryBasePaginatedRawExpected,
 } from './request.js';
+import { TimestampSchema } from './timestamp.js';
 
 export interface StrategyLogRequiredFields {
     strategyId: number;
@@ -61,13 +62,7 @@ export interface StrategyLogModelInterface extends StrategyLogModelProps {
 const StrategyLogModelInterfaceExpected = StrategyLogPropsExpected.extend({
     id: z.number(),
     // timestamp limitations: https://stackoverflow.com/a/54802348
-    timestamp: z
-        .number()
-        .refine(
-            (timestamp) =>
-                timestamp < 8640000000000000 && timestamp > -8640000000000000,
-            `timestamp must be a valid timestamp between -8640000000000000 and 8640000000000000`
-        ),
+    timestamp: TimestampSchema,
 });
 
 export interface StrategyLogResponseBodyDataInstance

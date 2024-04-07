@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import * as NumericStringTypes from './numericString.js';
+import * as NumberTypes from './number.js';
 import {
     StrategyTemplateName,
     StrategyTemplateNameSchema,
@@ -10,12 +12,21 @@ import {
     ResponseBaseSuccessExpectedBase,
 } from './response.js';
 import { Strategy } from '../index.js';
-import { getPrecisionValidator } from './util.js';
+import { refineToPrecision } from './number.js';
 import {
     PositionModelInterface,
     PositionResponseBodyDataInstance,
     PositionResponseBodyDataInstanceExpected,
 } from './position.js';
+import {
+    TimeframeUnit,
+    TimeframeUnitSchema,
+    TimeframeValue,
+    TimeframeValueSchema,
+    TimeframeValueStringSchema,
+} from './timeframe.js';
+import { TimestampSchema, TimestampStringSchema } from './timestamp.js';
+import { IdSchema } from './id.js';
 
 // Single source of truth:
 const StatusConst = ['active', 'inactive'] as const;
@@ -49,7 +60,7 @@ const StrategyPropsExpected = z
             .step(1, 'Cash must be an integer')
             .positive('Cash must be positive')
             .refine(
-                getPrecisionValidator(
+                refineToPrecision(
                     15
                 ) /* JavaScript Number only supports 15 digits of precision, MySQL BigInt supports 19. JS BigInt would support more */,
                 'Cash must have 19 or fewer digits'
@@ -710,3 +721,130 @@ export function StrategyAssetsGetSingleResponseBodyFromRaw(
 }
 
 // END GET ASSETS
+
+// BEGIN GET AGGREGATE VALUES
+
+export interface StrategyAggregateValuesGetManyRequestParams {
+    id: number;
+}
+export interface StrategyAggregateValuesGetManyRequestParamsRaw {
+    id: string;
+}
+
+export interface StrategyAggregateValuesGetManyRequestQuery {
+    timeframeUnit?: TimeframeUnit;
+    timeframeValue?: TimeframeValue;
+    startTimestamp?: number;
+    endTimestamp?: number;
+}
+export interface StrategyAggregateValuesGetManyRequestQueryRaw {
+    timeframeUnit?: string;
+    timeframeValue?: string;
+    startTimestamp?: string;
+    endTimestamp?: string;
+}
+
+export type StrategyAggregateValuesGetManyRequestBody = never;
+export interface StrategyAggregateValuesGetManyResponseBodyDataInstance {
+    timestamp: number;
+    cashInCents: number;
+}
+
+export type StrategyAggregateValuesGetManyResponseBody = ResponseBase<
+    StrategyAggregateValuesGetManyResponseBodyDataInstance[]
+>;
+
+export const StrategyAggregateValuesGetManyRequestParamsExpected = z
+    .object({
+        id: IdSchema,
+    })
+    .strict();
+
+export const StrategyAggregateValuesGetManyRequestParamsRawExpected = z
+    .object({
+        id: NumericStringTypes.wrapAsInteger(z.string())
+            .refine(
+                NumericStringTypes.refineToPositive(),
+                'Value must be positive'
+            )
+            .refine(
+                NumericStringTypes.refineToPrecision(15),
+                'Value must be 15 or fewer digits'
+            ),
+    })
+    .strict();
+
+export function StrategyAggregateValuesGetManyRequestParamsFromRaw(
+    raw: any
+): StrategyAggregateValuesGetManyRequestParams {
+    const parsed =
+        StrategyAggregateValuesGetManyRequestParamsRawExpected.parse(raw);
+    return StrategyAggregateValuesGetManyRequestParamsExpected.parse({
+        id: parseInt(parsed.id),
+    });
+}
+
+export const StrategyAggregateValueGetManyRequestQueryRawExpected = z
+    .object({
+        timeframeUnit: TimeframeUnitSchema.optional(),
+        timeframeValue: TimeframeValueStringSchema.optional(),
+        startTimestamp: TimestampStringSchema.optional(),
+        endTimestamp: TimestampStringSchema.optional(),
+    })
+    .strict();
+
+export const StrategyAggregateValueGetManyRequestQueryExpected = z
+    .object({
+        timeframeUnit: TimeframeUnitSchema.optional(),
+        timeframeValue: TimeframeValueSchema.optional(),
+        startTimestamp: TimestampSchema.optional(),
+        endTimestamp: TimestampSchema.optional(),
+    })
+    .strict();
+
+export function StrategyAggregateValuesGetManyRequestQueryFromRaw(
+    raw: any
+): StrategyAggregateValuesGetManyRequestQuery {
+    const parsed =
+        StrategyAggregateValueGetManyRequestQueryRawExpected.parse(raw);
+    const toReturn: StrategyAggregateValuesGetManyRequestQuery = {};
+    if (undefined !== parsed.timeframeUnit) {
+        toReturn.timeframeUnit = parsed.timeframeUnit;
+    }
+    if (undefined !== parsed.timeframeValue) {
+        toReturn.timeframeValue = parseInt(parsed.timeframeValue);
+    }
+    if (undefined !== parsed.startTimestamp) {
+        toReturn.startTimestamp = parseInt(parsed.startTimestamp);
+    }
+    if (undefined !== parsed.endTimestamp) {
+        toReturn.endTimestamp = parseInt(parsed.endTimestamp);
+    }
+    return StrategyAggregateValueGetManyRequestQueryExpected.parse(toReturn);
+}
+
+export const StrategyAggregateValuesGetManyResponseBodyDataInstanceExpected = z
+    .object({
+        timestamp: TimestampSchema,
+        cashInCents: z.number().refine(NumberTypes.refineToPrecision(15)),
+    })
+    .strict();
+
+export const StrategyAggregateValuesGetManyResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: z.array(
+            StrategyAggregateValuesGetManyResponseBodyDataInstanceExpected
+        ),
+    }),
+]);
+
+export function StrategyAggregateValuesGetManyResponseBodyFromRaw(
+    raw: any
+): StrategyAggregateValuesGetManyResponseBody {
+    const parsed =
+        StrategyAggregateValuesGetManyResponseBodyExpected.parse(raw);
+    return parsed;
+}
+
+// END GET AGGREGATE VALUES
