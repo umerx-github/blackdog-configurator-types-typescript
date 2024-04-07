@@ -747,7 +747,7 @@ export interface StrategyAggregateValuesGetManyRequestQueryRaw {
 export type StrategyAggregateValuesGetManyRequestBody = never;
 export interface StrategyAggregateValuesGetManyResponseBodyDataInstance {
     timestamp: number;
-    cashInCents: number;
+    valueInCents: number;
 }
 
 export type StrategyAggregateValuesGetManyResponseBody = ResponseBase<
@@ -826,7 +826,7 @@ export function StrategyAggregateValuesGetManyRequestQueryFromRaw(
 export const StrategyAggregateValuesGetManyResponseBodyDataInstanceExpected = z
     .object({
         timestamp: TimestampSchema,
-        cashInCents: z.number().refine(NumberTypes.refineToPrecision(15)),
+        valueInCents: z.number().refine(NumberTypes.refineToPrecision(15)),
     })
     .strict();
 
