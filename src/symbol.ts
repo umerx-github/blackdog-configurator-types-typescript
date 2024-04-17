@@ -17,9 +17,29 @@ export interface SymbolProps extends SymbolRequiredFields {}
 
 export interface SymbolPropsOptional extends SymbolRequiredFieldsOptional {}
 
+export const SymbolNameExpected = z
+    .string()
+    .refine((val) => {
+        if (undefined !== val) {
+            return val.trim().length > 0;
+        }
+        return true;
+    })
+    .refine(
+        (val) => {
+            if (undefined !== val) {
+                return /^[A-Z]+$/.test(val);
+            }
+        },
+        {
+            message:
+                'Name must contain only uppercase letters and no whitespace',
+        }
+    );
+
 const SymbolPropsExpected = z
     .object({
-        name: z.string().transform((val) => val.trim().toUpperCase()),
+        name: SymbolNameExpected,
     })
     .strict();
 
@@ -58,10 +78,7 @@ export interface SymbolGetManyRequestQueryRaw {
 
 const SymbolGetManyRequestQueryRawExpected = z
     .object({
-        name: z
-            .string()
-            .optional()
-            .transform((val) => val?.trim().toUpperCase()),
+        name: SymbolNameExpected.optional(),
         ids: z
             .string()
             .regex(/^\d+(,\d+)*$/)
