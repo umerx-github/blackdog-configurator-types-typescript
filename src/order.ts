@@ -88,6 +88,10 @@ export function OrderPropsFromRaw(raw: any): OrderProps {
 const OrderRequiredFieldsExpected = OrderPropsExpected.extend({
     status: StatusSchema,
 });
+
+const OrderResponseBodyDataExpected = OrderRequiredFieldsExpected.extend({
+    id: z.number(),
+});
 export interface OrderModelInterface extends OrderRequiredFields {
     id: number;
 }
@@ -101,10 +105,7 @@ export interface OrderResponseBodyDataInstance extends OrderRequiredFields {
 export type OrderGetRequestBody = never;
 export type OrderGetResponseBodyDataInstance = OrderResponseBodyDataInstance;
 
-const OrderGetResponseBodyDataInstanceExpected =
-    OrderRequiredFieldsExpected.extend({
-        id: z.number(),
-    });
+const OrderGetResponseBodyDataInstanceExpected = OrderResponseBodyDataExpected;
 
 export type OrderGetManyRequestBody = OrderGetRequestBody;
 export interface OrderGetManyRequestQuery {
@@ -258,10 +259,7 @@ export interface OrderPostRequestBodyDataInstance extends OrderProps {}
 export type OrderPostResponseBodyDataInstance = OrderResponseBodyDataInstance;
 const OrderPostRequestBodyDataInstanceExpected = OrderPropsExpected;
 
-const OrderPostResponseBodyDataInstanceExpected =
-    OrderRequiredFieldsExpected.extend({
-        id: z.number(),
-    });
+const OrderPostResponseBodyDataInstanceExpected = OrderResponseBodyDataExpected;
 
 const OrderPostManyRequestBodyDataInstanceExpected =
     OrderPostRequestBodyDataInstanceExpected;
@@ -359,10 +357,7 @@ export type OrderPutResponseBodyDataInstance = OrderResponseBodyDataInstance;
 
 const OrderPutRequestBodyDataInstanceExpected = OrderPropsExpected;
 
-const OrderPutResponseBodyDataInstanceExpected =
-    OrderRequiredFieldsExpected.extend({
-        id: z.number(),
-    });
+const OrderPutResponseBodyDataInstanceExpected = OrderResponseBodyDataExpected;
 
 export interface OrderPutManyRequestBodyDataInstance
     extends OrderPutRequestBodyDataInstance {
@@ -371,9 +366,7 @@ export interface OrderPutManyRequestBodyDataInstance
 export type OrderPutManyRequestBody = OrderPutManyRequestBodyDataInstance[];
 
 const OrderPutManyRequestBodyDataInstanceExpected =
-    OrderPutRequestBodyDataInstanceExpected.extend({
-        id: z.number(),
-    });
+    OrderResponseBodyDataExpected;
 
 const OrderPutManyRequestBodyExpected = z.array(
     OrderPutManyRequestBodyDataInstanceExpected
@@ -486,9 +479,7 @@ export type OrderPatchResponseBodyDataInstance = OrderResponseBodyDataInstance;
 const OrderPatchRequestBodyDataInstanceExpected = OrderPropsOptionalExpected;
 
 const OrderPatchResponseBodyDataInstanceExpected =
-    OrderRequiredFieldsExpected.extend({
-        id: z.number(),
-    });
+    OrderResponseBodyDataExpected;
 
 export interface OrderPatchManyRequestBodyDataInstance
     extends OrderPatchRequestBodyDataInstance {
@@ -497,9 +488,7 @@ export interface OrderPatchManyRequestBodyDataInstance
 export type OrderPatchManyRequestBody = OrderPatchManyRequestBodyDataInstance[];
 
 const OrderPatchManyRequestBodyDataInstanceExpected =
-    OrderPatchRequestBodyDataInstanceExpected.extend({
-        id: z.number(),
-    });
+    OrderResponseBodyDataExpected;
 
 const OrderPatchManyRequestBodyExpected = z.array(
     OrderPatchManyRequestBodyDataInstanceExpected
@@ -616,9 +605,7 @@ export interface OrderDeleteManyRequestQuery {
 }
 
 const OrderDeleteResponseBodyDataInstanceExpected =
-    OrderRequiredFieldsExpected.extend({
-        id: z.number(),
-    });
+    OrderResponseBodyDataExpected;
 
 export interface OrderDeleteManyRequestQueryRaw {
     ids: string;
@@ -724,6 +711,19 @@ export interface OrderFillPostSingleRequestParams {
     id: number;
 }
 
+export const OrderFillPostSingleRequestParamsExpected = z
+    .object({
+        id: z.string().regex(/^\d+$/),
+    })
+    .strict();
+
+export function OrderFillPostSingleRequestParamsFromRaw(
+    raw: any
+): OrderFillPostSingleRequestParams {
+    const parsed = OrderFillPostSingleRequestParamsExpected.parse(raw);
+    return { id: parseInt(parsed.id) };
+}
+
 export type OrderFillPostSingleRequestBody = {
     averagePriceInCents: number;
 };
@@ -748,17 +748,17 @@ export interface OrderFillPostSingleResponseBodyData
 export type OrderFillPostSingleResponseBody =
     ResponseBase<OrderFillPostSingleResponseBodyData>;
 
-export const OrderFillPostSingleRequestParamsExpected = z
-    .object({
-        id: z.string().regex(/^\d+$/),
-    })
-    .strict();
+export const OrderFillPostSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: OrderResponseBodyDataExpected,
+    }),
+]);
 
-export function OrderFillPostSingleRequestParamsFromRaw(
+export function OrderFillPostSingleResponseBodyFromRow(
     raw: any
-): OrderFillPostSingleRequestParams {
-    const parsed = OrderFillPostSingleRequestParamsExpected.parse(raw);
-    return { id: parseInt(parsed.id) };
+): OrderFillPostSingleResponseBody {
+    return OrderFillPostSingleResponseBodyExpected.parse(raw);
 }
 
 // END FILL
@@ -773,12 +773,6 @@ export interface OrderCancelPostSingleRequestParams {
     id: number;
 }
 
-export type OrderCancelPostSingleRequestBody = never;
-export interface OrderCancelPostSingleResponseBodyData
-    extends OrderResponseBodyDataInstance {}
-export type OrderCancelPostSingleResponseBody =
-    ResponseBase<OrderCancelPostSingleResponseBodyData>;
-
 export const OrderCancelPostSingleRequestParamsExpected = z
     .object({
         id: z.string().regex(/^\d+$/),
@@ -790,6 +784,25 @@ export function OrderCancelPostSingleRequestParamsFromRaw(
 ): OrderCancelPostSingleRequestParams {
     const parsed = OrderCancelPostSingleRequestParamsExpected.parse(raw);
     return { id: parseInt(parsed.id) };
+}
+
+export type OrderCancelPostSingleRequestBody = never;
+export interface OrderCancelPostSingleResponseBodyData
+    extends OrderResponseBodyDataInstance {}
+export type OrderCancelPostSingleResponseBody =
+    ResponseBase<OrderCancelPostSingleResponseBodyData>;
+
+export const OrderCancelPostSingleResponseBodyExpected = z.union([
+    ResponseBaseErrorExpected,
+    ResponseBaseSuccessExpectedBase.extend({
+        data: OrderResponseBodyDataExpected,
+    }),
+]);
+
+export function OrderCancelPostSingleResponseBodyFromRow(
+    raw: any
+): OrderFillPostSingleResponseBody {
+    return OrderFillPostSingleResponseBodyExpected.parse(raw);
 }
 
 // END CANCEL
