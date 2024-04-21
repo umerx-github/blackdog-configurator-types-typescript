@@ -50,12 +50,10 @@ export interface StrategyPropsOptional {
     cashInCents?: number;
 }
 
-export const StrategyPropsExpected = z
+const StrategyPropsExpected = z
     .object({
         status: StatusSchema,
-        title: z
-            .string()
-            .min(1, { message: 'Title must be at least 1 character long' }),
+        title: z.string().min(1, { message: 'Title cannot be empty' }),
         strategyTemplateName: StrategyTemplateNameSchema,
         cashInCents: z
             .number()
