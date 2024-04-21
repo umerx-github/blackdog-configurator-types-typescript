@@ -75,6 +75,10 @@ export const ResponseBaseErrorExpected = z.object({
     ),
 });
 
+export function ResponseBaseErrorFromRaw(raw: any): ResponseBaseError {
+    return ResponseBaseErrorExpected.parse(raw);
+}
+
 export const ResponseBaseSuccessExpectedBase = z.object({
     status: z.literal('success'),
     message: z.string(),
