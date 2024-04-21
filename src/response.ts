@@ -22,10 +22,36 @@ export type ResponseBaseSuccessPaginated<ResponseBodyDataType> =
 //     data: z.typeToFlattenedError<any, string>;
 // };
 
+export type ResponseIssue = z.ZodIssueBase & { code: z.ZodIssueCode };
+
+export const ResponseIssueExpected = z.object({
+    path: z.array(z.union([z.string(), z.number()])),
+    message: z.string().optional(),
+    code: z.nativeEnum(z.ZodIssueCode),
+    // code: z.union([
+    //     z.literal('invalid_type'),
+    //     z.literal('invalid_literal'),
+    //     z.literal('custom'),
+    //     z.literal('invalid_union'),
+    //     z.literal('invalid_union_discriminator'),
+    //     z.literal('invalid_enum_value'),
+    //     z.literal('unrecognized_keys'),
+    //     z.literal('invalid_arguments'),
+    //     z.literal('invalid_return_type'),
+    //     z.literal('invalid_date'),
+    //     z.literal('invalid_string'),
+    //     z.literal('too_small'),
+    //     z.literal('too_big'),
+    //     z.literal('invalid_intersection_types'),
+    //     z.literal('not_multiple_of'),
+    //     z.literal('not_finite'),
+    // ]),
+});
+
 export type ResponseBaseError = {
     status: 'error';
     message: string;
-    issues: (z.ZodIssueBase & { code: z.ZodIssueCode })[];
+    issues: ResponseIssue[];
 };
 
 export type ResponseBase<ResponseBodyDataType> =
@@ -48,31 +74,7 @@ export type ResponseBasePaginated<ResponseBodyDataType> =
 export const ResponseBaseErrorExpected = z.object({
     status: z.literal('error'),
     message: z.string(),
-    issues: z.array(
-        z.object({
-            path: z.array(z.union([z.string(), z.number()])),
-            message: z.string().optional(),
-            code: z.nativeEnum(z.ZodIssueCode),
-            // code: z.union([
-            //     z.literal('invalid_type'),
-            //     z.literal('invalid_literal'),
-            //     z.literal('custom'),
-            //     z.literal('invalid_union'),
-            //     z.literal('invalid_union_discriminator'),
-            //     z.literal('invalid_enum_value'),
-            //     z.literal('unrecognized_keys'),
-            //     z.literal('invalid_arguments'),
-            //     z.literal('invalid_return_type'),
-            //     z.literal('invalid_date'),
-            //     z.literal('invalid_string'),
-            //     z.literal('too_small'),
-            //     z.literal('too_big'),
-            //     z.literal('invalid_intersection_types'),
-            //     z.literal('not_multiple_of'),
-            //     z.literal('not_finite'),
-            // ]),
-        })
-    ),
+    issues: z.array(ResponseIssueExpected),
 });
 
 export function ResponseBaseErrorFromRaw(raw: any): ResponseBaseError {
