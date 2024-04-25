@@ -755,7 +755,7 @@ export const OrderFillPostSingleResponseBodyExpected = z.union([
     }),
 ]);
 
-export function OrderFillPostSingleResponseBodyFromRow(
+export function OrderFillPostSingleResponseBodyFromRaw(
     raw: any
 ): OrderFillPostSingleResponseBody {
     return OrderFillPostSingleResponseBodyExpected.parse(raw);
@@ -799,7 +799,7 @@ export const OrderCancelPostSingleResponseBodyExpected = z.union([
     }),
 ]);
 
-export function OrderCancelPostSingleResponseBodyFromRow(
+export function OrderCancelPostSingleResponseBodyFromRaw(
     raw: any
 ): OrderFillPostSingleResponseBody {
     return OrderFillPostSingleResponseBodyExpected.parse(raw);
