@@ -97,7 +97,7 @@ const PositionGetManyRequestQueryRawExpected = z
         strategyId: z.string().regex(/^\d+$/).optional(),
         ids: z
             .string()
-            .regex(/^\d+(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/)
             .optional(),
     })
     .strict();
@@ -582,7 +582,7 @@ export interface PositionDeleteManyRequestQueryRaw {
 
 const PositionDeleteManyRequestQueryRawExpected = z
     .object({
-        ids: z.string().regex(/^\d+(,\d+)*$/),
+        ids: z.string().regex(/^(\d+)?(,\d+)*$/),
     })
     .strict();
 

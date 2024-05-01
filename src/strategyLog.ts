@@ -108,11 +108,11 @@ const StrategyLogGetManyRequestQueryRawExpected =
     RequestQueryBasePaginatedRawExpected.extend({
         strategyIds: z
             .string()
-            .regex(/^\d+(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/)
             .optional(),
         ids: z
             .string()
-            .regex(/^\d+(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/)
             .optional(),
         levels: z
             .string()
@@ -614,7 +614,7 @@ export interface StrategyLogDeleteManyRequestQueryRaw {
 
 const StrategyLogDeleteManyRequestQueryRawExpected = z
     .object({
-        ids: z.string().regex(/^\d+(,\d+)*$/),
+        ids: z.string().regex(/^(\d+)?(,\d+)*$/),
     })
     .strict();
 

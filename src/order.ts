@@ -134,7 +134,7 @@ const OrderGetManyRequestQueryRawExpected = z
         side: SideSchema.optional(),
         ids: z
             .string()
-            .regex(/^\d+(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/)
             .optional(),
     })
     .strict();
@@ -613,7 +613,7 @@ export interface OrderDeleteManyRequestQueryRaw {
 
 const OrderDeleteManyRequestQueryRawExpected = z
     .object({
-        ids: z.string().regex(/^\d+(,\d+)*$/),
+        ids: z.string().regex(/^(\d+)?(,\d+)*$/),
     })
     .strict();
 

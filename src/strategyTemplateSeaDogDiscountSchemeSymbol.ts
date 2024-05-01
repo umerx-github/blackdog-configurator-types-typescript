@@ -83,7 +83,7 @@ const StrategyTemplateSeaDogDiscountSchemeSymbolGetManyRequestQueryRawExpected =
             status: StatusSchema.optional(),
             ids: z
                 .string()
-                .regex(/^\d+(,\d+)*$/)
+                .regex(/^(\d+)?(,\d+)*$/)
                 .optional(),
         })
         .strict();
@@ -665,7 +665,7 @@ export interface StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQuer
 const StrategyTemplateSeaDogDiscountSchemeSymbolDeleteManyRequestQueryRawExpected =
     z
         .object({
-            ids: z.string().regex(/^\d+(,\d+)*$/),
+            ids: z.string().regex(/^(\d+)?(,\d+)*$/),
         })
         .strict();
 

@@ -81,7 +81,7 @@ const SymbolGetManyRequestQueryRawExpected = z
         name: SymbolNameExpected.optional(),
         ids: z
             .string()
-            .regex(/^\d+(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/)
             .optional(),
     })
     .strict();
@@ -558,7 +558,7 @@ export interface SymbolDeleteManyRequestQueryRaw {
 
 const SymbolDeleteManyRequestQueryRawExpected = z
     .object({
-        ids: z.string().regex(/^\d+(,\d+)*$/),
+        ids: z.string().regex(/^(\d+)?(,\d+)*$/),
     })
     .strict();
 

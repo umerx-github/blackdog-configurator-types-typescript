@@ -111,7 +111,7 @@ const StrategyGetManyRequestQueryRawExpected = z
         status: StatusSchema.optional(),
         ids: z
             .string()
-            .regex(/^\d+(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/)
             .optional(),
     })
     .strict();
@@ -579,7 +579,7 @@ export interface StrategyDeleteManyRequestQueryRaw {
 
 const StrategyDeleteManyRequestQueryRawExpected = z
     .object({
-        ids: z.string().regex(/^\d+(,\d+)*$/),
+        ids: z.string().regex(/^(\d+)?(,\d+)*$/),
     })
     .strict();
 
