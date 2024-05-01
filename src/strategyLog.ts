@@ -141,6 +141,8 @@ export function StrategyLogGetManyRequestQueryFromRaw(
     const ids =
         undefined === parsed.ids
             ? undefined
+            : parsed.ids === ''
+            ? []
             : parsed.ids.split(',').map((id) => parseInt(id));
     const strategyIds =
         undefined === parsed.strategyIds
@@ -630,7 +632,10 @@ export function StrategyLogDeleteManyRequestQueryFromRaw(
     raw: any
 ): StrategyLogDeleteManyRequestQuery {
     const parsed = StrategyLogDeleteManyRequestQueryRawExpected.parse(raw);
-    const ids = parsed.ids.split(',').map((id) => parseInt(id));
+    const ids =
+        parsed.ids === ''
+            ? []
+            : parsed.ids.split(',').map((id) => parseInt(id));
     return { ids };
 }
 export type StrategyLogDeleteManyResponseBodyDataInstance =

@@ -149,6 +149,8 @@ export function OrderGetManyRequestQueryFromRaw(
     const ids =
         undefined === parsed.ids
             ? undefined
+            : parsed.ids === ''
+            ? []
             : parsed.ids.split(',').map((id) => parseInt(id));
     const symbolId =
         undefined === parsed.symbolId ? undefined : parseInt(parsed.symbolId);
@@ -626,7 +628,12 @@ export function OrderDeleteManyRequestQueryFromRaw(
     raw: any
 ): OrderDeleteManyRequestQuery {
     const parsed = OrderDeleteManyRequestQueryRawExpected.parse(raw);
-    const ids = parsed.ids.split(',').map((id) => parseInt(id));
+    const ids =
+        parsed.ids === ''
+            ? []
+            : parsed.ids === ''
+            ? []
+            : parsed.ids.split(',').map((id) => parseInt(id));
     return { ids };
 }
 export type OrderDeleteManyResponseBodyDataInstance =

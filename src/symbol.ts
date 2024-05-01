@@ -96,6 +96,8 @@ export function SymbolGetManyRequestQueryFromRaw(
     const ids =
         undefined === parsed.ids
             ? undefined
+            : parsed.ids === ''
+            ? []
             : parsed.ids.split(',').map((id) => parseInt(id));
     const name = parsed.name ?? undefined;
     const toReturn: SymbolGetManyRequestQuery = {};
@@ -571,7 +573,10 @@ export function SymbolDeleteManyRequestQueryFromRaw(
     raw: any
 ): SymbolDeleteManyRequestQuery {
     const parsed = SymbolDeleteManyRequestQueryRawExpected.parse(raw);
-    const ids = parsed.ids.split(',').map((id) => parseInt(id));
+    const ids =
+        parsed.ids === ''
+            ? []
+            : parsed.ids.split(',').map((id) => parseInt(id));
     return { ids };
 }
 export type SymbolDeleteManyResponseBodyDataInstance =

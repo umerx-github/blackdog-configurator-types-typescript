@@ -112,6 +112,8 @@ export function PositionGetManyRequestQueryFromRaw(
     const ids =
         undefined === parsed.ids
             ? undefined
+            : parsed.ids === ''
+            ? []
             : parsed.ids.split(',').map((id) => parseInt(id));
     const symbolId =
         undefined === parsed.symbolId ? undefined : parseInt(parsed.symbolId);
@@ -595,7 +597,10 @@ export function PositionDeleteManyRequestQueryFromRaw(
     raw: any
 ): PositionDeleteManyRequestQuery {
     const parsed = PositionDeleteManyRequestQueryRawExpected.parse(raw);
-    const ids = parsed.ids.split(',').map((id) => parseInt(id));
+    const ids =
+        parsed.ids === ''
+            ? []
+            : parsed.ids.split(',').map((id) => parseInt(id));
     return { ids };
 }
 export type PositionDeleteManyResponseBodyDataInstance =
