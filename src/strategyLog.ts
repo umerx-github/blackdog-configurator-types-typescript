@@ -21,14 +21,14 @@ export interface StrategyLogRequiredFields {
     strategyId: number;
     level: LogLevel;
     message: string;
-    data?: LogData;
+    data?: LogData | null;
 }
 
 export interface StrategyLogRequiredFieldsOptional {
     strategyId?: number;
     level?: LogLevel;
     message?: string;
-    data?: LogData;
+    data?: LogData | null;
 }
 export interface StrategyLogProps extends StrategyLogRequiredFields {}
 
@@ -41,7 +41,7 @@ const StrategyLogPropsExpected = z
         level: LogLevelSchema,
         message: z.string(),
         // must be object that will be serialized to JSON
-        data: LogDataSchema.optional(),
+        data: LogDataSchema.nullish(),
     })
     .strict();
 
