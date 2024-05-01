@@ -108,11 +108,17 @@ const StrategyLogGetManyRequestQueryRawExpected =
     RequestQueryBasePaginatedRawExpected.extend({
         strategyIds: z
             .string()
-            .regex(/^(\d+)?(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/, {
+                message:
+                    'IDs field should contain only comma-separated numbers',
+            })
             .optional(),
         ids: z
             .string()
-            .regex(/^(\d+)?(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/, {
+                message:
+                    'IDs field should contain only comma-separated numbers',
+            })
             .optional(),
         levels: z
             .string()
@@ -614,7 +620,9 @@ export interface StrategyLogDeleteManyRequestQueryRaw {
 
 const StrategyLogDeleteManyRequestQueryRawExpected = z
     .object({
-        ids: z.string().regex(/^(\d+)?(,\d+)*$/),
+        ids: z.string().regex(/^(\d+)?(,\d+)*$/, {
+            message: 'IDs field should contain only comma-separated numbers',
+        }),
     })
     .strict();
 

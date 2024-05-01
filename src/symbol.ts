@@ -81,7 +81,10 @@ const SymbolGetManyRequestQueryRawExpected = z
         name: SymbolNameExpected.optional(),
         ids: z
             .string()
-            .regex(/^(\d+)?(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/, {
+                message:
+                    'IDs field should contain only comma-separated numbers',
+            })
             .optional(),
     })
     .strict();
@@ -558,7 +561,9 @@ export interface SymbolDeleteManyRequestQueryRaw {
 
 const SymbolDeleteManyRequestQueryRawExpected = z
     .object({
-        ids: z.string().regex(/^(\d+)?(,\d+)*$/),
+        ids: z.string().regex(/^(\d+)?(,\d+)*$/, {
+            message: 'IDs field should contain only comma-separated numbers',
+        }),
     })
     .strict();
 

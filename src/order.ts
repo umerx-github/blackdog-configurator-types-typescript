@@ -134,7 +134,10 @@ const OrderGetManyRequestQueryRawExpected = z
         side: SideSchema.optional(),
         ids: z
             .string()
-            .regex(/^(\d+)?(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/, {
+                message:
+                    'IDs field should contain only comma-separated numbers',
+            })
             .optional(),
     })
     .strict();
@@ -613,7 +616,9 @@ export interface OrderDeleteManyRequestQueryRaw {
 
 const OrderDeleteManyRequestQueryRawExpected = z
     .object({
-        ids: z.string().regex(/^(\d+)?(,\d+)*$/),
+        ids: z.string().regex(/^(\d+)?(,\d+)*$/, {
+            message: 'IDs field should contain only comma-separated numbers',
+        }),
     })
     .strict();
 

@@ -138,7 +138,10 @@ const StrategyTemplateSeaDogDiscountSchemeGetManyRequestQueryRawExpected = z
         status: StatusSchema.optional(),
         ids: z
             .string()
-            .regex(/^(\d+)?(,\d+)*$/)
+            .regex(/^(\d+)?(,\d+)*$/, {
+                message:
+                    'IDs field should contain only comma-separated numbers',
+            })
             .optional(),
     })
     .strict();
@@ -700,7 +703,9 @@ export interface StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestQueryRaw {
 
 const StrategyTemplateSeaDogDiscountSchemeDeleteManyRequestQueryRawExpected = z
     .object({
-        ids: z.string().regex(/^(\d+)?(,\d+)*$/),
+        ids: z.string().regex(/^(\d+)?(,\d+)*$/, {
+            message: 'IDs field should contain only comma-separated numbers',
+        }),
     })
     .strict();
 
